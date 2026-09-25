@@ -1,0 +1,76 @@
+name: News Digest
+
+on:
+  schedule:
+    # Checks every hour. The send time itself is set in config.toml.
+    - cron: "7 * * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "send now: email it and update the web page. preview: build only, download the result from this run's page."
+        type: choice
+        options: ["send now", "preview"]
+        default: "send now"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news-digest
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Is it time to send?
+        id: gate
+        env:
+          FORCE: ${{ github.event_name == 'workflow_dispatch' }}
+        run: python3 -m newsdigest.gate >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.run == 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        if: steps.gate.outputs.run == 'true'
+        run: pip install -r requirements.txt
+
+      - name: Build and send the digest
+        if: steps.gate.outputs.run == 'true'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: python -m newsdigest ${{ inputs.mode == 'preview' && '--preview' || '' }}
+
+      - name: Keep the preview
+        if: steps.gate.outputs.run == 'true' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: digest-preview
+          path: output/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Save memory and web page
+        if: steps.gate.outputs.run == 'true' && inputs.mode != 'preview'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state docs/data
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Digest for $(TZ=Australia/Perth date +%F)"
+          for attempt in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep 5
+          done
+          exit 1

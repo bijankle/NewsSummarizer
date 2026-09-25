@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News Digest</title>
+<style>
+:root {
+  --bg: #f2f4f6; --paper: #ffffff; --ink: #1d2329; --muted: #5b6670; --rule: #dfe3e7;
+  --tag: #eef2f5; --accent: #0b5cad; --accent-ink: #ffffff; --num-bg: #f6f9fc;
+  --update: #b3541e; --update-bg: #fdf3ec;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111416; --paper: #1a1e22; --ink: #e6e9ec; --muted: #9aa5af; --rule: #2d3339;
+    --tag: #262c32; --accent: #6aa9ec; --accent-ink: #0d1114; --num-bg: #20262c;
+    --update: #e08a55; --update-bg: #2a211b;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 Georgia, "Times New Roman", serif; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 48px; background: var(--paper); min-height: 100vh; }
+header, .controls, .tags, .sources, .meta, footer, select, input, button { font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+h1 { font-size: 20px; letter-spacing: .08em; text-transform: uppercase; margin: 0; }
+.meta { color: var(--muted); font-size: 13px; margin: 2px 0 0; }
+.meta a, .sources a { color: var(--accent); }
+.controls { position: sticky; top: 0; background: var(--paper); padding: 12px 0 10px; border-bottom: 1px solid var(--rule); z-index: 2; }
+.row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 6px 0; }
+.row .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; width: 76px; flex-shrink: 0; }
+.chip { border: 1px solid var(--rule); background: var(--tag); color: var(--ink); border-radius: 999px; padding: 4px 11px; font-size: 13px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+select, input[type=search] { font-size: 14px; padding: 5px 8px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); color: var(--ink); max-width: 100%; }
+input[type=search] { flex: 1; min-width: 160px; }
+.count { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+article { padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.tags span { display: inline-block; background: var(--tag); color: var(--muted); font-size: 11px; letter-spacing: .04em; padding: 2px 7px; border-radius: 3px; margin-right: 4px; text-transform: uppercase; }
+.tags .upd { background: var(--update); color: #fff; font-weight: bold; }
+.tags .top { background: var(--accent); color: var(--accent-ink); }
+article h2 { font-size: 19px; line-height: 1.3; margin: 6px 0; }
+article p { margin: 6px 0; }
+.nums { padding: 6px 10px; border-left: 3px solid var(--accent); background: var(--num-bg); font-size: 15px; }
+.new { padding: 8px 10px; border-left: 3px solid var(--update); background: var(--update-bg); }
+.orig { margin-top: 10px; padding: 8px 10px; border: 1px dashed var(--rule); font-size: 14px; color: var(--muted); }
+.sources { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.muted { color: var(--muted); font-style: italic; }
+h3.section { font-family: system-ui, Arial, sans-serif; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; margin: 30px 0 4px; }
+.debate table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.debate td { vertical-align: top; padding: 6px 10px 6px 0; }
+.debate td:first-child { width: 28%; font-weight: bold; }
+.empty { padding: 30px 0; color: var(--muted); }
+footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
+@media (max-width: 520px) { .row .label { width: 100%; } .debate td:first-child { width: 35%; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>News Digest</h1>
+    <p class="meta" id="meta">Loading...</p>
+  </header>
+
+  <div class="controls">
+    <div class="row">
+      <span class="label">Edition</span>
+      <select id="edition" aria-label="Choose a digest"></select>
+      <input type="search" id="search" placeholder="Search headlines and facts" aria-label="Search">
+    </div>
+    <div class="row" id="regions"><span class="label">Region</span></div>
+    <div class="row" id="categories"><span class="label">Topic</span></div>
+    <div class="row">
+      <span class="label">Show</span>
+      <button class="chip" id="topOnly" aria-pressed="false">Email stories only</button>
+      <button class="chip" id="updatesOnly" aria-pressed="false">Updates only</button>
+      <button class="chip" id="reset" aria-pressed="false">Clear filters</button>
+    </div>
+    <p class="count" id="count"></p>
+  </div>
+
+  <main id="stories"></main>
+  <section id="debates"></section>
+
+  <footer>Facts are extracted automatically by AI from the linked articles. Check the sources before relying on any figure. Filters change only what this page shows; to change what gets collected, use the settings link above.</footer>
+</div>
+
+<script>
+(function () {
+  var REGION_LABELS = { perth: "Perth", australia: "Australia", international: "International" };
+  var STORE_KEY = "newsdigest-filters";
+  var data = null;
+  var filters = load();
+
+  function load() {
+    var base = { regions: [], categories: [], topOnly: false, updatesOnly: false, search: "" };
+    try {
+      var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+      for (var k in base) if (k in saved) base[k] = saved[k];
+    } catch (e) {}
+    return base;
+  }
+  function save() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(filters)); } catch (e) {}
+  }
+  function el(tag, attrs, text) {
+    var node = document.createElement(tag);
+    if (attrs) for (var k in attrs) node.setAttribute(k, attrs[k]);
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+  function niceDate(iso) {
+    if (!iso) return "an earlier day";
+    var d = new Date(iso + "T00:00:00");
+    return isNaN(d) ? iso : d.toLocaleDateString("en-AU", { day: "numeric", month: "long" });
+  }
+  function toggle(list, value) {
+    var i = list.indexOf(value);
+    if (i >= 0) list.splice(i, 1); else list.push(value);
+  }
+
+  function chipRow(containerId, values, labels, key) {
+    var row = document.getElementById(containerId);
+    while (row.children.length > 1) row.removeChild(row.lastChild);
+    values.forEach(function (v) {
+      var b = el("button", { "class": "chip", "aria-pressed": String(filters[key].indexOf(v) >= 0) }, labels[v] || v);
+      b.addEventListener("click", function () { toggle(filters[key], v); save(); renderAll(); });
+      row.appendChild(b);
+    });
+  }
+
+  function matches(s) {
+    if (filters.regions.length && filters.regions.indexOf(s.region) < 0) return false;
+    if (filters.categories.length && filters.categories.indexOf(s.category) < 0) return false;
+    if (filters.topOnly && !s.in_email) return false;
+    if (filters.updatesOnly && !s.is_update) return false;
+    var q = filters.search.trim().toLowerCase();
+    if (q) {
+      var hay = [s.headline, s.facts, s.why_it_matters, s.update_summary].concat(s.key_numbers || []).join(" ").toLowerCase();
+      if (hay.indexOf(q) < 0) return false;
+    }
+    return true;
+  }
+
+  function storyNode(s) {
+    var a = el("article");
+    var tags = el("div", { "class": "tags" });
+    if (s.is_update) tags.appendChild(el("span", { "class": "upd" }, "Update"));
+    if (s.in_email) tags.appendChild(el("span", { "class": "top" }, "In email"));
+    tags.appendChild(el("span", null, REGION_LABELS[s.region] || s.region));
+    tags.appendChild(el("span", null, s.category_label));
+    a.appendChild(tags);
+    a.appendChild(el("h2", null, s.headline));
+    if (s.is_update) {
+      var n = el("p", { "class": "new" });
+      n.appendChild(el("b", null, "What is new. "));
+      n.appendChild(document.createTextNode(s.update_summary || "New details have been reported."));
+      a.appendChild(n);
+    }
+    if (s.facts) a.appendChild(el("p", null, s.facts));
+    else if (!s.processed) a.appendChild(el("p", { "class": "muted" }, "Summary not available for this run. Headline only."));
+    if (s.key_numbers && s.key_numbers.length) {
+      var nums = el("p", { "class": "nums" });
+      nums.appendChild(el("b", null, "Key numbers"));
+      s.key_numbers.forEach(function (k) { nums.appendChild(el("br")); nums.appendChild(document.createTextNode(k)); });
+      a.appendChild(nums);
+    }
+    if (s.why_it_matters) {
+      var w = el("p");
+      w.appendChild(el("b", null, "Why it matters. "));
+      w.appendChild(document.createTextNode(s.why_it_matters));
+      a.appendChild(w);
+    }
+    if (s.is_update && s.previous) {
+      var o = el("div", { "class": "orig" });
+      o.appendChild(el("b", null, "Original story, sent on " + niceDate(s.previous.date)));
+      o.appendChild(el("br"));
+      o.appendChild(document.createTextNode(s.previous.headline + ". " + s.previous.facts));
+      a.appendChild(o);
+    }
+    var src = el("p", { "class": "sources" }, s.sources.length === 1 ? "Source: " : "Reported by " + s.sources.length + " outlets: ");
+    s.sources.forEach(function (x, i) {
+      if (i) src.appendChild(document.createTextNode(", "));
+      src.appendChild(el("a", { href: x.url, target: "_blank", rel: "noopener" }, x.name));
+    });
+    a.appendChild(src);
+    return a;
+  }
+
+  function debatesNode(debates, visibleHeadlines) {
+    var wrap = document.createDocumentFragment();
+    var shown = debates.filter(function (d) { return visibleHeadlines.indexOf(d.headline) >= 0; });
+    if (!shown.length) return wrap;
+    wrap.appendChild(el("h3", { "class": "section" }, "Debates and contested claims"));
+    wrap.appendChild(el("p", { "class": "meta" }, "Each side's position as reported, without a verdict."));
+    shown.forEach(function (d) {
+      var box = el("article", { "class": "debate" });
+      box.appendChild(el("h2", null, d.question));
+      box.appendChild(el("p", { "class": "meta" }, "From: " + d.headline));
+      var t = el("table");
+      d.sides.forEach(function (side) {
+        var tr = el("tr");
+        tr.appendChild(el("td", null, side.side));
+        var td = el("td", null, side.position);
+        if (side.evidence) {
+          td.appendChild(el("br"));
+          td.appendChild(el("span", { "class": "muted" }, "Evidence cited: " + side.evidence));
+        }
+        tr.appendChild(td);
+        t.appendChild(tr);
+      });
+      box.appendChild(t);
+      wrap.appendChild(box);
+    });
+    return wrap;
+  }
+
+  function renderAll() {
+    if (!data) return;
+    var stories = data.stories || [];
+    var regions = ["perth", "australia", "international"].filter(function (r) { return stories.some(function (s) { return s.region === r; }); });
+    var cats = [], catLabels = {};
+    stories.forEach(function (s) { if (cats.indexOf(s.category) < 0) { cats.push(s.category); catLabels[s.category] = s.category_label; } });
+    chipRow("regions", regions, REGION_LABELS, "regions");
+    chipRow("categories", cats, catLabels, "categories");
+    document.getElementById("topOnly").setAttribute("aria-pressed", String(filters.topOnly));
+    document.getElementById("updatesOnly").setAttribute("aria-pressed", String(filters.updatesOnly));
+
+    var visible = stories.filter(matches);
+    var main = document.getElementById("stories");
+    main.textContent = "";
+    if (!visible.length) main.appendChild(el("p", { "class": "empty" }, "No stories match these filters."));
+    visible.forEach(function (s) { main.appendChild(storyNode(s)); });
+    document.getElementById("count").textContent = "Showing " + visible.length + " of " + stories.length + " stories";
+    var deb = document.getElementById("debates");
+    deb.textContent = "";
+    deb.appendChild(debatesNode(data.debates || [], visible.map(function (s) { return s.headline; })));
+  }
+
+  function setMeta(index) {
+    var meta = document.getElementById("meta");
+    meta.textContent = data ? data.label + ". " : "";
+    var url = (data && data.settings_url) || (index && index.settings_url);
+    if (url) meta.appendChild(el("a", { href: url, target: "_blank", rel: "noopener" }, "Change settings"));
+  }
+
+  function loadEdition(file, index) {
+    fetch("data/digests/" + file, { cache: "no-cache" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) { data = d; setMeta(index); renderAll(); })
+      .catch(function () { document.getElementById("meta").textContent = "Could not load this digest."; });
+  }
+
+  document.getElementById("search").value = filters.search;
+  document.getElementById("search").addEventListener("input", function (e) { filters.search = e.target.value; save(); renderAll(); });
+  document.getElementById("topOnly").addEventListener("click", function () { filters.topOnly = !filters.topOnly; save(); renderAll(); });
+  document.getElementById("updatesOnly").addEventListener("click", function () { filters.updatesOnly = !filters.updatesOnly; save(); renderAll(); });
+  document.getElementById("reset").addEventListener("click", function () {
+    filters = { regions: [], categories: [], topOnly: false, updatesOnly: false, search: "" };
+    document.getElementById("search").value = "";
+    save(); renderAll();
+  });
+
+  fetch("data/index.json", { cache: "no-cache" })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (index) {
+      var list = index.digests || [];
+      var sel = document.getElementById("edition");
+      if (!list.length) { document.getElementById("meta").textContent = "No digests yet. The first one appears after the first run."; return; }
+      list.forEach(function (d) { sel.appendChild(el("option", { value: d.file }, d.label + " (" + d.stories + ")")); });
+      sel.addEventListener("change", function () { loadEdition(sel.value, index); });
+      loadEdition(list[0].file, index);
+    })
+    .catch(function () { document.getElementById("meta").textContent = "No digests yet. The first one appears after the first run."; });
+})();
+</script>
+</body>
+</html>

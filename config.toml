@@ -1,0 +1,164 @@
+# NEWS DIGEST SETTINGS
+#
+# This is the control panel for your digest. Edit it on the GitHub website
+# (click the pencil icon), then press "Commit changes". The next run uses
+# the new values. Lines starting with # are notes and are ignored.
+
+
+[schedule]
+# Local time zone used for the send time and the send days.
+timezone = "Australia/Perth"
+
+# Send time on a 24 hour clock. "03:00" is 3am, "18:30" is 6:30pm.
+# GitHub checks every hour, so the email arrives within about an hour
+# after this time (usually 5 to 20 minutes after).
+send_time = "03:00"
+
+# Which days get an email. Remove days to send less often.
+# Weekdays only:  ["mon", "tue", "wed", "thu", "fri"]
+# Weekly:         ["sun"]
+# News is still gathered across skipped days, so nothing is lost.
+send_days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+
+
+[digest]
+# How many stories go in the email.
+email_story_count = 10
+
+# How many stories go on the filterable web page (includes the email ones).
+web_story_count = 40
+
+# Re send a story you already received when it gains genuinely new facts,
+# marked UPDATE with the new facts on top.
+show_updates = true
+
+# Add the "Debates and Contested Claims" section at the bottom.
+debates_section = true
+
+# Google News edition. "en-AU" and "AU" give the Australian edition.
+language = "en-AU"
+country = "AU"
+
+# Web page address. Leave empty to use the standard GitHub Pages address.
+web_page_url = ""
+
+
+[ai]
+# "gemini" (free tier, recommended), "groq" (free tier) or "none".
+# "none" sends plain headlines only, useful for testing the plumbing.
+# If the chosen one fails and the other has a key, the other is tried.
+provider = "gemini"
+gemini_model = "gemini-2.5-flash"
+groq_model = "llama-3.3-70b-versatile"
+
+# Stories sent to the AI per request, and the pause between requests.
+# The pause keeps us inside the free tier's requests per minute limit.
+stories_per_request = 5
+seconds_between_requests = 8
+
+
+[regions]
+# How strongly each region is favoured when ranking stories.
+# Higher means more of that region. 0 hides the region completely.
+perth = 3.0
+australia = 2.0
+international = 1.0
+
+
+[sources]
+# Outlets that are never used (mostly paywalled). Match on web address.
+blocked = [
+  "theaustralian.com.au", "afr.com", "heraldsun.com.au",
+  "dailytelegraph.com.au", "couriermail.com.au", "adelaidenow.com.au",
+  "wsj.com", "nytimes.com", "ft.com", "bloomberg.com", "economist.com",
+  "washingtonpost.com", "thetimes.co.uk", "telegraph.co.uk",
+]
+
+
+# CATEGORIES
+#
+# Each block below is one category. Set enabled = true or false to switch
+# it on or off. "weight" nudges its stories up (above 1) or down (below 1)
+# in the ranking. "region" is the default region for its stories (the AI
+# corrects it story by story).
+#
+# Where the news comes from:
+#   google_news_topics    Google News sections: WORLD, NATION, BUSINESS,
+#                         TECHNOLOGY, SCIENCE, HEALTH
+#   google_news_searches  Any search words, just like the Google News search box
+#   feeds                 Direct RSS feed addresses from any outlet
+#
+# To add a new category, copy a block, give it a new name in the square
+# brackets and change the values.
+
+[categories.perth]
+enabled = true
+label = "Perth and WA"
+weight = 1.0
+region = "perth"
+google_news_topics = []
+google_news_searches = ["Perth", "Western Australia", "WA government", "Perth traffic OR transport OR housing"]
+feeds = []
+
+[categories.engineering]
+enabled = true
+label = "Engineering"
+weight = 1.0
+region = "international"
+google_news_topics = []
+google_news_searches = ["engineering", "infrastructure project Australia", "mining engineering", "renewable energy project"]
+feeds = ["https://spectrum.ieee.org/feeds/feed.rss"]
+
+[categories.science]
+enabled = true
+label = "Science"
+weight = 1.0
+region = "international"
+google_news_topics = ["SCIENCE"]
+google_news_searches = ["CSIRO"]
+feeds = []
+
+[categories.technology]
+enabled = true
+label = "Technology"
+weight = 1.0
+region = "international"
+google_news_topics = ["TECHNOLOGY"]
+google_news_searches = []
+feeds = ["https://feeds.arstechnica.com/arstechnica/index"]
+
+[categories.economy]
+enabled = true
+label = "Economy and Society"
+weight = 1.1
+region = "australia"
+google_news_topics = ["BUSINESS"]
+google_news_searches = ["ABS data", "Reserve Bank interest rates", "unemployment rate Australia", "housing affordability Australia", "cost of living Australia"]
+feeds = []
+
+[categories.au_politics]
+enabled = true
+label = "Australian Politics"
+weight = 1.0
+region = "australia"
+google_news_topics = ["NATION"]
+google_news_searches = ["federal parliament Australia", "WA parliament"]
+feeds = []
+
+[categories.us_politics]
+enabled = false
+label = "US Politics"
+weight = 0.8
+region = "international"
+google_news_topics = []
+google_news_searches = ["US Congress", "White House policy"]
+feeds = []
+
+[categories.world]
+enabled = false
+label = "World"
+weight = 0.9
+region = "international"
+google_news_topics = ["WORLD"]
+google_news_searches = []
+feeds = []
