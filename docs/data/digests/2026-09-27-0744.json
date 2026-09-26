@@ -1,0 +1,1319 @@
+{
+ "generated": "2026-09-27T07:44+08:00",
+ "label": "Sunday 27 September 2026",
+ "settings_url": "https://github.com/bijankle/NewsSummarizer/edit/claude/google-news-summarizer-mv084j/config.toml",
+ "stories": [
+  {
+   "id": "s33",
+   "headline": "Construction to begin on Australia's largest wind farm in two years",
+   "facts": "Danish investors Copenhagen Infrastructure Partners acquired the Gawara Baya wind farm project from WindLab and announced that construction of 68 turbines and a 100-megawatt battery near Mount Fox in north Queensland will begin imminently. The project is the first wind farm to reach construction under the federal government's Capacity Investment Scheme, which guarantees electricity prices to reduce investor risk. Local resident group Keep Mount Fox Wild opposes the development over environmental and biodiversity concerns, while project developers and local council representatives cite economic benefits and employment creation of about 500 construction jobs.",
+   "key_numbers": [
+    "68: Number of wind turbines in the Gawara Baya wind farm",
+    "100 megawatts: Capacity of the battery included in the wind farm project",
+    "148 hectares: Area covered near Mount Fox",
+    "84: Approximate number of residents in Mount Fox"
+   ],
+   "why_it_matters": "The project advances the federal government's 2030 target of 82 per cent renewables while generating local employment and drawing opposition from regional residents.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "ABC News & Headlines – Australian Broadcasting Corporation",
+     "url": "https://www.abc.net.au/news/2026-09-27/mount-fox-residents-against-gawara-baya-wind-farm-project/107179828"
+    },
+    {
+     "name": "ABC News",
+     "url": "https://www.abc.net.au/news/2026-09-27/mount-fox-residents-against-gawara-baya-wind-farm-project/107179828"
+    }
+   ],
+   "published": "2026-09-26T22:01:42+00:00",
+   "latest_report": "2026-09-26T22:01:42+00:00",
+   "processed": true
+  },
+  {
+   "id": "s87",
+   "headline": "Australia's child raising costs reach $17,800 annually as birth rates fall",
+   "facts": "National advocacy group The Parenthood reported that the annual cost of raising one child in Australia is about $17,800, and more than $36,500 for raising two children. The Parenthood chief executive Georgie Dent stated that affordability is a major driver of Australia's falling birth rate. Australia's fertility rate fell from 2.02 in 2008 to 1.48 in 2024, and the intergenerational report projects it will decline to 1.34 by 2065-66. Research commissioned by The Parenthood found that 86 per cent of parents in regional, rural, and remote areas experience financial stress tied to childcare access.",
+   "key_numbers": [
+    "Annual cost per child: $17,800, reported by The Parenthood",
+    "Annual cost for two children: More than $36,500, reported by The Parenthood",
+    "Fertility rate: 1.48 in 2024, down from 2.02 in 2008",
+    "Projected fertility rate: 1.34 by 2065-66"
+   ],
+   "why_it_matters": "Rising childcare and living costs are forcing Australian families to reconsider family size and reducing the national birth rate, leading advocacy groups to push for universal childcare funding and increased paid parental leave.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Yahoo",
+     "url": "https://www.yahoo.com/news/world/articles/australias-child-costs-hit-17-194700329.html"
+    },
+    {
+     "name": "The Cool Down",
+     "url": "https://www.thecooldown.com/green-business/child-costs-in-australia-affordability-issues/"
+    }
+   ],
+   "published": "2026-09-26T19:47:00+00:00",
+   "latest_report": "2026-09-26T19:47:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s121",
+   "headline": "Intergenerational Report projects higher superannuation balances and fewer pensioners by 2066",
+   "facts": "The 2026 Intergenerational Report projects that the number of Australians aged 67 or over will rise from 4.7 million in 2024 to 9 million in 2066. The report estimates that the median superannuation balance for Australians aged 65 to 69 will increase from $204,000 in 2024 to $450,000 in 2066. Access to the federal age pension is projected to fall from 66 per cent of retirees today to 52 per cent by 2066, reducing pension spending from 2.3 per cent of GDP to 1.8 per cent.",
+   "key_numbers": [
+    "Retirees aged 67 or over: 4.7 million in 2024, rising to 9 million in 2066",
+    "Median superannuation balance (65-69 age bracket): $204,000 in 2024, projected at $450,000 in 2066",
+    "Federal age pension access: 66 per cent currently, projected at 52 per cent in 2066",
+    "Pension budget spending: 2.3 per cent of GDP currently, projected at 1.8 per cent of GDP"
+   ],
+   "why_it_matters": "Higher projected superannuation balances reduce future government pension outlays, while ongoing political proposals regarding early super access for housing or spending continue to face scrutiny from economists and industry bodies over long-term retirement adequacy.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "smh.com.au",
+     "url": "https://www.smh.com.au/money/super-and-retirement/house-poor-super-rich-the-one-area-young-australians-are-winning-20260927-p610h1.html"
+    },
+    {
+     "name": "The Age",
+     "url": "https://www.theage.com.au/money/super-and-retirement/house-poor-super-rich-the-one-area-young-australians-are-winning-20260927-p610h1.html"
+    }
+   ],
+   "published": "2026-09-26T19:00:00+00:00",
+   "latest_report": "2026-09-26T19:00:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s71",
+   "headline": "Liquidators investigate $5m cash withdrawals from failed NDIS housing company",
+   "facts": "Liquidators report that $5.28 million in cash was withdrawn in 10 separate transactions from company accounts of Fairy Meadow House Pty Ltd before it went into liquidation. The company, directed by Shaun Mowbray, raised approximately $10 million from about 60 investors to build Specialist Disability Accommodation in Wollongong, but nothing was built. Mr Mowbray was declared bankrupt in July with $150 in the bank, and liquidators intend to lodge a report with the Australian Securities and Investments Commission regarding potential criminal breaches.",
+   "key_numbers": [
+    "$5.28 million: withdrawn in cash from company accounts across 10 transactions",
+    "$10 million: raised from about 60 investors for the Wollongong project",
+    "$120 million: total estimated investor losses across multiple recent SDA project collapses"
+   ],
+   "why_it_matters": "Dozens of investors have lost their savings in failed Specialist Disability Accommodation projects, with federal NDIS Minister Jenny McAllister confirming that such investments are not government-backed.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "ABC News & Headlines – Australian Broadcasting Corporation",
+     "url": "https://www.abc.net.au/news/2026-09-27/ndis-housing-provider-fairy-meadow-house-goes-bust/107190992"
+    },
+    {
+     "name": "ABC News",
+     "url": "https://www.abc.net.au/news/2026-09-27/ndis-housing-provider-fairy-meadow-house-goes-bust/107190992"
+    }
+   ],
+   "published": "2026-09-26T20:03:39+00:00",
+   "latest_report": "2026-09-26T20:03:39+00:00",
+   "processed": true
+  },
+  {
+   "id": "s103",
+   "headline": "Australian Defence Force tests autonomous Ghost Bat aircraft amid AI integration push",
+   "facts": "The Australian-made autonomous aircraft known as the Ghost Bat successfully shot down a target with an air-to-air missile over South Australia in late December last year. Chief of Air Force Air Marshal Stephen Chappell stated that the Ghost Bat operates using deterministic programming based on thousands of pre-designed options rather than live AI decision-making, and requires final operator authorisation before launching weapons. The International Institute for Strategic Studies stated that Israel's use of AI in warfare has increased exponentially since October 7, while the United Nations and the International Committee of the Red Cross recently called for a ban on unpredictable autonomous weapons.",
+   "key_numbers": [
+    "Aircraft size: Two-thirds the size of a regular fighter jet"
+   ],
+   "why_it_matters": "The integration of artificial intelligence and autonomous systems into military operations alters intelligence assessment and strike planning, raising legal and ethical questions regarding human control over lethal force.",
+   "category": "science",
+   "category_label": "Science",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "ABC News & Headlines – Australian Broadcasting Corporation",
+     "url": "https://www.abc.net.au/news/2026-09-27/defence-force-ai-transformation/107139794"
+    },
+    {
+     "name": "ABC News",
+     "url": "https://www.abc.net.au/news/2026-09-27/defence-force-ai-transformation/107139794"
+    }
+   ],
+   "published": "2026-09-26T19:09:38+00:00",
+   "latest_report": "2026-09-26T19:09:38+00:00",
+   "processed": true
+  },
+  {
+   "id": "s97",
+   "headline": "A lawyer breaks down legal myths and realities for young Australians",
+   "facts": "Lawyer Guglielmo Plain outlined legal realities and common misconceptions for young Australians, including criminal records, parental phone surveillance, joint criminal enterprise, and social media laws. The minimum age of criminal responsibility varies by state, ranging from under 10 in New South Wales, Queensland, South Australia, Tasmania, Western Australia, and the Northern Territory, to under 12 in Victoria and under 14 in the Australian Capital Territory. The age of sexual consent is 17 in South Australia and Tasmania, and 16 in all other states and territories.",
+   "key_numbers": [],
+   "why_it_matters": "Young people and parents are informed about legal boundaries, age of responsibility thresholds, and potential criminal liabilities related to digital content and behaviour.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "ABC News & Headlines – Australian Broadcasting Corporation",
+     "url": "https://www.abc.net.au/news/2026-09-27/young-peoples-questions-about-the-law-answered/107158426"
+    },
+    {
+     "name": "ABC News",
+     "url": "https://www.abc.net.au/news/2026-09-27/young-peoples-questions-about-the-law-answered/107158426"
+    }
+   ],
+   "published": "2026-09-26T19:22:51+00:00",
+   "latest_report": "2026-09-26T19:22:51+00:00",
+   "processed": true
+  },
+  {
+   "id": "s43",
+   "headline": "EV owner warns motorists to maintain battery charge during bushfire season",
+   "facts": "An experienced electric vehicle driver, Nigel Raynard, encountered difficulties during January when his Tesla reached a bushfire evacuation zone near Boddington with less than 15 per cent battery charge and local power outages. EV FireSafe CEO Emma Sutcliffe stated that electric vehicles are no more likely to catch fire in a bushfire than petrol or diesel vehicles, though damaged lithium-ion batteries carry a post-incident fire risk. The Electric Vehicle Council reported that Australia has more than 684,000 electric vehicles and hybrids on the road, including over 504,000 fully electric vehicles as of the end of August.",
+   "key_numbers": [
+    "15 per cent: Battery charge remaining in Mr Raynard's vehicle when entering the evacuation zone",
+    "15: Number of verified electric vehicle fires in Australia",
+    "684,000: Total number of electric vehicles and hybrids on Australian roads",
+    "504,000: Number of fully electric vehicles in Australia at the end of August"
+   ],
+   "why_it_matters": "EV owners in rural and regional areas are advised to maintain vehicle charge during bushfire season to ensure safe evacuation during emergency power outages.",
+   "category": "technology",
+   "category_label": "Technology",
+   "region": "australia",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "ABC News & Headlines – Australian Broadcasting Corporation",
+     "url": "https://www.abc.net.au/news/2026-09-27/ev-owners-warned-plan-ahead-for-bushfire-season/107176578"
+    },
+    {
+     "name": "ABC News",
+     "url": "https://www.abc.net.au/news/2026-09-27/ev-owners-warned-plan-ahead-for-bushfire-season/107176578"
+    }
+   ],
+   "published": "2026-09-26T21:29:29+00:00",
+   "latest_report": "2026-09-26T21:29:29+00:00",
+   "processed": true
+  },
+  {
+   "id": "s118",
+   "headline": "Visa slowdown halts working holidaymaker arrivals and disrupts Australian au pair market",
+   "facts": "The federal government paused processing working holidaymaker visas in July to finalize migration caps, leading to industry warnings of stranded travel plans for backpackers. Immigration Minister Tony Burke announced caps on backpackers staying longer than a year, enabling visa processing to resume. Cultural Au Pair Association of Australia secretary Jackie Rylance and International Au Pairs Association managing director Patricia Brunner stated that backlogs and delays are leaving Australian host families without childcare support.",
+   "key_numbers": [
+    "Working holidaymaker population: 211,604 at the start of September, according to ABS data",
+    "Increase from pre-COVID levels: 64 per cent"
+   ],
+   "why_it_matters": "Families relying on international au pairs for flexible childcare face severe disruptions and increased costs due to government visa pauses and new caps on backpackers.",
+   "category": "au_politics",
+   "category_label": "Australian Politics",
+   "region": "australia",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "smh.com.au",
+     "url": "https://www.smh.com.au/politics/federal/families-scramble-to-find-childcare-after-visa-slowdown-hits-au-pairs-20260927-p6104e.html"
+    },
+    {
+     "name": "The Age",
+     "url": "https://www.theage.com.au/politics/federal/families-scramble-to-find-childcare-after-visa-slowdown-hits-au-pairs-20260927-p6104e.html"
+    }
+   ],
+   "published": "2026-09-26T19:00:00+00:00",
+   "latest_report": "2026-09-26T19:00:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s31",
+   "headline": "Australia faces challenge to expand domestic mineral processing and supply chain",
+   "facts": "The resources sector accounts for 60% of Australia’s export revenue, with 448 operating mines as of December 2025, according to the provided text. The Minerals Council of Australia (MCA) reports that developing a new mine can take up to 18 years for nickel and 15 years for copper, and the world will need 50 new lithium mines, 60 new nickel mines, and 17 new cobalt mines by 2030. Anax Metals is restarting the Whim Creek operation in Western Australia as a regional processing hub with a new concentrator forecast to produce 10,000 to 12,000 tonnes per annum of copper-equivalent.",
+   "key_numbers": [
+    "Mining export revenue contribution (2014-15 to 2023-24): $2.9 trillion",
+    "Mining wages contribution (2014-15 to 2023-24): $268 billion",
+    "Prospective mining and processing projects in Australia: over 100 projects representing about $50 billion of investment",
+    "Whim Creek Project pre-tax net present value: $501 million"
+   ],
+   "why_it_matters": "Expanding domestic processing and refining capacity is intended to create skilled jobs, lower development costs, and capture more economic value from mineral resources within Australia.",
+   "category": "engineering",
+   "category_label": "Engineering",
+   "region": "perth",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Mining.com.au",
+     "url": "https://mining.com.au/australias-mining-powerhouse-facing-its-next-test-a-world-tour/"
+    }
+   ],
+   "published": "2026-09-26T22:05:45+00:00",
+   "latest_report": "2026-09-26T22:05:45+00:00",
+   "processed": true
+  },
+  {
+   "id": "s61",
+   "headline": "Gold Coast council aims to move past tourism cliché to build broader economy",
+   "facts": "The Gold Coast City Council's marketing organisation, Brand Gold Coast, is working to reinvent the city's reputation beyond a laid-back beach lifestyle and tourism focus to attract serious business, study and investment. Brand Gold Coast marketing boss Todd Babiak stated that the city's film industry currently has a gross value of $420 million and has produced international blockbusters including Thor, Aquaman and Elvis. Documentary producer Chris Amos stated that overseas productions come to the Gold Coast for financial benefits but intellectual property rights go offshore.",
+   "key_numbers": [
+    "Film industry gross value: $420 million in the Gold Coast",
+    "Interviews conducted: 200 hours by Todd Babiak with locals regarding the core story of the Gold Coast"
+   ],
+   "why_it_matters": "A shift in the city's reputation and economic strategy aims to develop a younger, more dynamic economy through creative enterprise and international investment, affecting local employment and industries.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "ABC News & Headlines – Australian Broadcasting Corporation",
+     "url": "https://www.abc.net.au/news/2026-09-27/inside-the-gold-coasts-identity-overhaul/107129144"
+    },
+    {
+     "name": "ABC News",
+     "url": "https://www.abc.net.au/news/2026-09-27/inside-the-gold-coasts-identity-overhaul/107129144"
+    }
+   ],
+   "published": "2026-09-26T20:34:31+00:00",
+   "latest_report": "2026-09-26T20:34:31+00:00",
+   "processed": true
+  },
+  {
+   "id": "s21",
+   "headline": "Australian homebuyers face borrowing power cuts and suburb lockouts from rate rises",
+   "facts": "An analysis by REA Group shows that a single interest rate cut or hike impacts household borrowing capacities, reducing the national average homebuying household's capacity from $877,000 down to $858,000, with a second hike reducing it to $840,000. Australian Bureau of Statistics figures show the typical home loan in June was $731,000, requiring a minimum household income of about $162,500 per year. Real Estate Institute of Australia president Jacob Caine stated that 59 per cent of the median family income is currently spent on mortgage repayments, exceeding $6,000 a month.",
+   "key_numbers": [
+    "Borrowing power reduction from first rate change: $20,000 (from $877,000 to $858,000)",
+    "Second rate hike borrowing cap: $840,000",
+    "Typical home loan in June: $731,000",
+    "Minimum household income for typical loan: $162,500 per year"
+   ],
+   "why_it_matters": "Prospective buyers face reduced housing choice and lower purchasing power across hundreds of Australian suburbs, while state and territory governments face potential reductions in stamp duty tax revenues.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 5,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "realestate.com.au",
+     "url": "https://www.realestate.com.au/news/101-australian-suburbs-average-homebuyer-will-lose-after-rate-rise/"
+    }
+   ],
+   "published": "2026-09-26T22:30:00+00:00",
+   "latest_report": "2026-09-26T22:30:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s63",
+   "headline": "94% say Western Australia misses out on fair share of mining and gas royalties",
+   "facts": "A survey or report cited by WAMN News stated that 94% of respondents believe Western Australia is not receiving a fair share of mining and gas royalties. No further article text was available.",
+   "key_numbers": [
+    "Percentage of respondents: 94% stating WA does not get a fair share"
+   ],
+   "why_it_matters": "Public perception regarding the distribution of mining and gas royalties impacts state revenue debates and policy discussions in Western Australia.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAMN News",
+     "url": "https://wamnnews.com.au/news/exclusive-94-say-wa-isnt-getting-a-fair-share-of-mining-and-gas-royalties/"
+    }
+   ],
+   "published": "2026-09-26T20:30:23+00:00",
+   "latest_report": "2026-09-26T20:30:23+00:00",
+   "processed": true
+  },
+  {
+   "id": "s115",
+   "headline": "WA gas-fired proposal powering ahead as next steps taken",
+   "facts": "The West Australian reported that a Western Australian gas-fired proposal is progressing with next steps taken. Specific article text and detailed figures were not available.",
+   "key_numbers": [],
+   "why_it_matters": "",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "The West Australian",
+     "url": "https://thewest.com.au/politics/state-politics/kwinana-power-station-gas-fired-proposal-powering-on-as-environmental-protection-authority-assesses-project-c-22925868"
+    }
+   ],
+   "published": "2026-09-26T19:00:00+00:00",
+   "latest_report": "2026-09-26T19:00:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s130",
+   "headline": "WA Severe Thunderstorm Warning Issued for Heavy Rain",
+   "facts": "The Bureau of Meteorology issued a severe thunderstorm warning for the South Coastal, South West, and South East Coastal districts on Sunday, 27 September 2026. Heavy rain and thunderstorms are expected to produce flash flooding in locations including Albany, Bremer Bay, Walpole, and Denmark. A 90km/h wind gust was recorded at Wiluna Airport at 2:17pm. The Department of Fire and Emergency Services advised residents to stay indoors, avoid specific hazards, and take precautions against potential flooding and fallen power lines.",
+   "key_numbers": [
+    "90km/h wind gust at Wiluna Airport at 2:17pm"
+   ],
+   "why_it_matters": "Residents in the affected Western Australian districts face risks of flash flooding, damaging winds, and dangerous road conditions.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Early Warning Network",
+     "url": "https://www.ewn.com.au/alerts/alert.aspx?alerturl=wa-severe-thunderstorm-warning-heavy-rain-730097"
+    }
+   ],
+   "published": "2026-09-26T18:07:21+00:00",
+   "latest_report": "2026-09-26T18:07:21+00:00",
+   "processed": true
+  },
+  {
+   "id": "s135",
+   "headline": "Subiaco to Scrap Physical Parking Machines at Nine Locations",
+   "facts": "The City of Subiaco is removing cash payment machines at nine parking locations as part of a parking system overhaul running from September to mid-to-late December. Motorists at these locations will be required to use a smartphone via a secure payment web page or the EasyPark app to pay for parking. Physical machines will remain available at other locations, including six machines accepting cash across five locations on Barker Road, Hensman Road, Park Street, and Railway Road. Parking fees and weekend and weekday after-5pm free parking rules will not change.",
+   "key_numbers": [
+    "nine locations affected by the virtual-payment transition",
+    "six cash-accepting machines remaining across five locations"
+   ],
+   "why_it_matters": "Motorists parking at the affected Subiaco locations without a working smartphone will need to relocate their vehicles or find alternative free parking.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "PerthNow",
+     "url": "https://www.perthnow.com.au/wa/no-phone-bad-luck-subiaco-to-scrap-physical-payment-options-at-nine-popular-locations--c-22903191"
+    }
+   ],
+   "published": "2026-09-26T18:00:00+00:00",
+   "latest_report": "2026-09-26T18:00:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s19",
+   "headline": "West Australian Indian Film Council launched to connect Perth and Mumbai",
+   "facts": "The West Australian Indian Film Council (WAIFC) was formally launched at Government House in Perth on 11 September 2026. Founded and chaired by Nilesh Makwana, the council aims to link universities, screen professionals, businesses, and cultural organisations in Western Australia and Mumbai. The initiative highlights Western Australia's filming locations, Perth Film Studios' four soundstages, and Screenwest's production attraction incentives.",
+   "key_numbers": [
+    "Launch date: 11 September 2026",
+    "Time difference: Perth is two-and-a-half hours ahead of India",
+    "Number of soundstages: 4 at Perth Film Studios"
+   ],
+   "why_it_matters": "The council provides a formalized network for Indian filmmakers to access Western Australian locations, studio infrastructure, and institutional partnerships across universities and screen agencies.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "perth",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "The Sunday Guardian",
+     "url": "https://sundayguardianlive.com/feature/perths-cinematic-promise-meets-mumbais-creative-energy-293549/amp/"
+    }
+   ],
+   "published": "2026-09-26T22:33:03+00:00",
+   "latest_report": "2026-09-26T22:33:12+00:00",
+   "processed": true
+  },
+  {
+   "id": "s22",
+   "headline": "Bond market sell-off points to rising inflation and economic risks",
+   "facts": "Global bond markets have experienced a severe sell-off as investors demand higher yields amid rising inflation and economic risks. The US 10-year and 30-year government bond yields are near two-decade highs, driven by stronger-than-expected US manufacturing data showing input prices growing at their fastest pace in four years. Germany expects federal borrowing to reach a record 525.5 billion euros in 2026, while Japan's 10-year bond yield reached its highest level since 1996.",
+   "key_numbers": [
+    "58.4: US September Flash Composite PMI reading, up from 56.0 in August",
+    "525.5 billion euros: Expected German federal borrowing in 2026",
+    "3.6 per cent: Peak yield on Germany's benchmark 10-year Bund this month",
+    "66 per cent: Market-priced probability of a further 25 basis point rate hike at the October US FOMC meeting"
+   ],
+   "why_it_matters": "Rising global bond yields and borrowing costs increase the risk of higher mortgage interest payments, job losses, and economic slowdowns in Australia.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "international",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "ABC News & Headlines – Australian Broadcasting Corporation",
+     "url": "https://www.abc.net.au/news/2026-09-27/multi-generation-bond-market-correction/107191114"
+    },
+    {
+     "name": "ABC News",
+     "url": "https://www.abc.net.au/news/2026-09-27/multi-generation-bond-market-correction/107191114"
+    }
+   ],
+   "published": "2026-09-26T22:21:11+00:00",
+   "latest_report": "2026-09-26T22:21:11+00:00",
+   "processed": true
+  },
+  {
+   "id": "s37",
+   "headline": "RAS WA President Anne Stroud discusses local produce connections",
+   "facts": "RAS WA president Anne Stroud spoke about the importance of people's connection with local produce, according to WAMN News. No further article text or details were available.",
+   "key_numbers": [],
+   "why_it_matters": "The report highlights the agricultural connection for local consumers and producers in Western Australia.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAMN News",
+     "url": "https://wamnnews.com.au/amp/wamn-xtra-news-club/ras-wa-president-anne-stroud-on-the-importance-of-peoples-connection-with-local-produce/"
+    }
+   ],
+   "published": "2026-09-26T21:57:07+00:00",
+   "latest_report": "2026-09-26T21:57:07+00:00",
+   "processed": true
+  },
+  {
+   "id": "s41",
+   "headline": "Prime Minister calls for action over OpenAI hacks",
+   "facts": "Prime Minister Anthony Albanese joined calls for OpenAI chief Sam Altman to appear at an inquiry. The calls follow further hacks involving an OpenAI agent.",
+   "key_numbers": [],
+   "why_it_matters": "Government scrutiny on artificial intelligence developers increases following security breaches involving AI agents.",
+   "category": "technology",
+   "category_label": "Technology",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/national/pm-calls-for-action-over-openai-hack-20260927-p610rp.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-09-26T21:33:11+00:00",
+   "latest_report": "2026-09-26T21:33:11+00:00",
+   "processed": true
+  },
+  {
+   "id": "s52",
+   "headline": "WA producers urged to monitor sheep for photosensitisation",
+   "facts": "Western Australian producers were urged to monitor sheep for photosensitisation. Specific details were not available from the source summary.",
+   "key_numbers": [],
+   "why_it_matters": "Livestock producers must watch for signs of photosensitisation in sheep to prevent animal health issues.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "countryman.com.au",
+     "url": "https://www.countryman.com.au/countryman/livestock/dpird-urges-wa-sheep-producers-to-monitor-stock-following-an-increase-in-photosensitisation-reports-c-22925577"
+    }
+   ],
+   "published": "2026-09-26T21:02:12+00:00",
+   "latest_report": "2026-09-26T21:02:12+00:00",
+   "processed": true
+  },
+  {
+   "id": "s94",
+   "headline": "ACT Treasurer warns GST carve-up threatens egalitarian values",
+   "facts": "ACT Treasurer Chris Steel told the Productivity Commission that current GST revenue distribution arrangements risk entrenching inequality and cost the territory 900 school teachers' salaries without the no-worse-off guarantee. Mr Steel called for a return to the pre-2018 GST distribution method, ending population share floors and temporary top-up payments. Prime Minister Anthony Albanese stated the GST deal would not change, while the Western Australian government dismissed the Productivity Commission's report as the work of 'east coast clowns'.",
+   "key_numbers": [
+    "900 school teachers: Potential salary cut for the ACT if the no-worse-off guarantee ends",
+    "$6 billion a year: Amount taxpayers pay to top up Western Australia's budget, according to the Productivity Commission",
+    "$550 million: Estimated amount the ACT lost between 2016-17 and 2022-23 due to population undercounting"
+   ],
+   "why_it_matters": "",
+   "category": "au_politics",
+   "category_label": "Australian Politics",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": {
+    "question": "Should Australia's GST revenue distribution system be returned to the pre-2018 model?",
+    "sides": [
+     {
+      "side": "ACT Treasurer Chris Steel and the Productivity Commission",
+      "position": "Support returning to the pre-2018 GST method and scrapping the current arrangements.",
+      "evidence": "Cite a $6 billion annual cost to taxpayers to subsidise Western Australia, growing costs for other states and territories, and the risk of service cuts like 900 teacher losses in the ACT."
+     },
+     {
+      "side": "Prime Minister Anthony Albanese and the Western Australian Government",
+      "position": "Support maintaining the current GST deal to ensure Western Australia receives its fair share.",
+      "evidence": "Argue that it is reasonable for Western Australia to benefit from its economic strength and natural resources."
+     }
+    ]
+   },
+   "sources": [
+    {
+     "name": "The Canberra Times",
+     "url": "https://www.canberratimes.com.au/story/9357650/treasurer-chris-steel-calls-for-wa-gst-deal-change-to-defend-equality/"
+    }
+   ],
+   "published": "2026-09-26T19:30:28+00:00",
+   "latest_report": "2026-09-26T19:30:28+00:00",
+   "processed": true
+  },
+  {
+   "id": "s10",
+   "headline": "Brisbane teenager in critical condition after hit-and-run crash",
+   "facts": "A 16-year-old boy from Wynnum is in a critical, life-threatening condition at Princess Alexandra Hospital after being struck by two vehicles on Old Cleveland Road in Belmont. Emergency services attended the scene at about 9.45pm on Saturday. The first vehicle, described as a dark SUV, fled the scene before police arrived, while the second vehicle remained with its 19-year-old driver uninjured.",
+   "key_numbers": [
+    "Age of pedestrian: 16 years old",
+    "Time of incident: 9.45pm on Saturday",
+    "Age of second driver: 19 years old"
+   ],
+   "why_it_matters": "The teenager sustained life-threatening injuries and police are appealing for public witnesses to locate the driver of the first vehicle involved in the hit-and-run.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/national/queensland/brisbane-teenager-in-critical-condition-after-being-struck-by-two-cars-20260927-p610rw.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-09-26T23:01:58+00:00",
+   "latest_report": "2026-09-26T23:01:58+00:00",
+   "processed": true
+  },
+  {
+   "id": "s65",
+   "headline": "Severe storms and cold fronts grip southern and western Australia",
+   "facts": "Sydney faces a wet and windy Sunday with a 95 per cent chance of rain and a forecast high of 18C, while Melbourne expects a high of 17C after starting at 9C. Western Australia faces severe thunderstorms extending across the Goldfields and moving southeast, with Perth reaching a high of 22C with a 70 per cent chance of rain. Fire bans remain in place across parts of Queensland's central outback, with fires northwest of Bundaberg uncontrolled, and Tasmania is under a frost warning after snow fell to about 600 metres.",
+   "key_numbers": [
+    "Sydney temperature: 18C high, 14C low",
+    "Melbourne temperature: 17C high, 9C low",
+    "Perth temperature: 22C high, 11C low",
+    "Darwin temperature: 34C high, 24C low"
+   ],
+   "why_it_matters": "Residents across multiple states face disruptions from severe thunderstorms, cold temperatures, frost, and elevated fire danger.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "news24.com.au",
+     "url": "https://www.news24.com.au/news/weather/sydney-faces-a-wet-and-cool-sunday-as-severe-thunderstorms-hit-wa-and-fire-danger-rises-across-queensland/news-story/a089e31f1f94d008b4159e30a6ae394b"
+    }
+   ],
+   "published": "2026-09-26T20:26:08+00:00",
+   "latest_report": "2026-09-26T20:26:08+00:00",
+   "processed": true
+  },
+  {
+   "id": "s29",
+   "headline": "Historical picture theatre destroyed in suspicious fire in Melbourne",
+   "facts": "Police are investigating an overnight fire that gutted the 105-year-old former Austral Picture Theatre in Collingwood, Melbourne. The building was also known as the Old Collingwood Cinema and Theatre. Details were not available beyond the feed summary.",
+   "key_numbers": [
+    "105 years: Age of the former Austral Picture Theatre in Collingwood"
+   ],
+   "why_it_matters": "A historic building in Melbourne has been destroyed, prompting a police investigation into the suspicious fire.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "international",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "ABC News & Headlines – Australian Broadcasting Corporation",
+     "url": "https://www.abc.net.au/news/2026-09-27/collingwood-historical-austral-picture-theatre-destroyed-fire/107200514"
+    },
+    {
+     "name": "ABC News",
+     "url": "https://www.abc.net.au/news/2026-09-27/collingwood-historical-austral-picture-theatre-destroyed-fire/107200514"
+    },
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/national/old-theatre-in-melbourne-gutted-by-fire-20260927-p610rs.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-09-26T21:32:25+00:00",
+   "latest_report": "2026-09-26T22:14:20+00:00",
+   "processed": true
+  },
+  {
+   "id": "s136",
+   "headline": "Veteran Volunteer Granddad Crowned 2026 Legend of the Show",
+   "facts": "A veteran volunteer granddad has been crowned the 2026 Legend of the Show. Details of the announcement were not available from the headlines.",
+   "key_numbers": [],
+   "why_it_matters": "The award recognises volunteer contributions within the community.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 1,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "The West Australian",
+     "url": "https://thewest.com.au/business/agriculture/perth-royal-show-veteran-volunteer-david-ashfold-crowned-2026-legend-of-the-show-c-22919632"
+    }
+   ],
+   "published": "2026-09-26T18:00:00+00:00",
+   "latest_report": "2026-09-26T18:00:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s39",
+   "headline": "Man stabbed in the arm at a Sydney train station",
+   "facts": "A man was stabbed in the arm at a train station in Sydney's west. The victim was taken to hospital following the incident.",
+   "key_numbers": [],
+   "why_it_matters": "The injured man required hospital treatment following the violent incident at the transport hub.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/national/man-stabbed-at-sydney-train-station-20260927-p610rq.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-09-26T21:33:41+00:00",
+   "latest_report": "2026-09-26T21:33:41+00:00",
+   "processed": true
+  },
+  {
+   "id": "s83",
+   "headline": "Former car dealer sells Bellevue Hill home for approximately $31 million",
+   "facts": "Former Trivett luxury car dealership owner Greg Duncan and his wife Glenda sold their Bellevue Hill home via private treaty for about $31 million on September 22. The Duncans originally purchased the four-bedroom, four-bathroom house for $1.45 million in 1996. NRL player Nathan Cleary purchased a Curl Curl house for $5.5 million in June from Stewart House.",
+   "key_numbers": [
+    "Sale price: $31,000,000 for the Bellevue Hill property",
+    "Purchase price: $1,450,000 paid by the Duncans in 1996",
+    "Renovation cost: $742,000 estimated for DA-approved alterations",
+    "Curl Curl purchase price: $5,500,000 paid by Nathan Cleary"
+   ],
+   "why_it_matters": "The high-value property transactions reflect current activity and valuations in Sydney's prestige real estate market.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/property/news/former-luxury-car-dealer-sells-renovated-bellevue-hill-home-for-about-31m-20260927-p60zha.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-09-26T20:00:00+00:00",
+   "latest_report": "2026-09-26T20:00:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s16",
+   "headline": "Iran insists on diplomacy after US rejects peace proposal",
+   "facts": "Iranian Foreign Minister Abbas Araghchi stated that only diplomacy and a negotiated solution could resolve the conflict with the United States and Israel. US President Donald Trump rejected an Iranian peace proposal that was transmitted via Qatari mediators to reopen the Strait of Hormuz and pause regional fighting. Trump claimed Iran pushed for a deal because it was losing the conflict, while Araghchi said Iran is waiting for mediators to convey definitive views before deciding its next steps.",
+   "key_numbers": [
+    "Conflict duration: Seven months, beginning February 28"
+   ],
+   "why_it_matters": "The rejection of the peace proposal prolongs a conflict that has disrupted global oil flows, caused thousands of deaths, and degraded Iran's economy and conventional forces.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "international",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/world/middle-east/iran-insists-on-diplomatic-solution-after-trump-rejects-peace-plan-20260927-p610s2.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-09-26T21:42:32+00:00",
+   "latest_report": "2026-09-26T22:54:11+00:00",
+   "processed": true
+  },
+  {
+   "id": "s5",
+   "headline": "Pope Leo draws massive crowds for outdoor Mass in Paris",
+   "facts": "An estimated 800,000 people attended an outdoor Mass celebrated by Pope Leo along the Champs-Elysees in Paris during his four-day tour of France. The Pope urged Catholics to find happiness in faith rather than materialism and warned against the unchecked development of artificial intelligence during a speech at UNESCO. Pope Leo is scheduled to visit Lourdes to meet with seven French victims of church abuse.",
+   "key_numbers": [
+    "800,000: estimated number of attendees at the Pope's outdoor Mass in Paris",
+    "21,000: record number of adult baptisms reported by the French Bishops' Conference last Easter",
+    "25 per cent: of French people aged 18 to 49 identifying as Catholic, according to INSEE data"
+   ],
+   "why_it_matters": "The papal visit addresses the Catholic Church's standing in a secular nation experiencing declining religious affiliation alongside recent abuse scandals.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "international",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/world/europe/hundreds-of-thousands-in-paris-cheer-pope-leo-in-largest-event-of-french-tour-20260927-p610s6.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-09-26T23:11:26+00:00",
+   "latest_report": "2026-09-26T23:11:26+00:00",
+   "processed": true
+  },
+  {
+   "id": "s40",
+   "headline": "Severe floods hit Thailand and parts of Bangkok",
+   "facts": "Thailand has been struck by severe floods. The capital city Bangkok was impacted, leaving parts of the city underwater.",
+   "key_numbers": [],
+   "why_it_matters": "The severe flooding has left parts of Bangkok underwater, affecting urban infrastructure and residents.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "international",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/national/thailand-hit-by-severe-floods-20260927-p610rr.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-09-26T21:33:16+00:00",
+   "latest_report": "2026-09-26T21:33:16+00:00",
+   "processed": true
+  },
+  {
+   "id": "s3",
+   "headline": "Former beauty queen turned anti-coup fighter shares Myanmar story in film",
+   "facts": "Htar Htet Htet, a Myanmar actor, businesswoman and 2013 Miss Grand International contestant, joined anti-coup protests and later resistance fighters in the jungle following the February 2021 military coup. She has starred in a new film titled Ray, which she describes as a 95 per cent accurate account of her experiences during Myanmar's slide into civil war. Htar Htet Htet now lives in Australia, where she works as a gymnastics coach two days a week in Sydney.",
+   "key_numbers": [
+    "95 per cent: accuracy claimed by Htar Htet Htet for the film Ray depicting her story"
+   ],
+   "why_it_matters": "The release of the film Ray aims to maintain international attention on the civil war in Myanmar and the experiences of its citizens under military rule.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "international",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/national/nsw/meet-the-beauty-queen-turned-freedom-fighter-who-made-her-home-in-australia-20260927-p60q73.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-09-26T23:24:07+00:00",
+   "latest_report": "2026-09-26T23:24:07+00:00",
+   "processed": true
+  },
+  {
+   "id": "s30",
+   "headline": "Rovos Rail operates 15-day Copper Trail luxury journey across Africa",
+   "facts": "Rovos Rail runs a 15-day Copper Trail luxury train itinerary spanning 3,100 kilometres from Victoria Falls in Zimbabwe through Zambia and the Democratic Republic of the Congo, terminating at Lobito in Angola. The journey carries 57 passengers aboard the Pride of Africa. The route traverses the Lobito Corridor, which includes sections supported by Chinese and European funding alongside segments requiring infrastructure repair.",
+   "key_numbers": [
+    "Journey distance: 3100 kilometres",
+    "Itinerary duration: 15 days",
+    "Number of passengers: 57 passengers"
+   ],
+   "why_it_matters": "The rail journey highlights cross-border transport logistics, regional infrastructure development, and tourism access across Southern Africa's primary resource corridors.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "international",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/traveller/inspiration/this-3100-km-adventure-is-one-of-the-world-s-great-rail-journeys-20260927-p60xzk.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-09-26T22:10:22+00:00",
+   "latest_report": "2026-09-26T22:10:22+00:00",
+   "processed": true
+  },
+  {
+   "id": "s80",
+   "headline": "Washington court pauses state fines against ranchers in wetlands dispute",
+   "facts": "A Washington appellate court commissioner ruled that the state Pollution Control Hearings Board cannot continue its fight to fine Wade and Teresa King while they seek a jury trial. The Washington Department of Ecology alleges the King family illegally excavated 23 areas within protected wetlands, issuing a quarter-million-dollar fine and threatening potential criminal charges. The Pacific Legal Foundation argues that subjecting individuals to administrative penalties without an independent jury trial is unconstitutional.",
+   "key_numbers": [
+    "Fines: $250,000 issued by the Department of Ecology",
+    "Legal costs: $3,700,000 incurred by the King family",
+    "Total department fines: $11,200,000 levied in 2025",
+    "Previous year department fines: $2,900,000 levied in 2024"
+   ],
+   "why_it_matters": "The legal battle threatens to alter how state regulatory agencies levy civil penalties and whether citizens have a right to jury trials in administrative cases.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "international",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": {
+    "question": "Do individuals facing civil penalties from state administrative agencies have a constitutional right to a jury trial?",
+    "sides": [
+     {
+      "side": "The King Family and Pacific Legal Foundation",
+      "position": "State regulators cannot act as both judge and prosecutor and must prove cases to an independent jury.",
+      "evidence": "Argue that administrative hearings violate constitutional rights when significant financial penalties are imposed without a jury."
+     },
+     {
+      "side": "Washington Department of Ecology",
+      "position": "Ranchers are not owed a jury trial in state administrative matters.",
+      "evidence": "Cite statutory authority to penalise and order wetland restoration for unauthorised excavations in protected areas."
+     }
+    ]
+   },
+   "sources": [
+    {
+     "name": "Straight Arrow",
+     "url": "https://san.com/cc/court-stalls-washington-from-being-judge-and-prosecutor-in-fight-against-ranchers/"
+    }
+   ],
+   "published": "2026-09-26T20:00:00+00:00",
+   "latest_report": "2026-09-26T20:00:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s141",
+   "headline": "Kalonzo Musyoka accuses President Ruto of planning to influence the 2027 General Election",
+   "facts": "Wiper Patriotic Front leader Kalonzo Musyoka accused President William Ruto's administration of planning to influence the 2027 General Election by mobilising voters from Uganda. Speaking at a rally in Busia County on Saturday, Kalonzo alleged that individuals from Uganda would be given Kenyan identity cards to vote for President Ruto. Interior Cabinet Secretary Kipchumba Murkomen led a Kenya Kwanza delegation to Bukwo District in Uganda on Friday for a cross-border political meeting addressing security and the movement of citizens.",
+   "key_numbers": [
+    "2027: Year of the upcoming General Election"
+   ],
+   "why_it_matters": "Political tensions and allegations regarding voter mobilisation and electoral independence affect preparations for the 2027 General Election in Kenya.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "international",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "citizen.digital",
+     "url": "https://www.citizen.digital/article/ata-ukiongeza-kura-uganda-wewe-ni-one-term-kalonzo-slams-ruto-over-murkomens-border-mobilisation-n390941"
+    }
+   ],
+   "published": "2026-09-26T17:58:29+00:00",
+   "latest_report": "2026-09-26T17:58:29+00:00",
+   "processed": true
+  },
+  {
+   "id": "s128",
+   "headline": "U.S. Representative Pramila Jayapal Condemns Trump’s Pocket Rescissions",
+   "facts": "U.S. Representative Pramila Jayapal released a statement condemning Trump’s pocket rescissions, stating they are illegal and target immigration services. She stated that the rescissions cut essential services for immigrants, including assistance for unaccompanied children, legal services for citizenship, integration efforts, and education programs. Jayapal stated that Congress has the constitutional authority to appropriate funding under Article 1 and vowed to prevent the rescissions.",
+   "key_numbers": [],
+   "why_it_matters": "The actions affect federal funding allocations for immigration and education services in the United States, altering the availability of legal and integration support for immigrants.",
+   "category": "au_politics",
+   "category_label": "Australian Politics",
+   "region": "international",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "House.gov",
+     "url": "https://jayapal.house.gov/2026/09/26/ranking-member-jayapal-statement-on-trumps-pocket-rescissions/"
+    }
+   ],
+   "published": "2026-09-26T18:24:23+00:00",
+   "latest_report": "2026-09-26T18:24:23+00:00",
+   "processed": true
+  },
+  {
+   "id": "s46",
+   "headline": "Gregg supporters and Kriete clash over Grant County Commissioners endorsement",
+   "facts": "Supporters of Gregg claimed that an endorsement of Kriete by the Grant County Commissioners was misleading. Kriete stated that the supporters were overreacting. Further details were not available.",
+   "key_numbers": [],
+   "why_it_matters": "Voters and local stakeholders receive conflicting interpretations regarding an official county commissioner endorsement.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "international",
+   "importance": 1,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Source ONE News",
+     "url": "https://www.yoursourceone.com/columbia_basin/gregg-supporters-call-kriete-endorsement-from-grant-county-commissioners-misleading-kriete-says-they-re-overreacting/article_f21f3018-686f-435a-a5c7-230698b49588.html"
+    }
+   ],
+   "published": "2026-09-26T21:24:08+00:00",
+   "latest_report": "2026-09-26T21:24:08+00:00",
+   "processed": true
+  }
+ ],
+ "notice": "",
+ "diagnostics": {
+  "lookback_hours": 10,
+  "funnel": [
+   [
+    "Headlines collected from 29 of 29 feeds",
+    1099
+   ],
+   [
+    "Headlines left after screening (removed 796 too old, 3 headline too short, 11 already sent, 10 excluded word, 25 duplicate feed entry, 16 blocked outlet, 2 opinion by headline)",
+    236
+   ],
+   [
+    "Distinct events after grouping headlines",
+    218
+   ],
+   [
+    "Top events picked for full processing",
+    50
+   ],
+   [
+    "Events with full article text downloaded (others use headlines only)",
+    33
+   ],
+   [
+    "Stories left after the AI check",
+    36
+   ],
+   [
+    "Stories published to the web page",
+    36
+   ]
+  ],
+  "feed_failures": [],
+  "ai_notes": [
+   "Gemini model gemini-3.8-flash is overloaded, switched to gemini-3.5-flash-lite for the rest of this run.",
+   "Request 1: done by gemini (5 stories)",
+   "Request 2: done by gemini (5 stories)",
+   "Request 3: done by gemini (5 stories)",
+   "Request 4: done by gemini (5 stories)",
+   "Request 5: done by gemini (5 stories)",
+   "Request 6: done by gemini (5 stories)",
+   "Request 7: done by gemini (5 stories)",
+   "Request 8: done by gemini (5 stories)",
+   "Request 9: done by gemini (5 stories)",
+   "Request 10: done by gemini (2 stories)"
+  ],
+  "dropped": [
+   {
+    "headline": "Returning: Paramedics",
+    "source": "TV Tonight | Australia's Leading TV Blog",
+    "reason": "headline too short"
+   },
+   {
+    "headline": "Life after AFL: Tayla and Nathan Broad head home for their next chapter",
+    "source": "The West Australian",
+    "reason": "excluded word \"AFL\""
+   },
+   {
+    "headline": "Australia takes on the new-look Springboks in one-off rugby test in Perth",
+    "source": "Japan Today",
+    "reason": "excluded word \"Springboks\""
+   },
+   {
+    "headline": "Australia takes on the new-look Springboks in one-off rugby test in Perth",
+    "source": "Japan Today",
+    "reason": "excluded word \"Springboks\""
+   },
+   {
+    "headline": "Watch now: AFL Masters National Carnival, Day 1",
+    "source": "The Daily Telegraph",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Life after AFL: Tayla and Nathan Broad head home for their next chapter",
+    "source": "The West Australian",
+    "reason": "excluded word \"AFL\""
+   },
+   {
+    "headline": "Returning: Paramedics",
+    "source": "TV Tonight | Australia's Leading TV Blog",
+    "reason": "headline too short"
+   },
+   {
+    "headline": "Women's National Cricket League 2026-27: Teams, Squads, Schedule and Broadcast Details",
+    "source": "Female Cricket",
+    "reason": "excluded word \"cricket\""
+   },
+   {
+    "headline": "Colombia extradites rebel leader to US as its security strategy aligns with Washington",
+    "source": "The Washington Post",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "West College Scotland is recruiting engineering lecturers",
+    "source": "Greenock Telegraph",
+    "reason": "excluded word \"Scotland\""
+   },
+   {
+    "headline": "Labour opening lithium mine in Cornwall to combat China",
+    "source": "The Telegraph",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "OPINION | SA’s battery boom: What developers, lenders and users need to know",
+    "source": "news24.com",
+    "reason": "opinion by headline"
+   },
+   {
+    "headline": "7 things a sexologist wants you to know about sex and menopause",
+    "source": "The Courier Mail",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Ash Williams: how I blew a Hollywood audition – and almost wrecked a $100k Harley",
+    "source": "Herald Sun",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Poke-mania grips Brisbane as fans catch ’em all",
+    "source": "The Courier Mail",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Thousand Guineas favourite ‘going even better’ for Jim Moloney test",
+    "source": "theaustralian.com.au",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Albury District Court matters list, Monday, September 28",
+    "source": "Herald Sun",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Rogue OpenAI that hacked Medicare strikes again",
+    "source": "Herald Sun",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "‘I f–ked up’: Melbourne bookkeeper in $7m fraud buys nine Harleys, three homes",
+    "source": "Herald Sun",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Five career moves that build real wealth, not spending cuts, and where WFH fits in, from wealth adviser Jacqui Clarke",
+    "source": "theaustralian.com.au",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Credit card cull: ‘Seismic shift’ to how you earn frequent flyer points",
+    "source": "The Courier Mail",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Bids land for $1bn retirement living operator",
+    "source": "theaustralian.com.au",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Big call on fuel cut amid rates fear",
+    "source": "theaustralian.com.au",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Why your council rates won’t skyrocket after all",
+    "source": "Herald Sun",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "WATCH: Why the young people of Laois are emigrating",
+    "source": "Laois Live",
+    "reason": "opinion by headline"
+   },
+   {
+    "headline": "Bruce Highway chaos: Man flown to hospital after two-truck crash",
+    "source": "The Courier Mail",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Pittwater Online News",
+    "source": "Pittwater Online News",
+    "reason": "headline too short"
+   },
+   {
+    "headline": "Is Boks’ bench really a ‘bomb squad’? Maybe not, but it can still blow the Wallabies to bits",
+    "source": "WAtoday",
+    "reason": "excluded word \"Wallabies\""
+   },
+   {
+    "headline": "AFL grand final wash up LIVE: Brisbane Lions celebrate premiership victory over Fremantle Dockers",
+    "source": "WAtoday",
+    "reason": "excluded word \"AFL\""
+   },
+   {
+    "headline": "Brisbane players celebrate AFL premiership ahead of fan day in Fitzroy",
+    "source": "ABC News",
+    "reason": "excluded word \"AFL\""
+   },
+   {
+    "headline": "Last year Draper wondered if he would play again. Now he's a premiership winner",
+    "source": "ABC News",
+    "reason": "excluded word \"premiership\""
+   },
+   {
+    "headline": "The September 27 Edition",
+    "source": "WAtoday",
+    "reason": "opinion (every outlet filed it under an opinion web address)"
+   },
+   {
+    "headline": "The best school holiday activities for under $25",
+    "source": "smh.com.au",
+    "reason": "opinion (every outlet filed it under an opinion web address)"
+   },
+   {
+    "headline": "STM Loves: Love Athletica, Hunter x Kate Moss, The Cruise, Sodashi and Kailis",
+    "source": "The West Australian",
+    "reason": "opinion (every outlet filed it under an opinion web address)"
+   },
+   {
+    "headline": "Cameron Smith uncertain on LIV Golf future amid restructuring",
+    "source": "WAtoday",
+    "reason": "sport (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "Brisbane Lions claim third straight AFL premiership after defeating Fremantle",
+    "source": "WAtoday",
+    "reason": "sport (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "Kane misses crucial penalty as England loses to Spain",
+    "source": "WAtoday",
+    "reason": "sport (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "Perth Wildcats defeat New Zealand Breakers 97-93 at RAC Arena",
+    "source": "Basketball.com.au",
+    "reason": "sport (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "New Zealand winger Ronaldo Mulitalo discusses abuse from Samoan fans",
+    "source": "WAtoday",
+    "reason": "sport (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "George Russell wins Azerbaijan Grand Prix as Oscar Piastri crashes out",
+    "source": "WAtoday",
+    "reason": "sport (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "The big, fat, boozy lie that's taken me more than 40 years to unpack",
+    "source": "WAtoday",
+    "reason": "opinion or not news (AI judgement)"
+   },
+   {
+    "headline": "3 Reasons Why Chicago Is the Best Wrestling City in the World",
+    "source": "Athlon Sports",
+    "reason": "sport (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "Solo travel is booming and changing the entire industry",
+    "source": "WAtoday",
+    "reason": "lifestyle (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "Five New Coastal Perth Apartment Developments Highlighted",
+    "source": "PerthNow",
+    "reason": "promotional (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "WA batter eyes three-format unicorn status",
+    "source": "The West Australian",
+    "reason": "sport (excluded kind, AI judgement)"
+   }
+  ]
+ }
+}
