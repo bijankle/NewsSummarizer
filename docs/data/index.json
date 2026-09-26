@@ -13,5 +13,11 @@
   }
  ],
  "settings_url": "https://github.com/bijankle/NewsSummarizer/edit/claude/google-news-summarizer-mv084j/config.toml",
- "web_url": "https://bijankle.github.io/NewsSummarizer/"
+ "web_url": "https://bijankle.github.io/NewsSummarizer/",
+ "preview": {
+  "file": "preview.json",
+  "label": "Preview, Sun 27 Sep 05:32, not emailed",
+  "stories": 30,
+  "generated": "2026-09-27T05:32+08:00"
+ }
 }
