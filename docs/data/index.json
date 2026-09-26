@@ -1,6 +1,12 @@
 {
  "digests": [
   {
+   "file": "digests/2026-09-27-0342.json",
+   "label": "Sunday 27 September 2026",
+   "stories": 5,
+   "generated": "2026-09-27T03:42+08:00"
+  },
+  {
    "file": "digests/2026-09-26-0926.json",
    "label": "Saturday 26 September 2026",
    "stories": 40
