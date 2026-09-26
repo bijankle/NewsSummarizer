@@ -1,3 +1,11 @@
 {
- "digests": []
+ "digests": [
+  {
+   "file": "2026-09-26-0926.json",
+   "label": "Saturday 26 September 2026",
+   "stories": 40
+  }
+ ],
+ "settings_url": "https://github.com/bijankle/NewsSummarizer/edit/claude/google-news-summarizer-mv084j/config.toml",
+ "web_url": "https://bijankle.github.io/NewsSummarizer/"
 }
