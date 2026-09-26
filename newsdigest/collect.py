@@ -60,7 +60,9 @@ def parse_feed(content, category, region):
             continue
         src = entry.get("source") or {}
         domain = domain_of(src.get("href", "")) or domain_of(link)
-        source = strip_html(src.get("title", "")) or outlet_name(domain, feed_title or domain)
+        # One name per outlet, whether it came through Google News or a direct feed,
+        # so the same outlet is never counted twice as confirming a story.
+        source = outlet_name(domain, strip_html(src.get("title", "")) or feed_title or domain)
         title = clean_headline(entry.get("title", ""), source)
         summary = strip_html(entry.get("summary", ""))
         # Google News summaries just repeat the headline and outlet name.

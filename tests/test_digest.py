@@ -23,7 +23,7 @@ SAMPLE_RSS = b"""<?xml version="1.0" encoding="UTF-8"?>
 <link>https://news.google.com/rss/articles/CBMiAAA?oc=5</link>
 <pubDate>Wed, 24 Sep 2026 10:00:00 GMT</pubDate>
 <description>&lt;a href="x"&gt;Perth rail line to close for six weeks&lt;/a&gt; ABC News</description>
-<source url="https://www.abc.net.au">ABC News</source></item>
+<source url="https://www.abc.net.au">ABC News &amp; Headlines - Australian Broadcasting Corporation</source></item>
 <item><title>Opinion: The rail closure is a disaster - WAtoday</title>
 <link>https://news.google.com/rss/articles/CBMiBBB?oc=5</link>
 <pubDate>Wed, 24 Sep 2026 11:00:00 GMT</pubDate>
