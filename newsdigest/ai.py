@@ -61,12 +61,19 @@ def available_providers(cfg):
     return order
 
 
-BUSY_WAITS = (20, 40, 60, 60, 60)  # seconds; Gemini's "high demand" spells can last minutes
+BUSY_WAITS = (15, 30, 45)  # seconds between attempts when the AI is busy
+_deadline = float("inf")   # set by summarise(); no waiting past it
+
+
+class OutOfTime(ProviderError):
+    pass
 
 
 def _post_json(url, headers, body):
     error = ""
     for attempt in range(len(BUSY_WAITS) + 1):
+        if time.monotonic() >= _deadline:
+            raise OutOfTime("AI time limit reached")
         try:
             resp = requests.post(url, headers=headers, json=body, timeout=120)
         except requests.RequestException as exc:
@@ -80,6 +87,8 @@ def _post_json(url, headers, body):
         if attempt == len(BUSY_WAITS):
             break
         wait = BUSY_WAITS[attempt]
+        if time.monotonic() + wait >= _deadline:
+            break
         print(f"    AI request failed ({error[:120]}), retrying in {wait}s")
         time.sleep(wait)
     raise ProviderError(error)
@@ -87,16 +96,11 @@ def _post_json(url, headers, body):
 
 GEMINI_API = "https://generativelanguage.googleapis.com/v1beta"
 FLASH_NAME = re.compile(r"^gemini-(\d+(?:\.\d+)?)-flash$")
+LITE_NAME = re.compile(r"^gemini-(\d+(?:\.\d+)?)-flash-lite$")
 
 
-def replacement_gemini_model(error_text, current):
-    """When Google retires a model, find the newest plain Flash model instead.
-
-    Google's error usually names the successor. Otherwise ask for the model list.
-    """
-    hinted = [m for m in re.findall(r"models/(gemini[\w.\-]*\w)", error_text) if m != current]
-    if hinted:
-        return hinted[0]
+def _newest_gemini(pattern):
+    """Newest model whose name matches pattern, from Google's model list."""
     try:
         resp = requests.get(
             f"{GEMINI_API}/models", params={"pageSize": 1000},
@@ -109,10 +113,30 @@ def replacement_gemini_model(error_text, current):
     candidates = []
     for m in models:
         name = m.get("name", "").removeprefix("models/")
-        match = FLASH_NAME.match(name)
+        match = pattern.match(name)
         if match and "generateContent" in m.get("supportedGenerationMethods", []):
             candidates.append((float(match.group(1)), name))
     return max(candidates)[1] if candidates else None
+
+
+def replacement_gemini_model(error_text, current):
+    """When Google retires a model, find the newest plain Flash model instead.
+
+    Google's error usually names the successor. Otherwise ask for the model list.
+    """
+    hinted = [m for m in re.findall(r"models/(gemini[\w.\-]*\w)", error_text) if m != current]
+    return hinted[0] if hinted else _newest_gemini(FLASH_NAME)
+
+
+def _is_busy(error):
+    return any(code in str(error) for code in ("HTTP 429", "HTTP 500", "HTTP 502", "HTTP 503", "HTTP 504"))
+
+
+def _switch(cfg, new_model, why):
+    note = f"Gemini model {cfg['ai']['gemini_model']} {why}, switched to {new_model} for the rest of this run."
+    print(f"  {note}")
+    report.ai_notes.append(note)
+    cfg["ai"]["gemini_model"] = new_model
 
 
 def call_gemini(cfg, prompt):
@@ -125,16 +149,21 @@ def call_gemini(cfg, prompt):
     }
     try:
         data = _post_json(f"{GEMINI_API}/models/{model}:generateContent", headers, body)
+    except OutOfTime:
+        raise
     except ProviderError as exc:
-        if "404" not in str(exc):
+        if "HTTP 404" in str(exc):
+            new_model = replacement_gemini_model(str(exc), model)
+            why = f"is not available (set gemini_model = \"{new_model}\" in config.toml)"
+        elif _is_busy(exc) and not LITE_NAME.match(model):
+            # The lighter Flash Lite model is usually less loaded during busy spells.
+            new_model = _newest_gemini(LITE_NAME)
+            why = "is overloaded"
+        else:
             raise
-        new_model = replacement_gemini_model(str(exc), model)
-        if not new_model:
+        if not new_model or new_model == model:
             raise
-        note = f"Gemini model {model} is not available, switched to {new_model}. Set gemini_model = \"{new_model}\" in config.toml to make this permanent."
-        print(f"  {note}")
-        report.ai_notes.append(note)
-        cfg["ai"]["gemini_model"] = new_model  # the rest of this run uses it too
+        _switch(cfg, new_model, why)
         data = _post_json(f"{GEMINI_API}/models/{new_model}:generateContent", headers, body)
     try:
         parts = data["candidates"][0]["content"]["parts"]
@@ -242,6 +271,9 @@ def summarise(stories, cfg, categories):
     pause = float(cfg["ai"]["seconds_between_requests"])
     batches = [stories[i:i + size] for i in range(0, len(stories), size)]
     print(f"AI: {len(stories)} stories in {len(batches)} requests via {', '.join(providers)}")
+    global _deadline
+    minutes = float(cfg["ai"]["max_minutes"])
+    _deadline = time.monotonic() + minutes * 60
 
     def attempt(n, batch):
         for provider in providers:
@@ -260,16 +292,22 @@ def summarise(stories, cfg, categories):
             return True
         return False
 
+    def out_of_time():
+        return time.monotonic() >= _deadline
+
     failed = []
     for n, batch in enumerate(batches, start=1):
-        if not attempt(n, batch):
+        if out_of_time() or not attempt(n, batch):
             failed.append((n, batch))
-        if n < len(batches):
+        if n < len(batches) and not out_of_time():
             time.sleep(pause)
-    if failed:
+    if failed and time.monotonic() + 60 < _deadline:
         # Busy spells usually pass within a few minutes: one more go at the end.
         print(f"  retrying {len(failed)} failed request(s) after a pause")
         time.sleep(60)
-        for n, batch in failed:
-            if not attempt(n, batch):
-                report.ai_notes.append(f"Request {n}: every provider failed twice, {len(batch)} stories left as headlines only")
+        failed = [(n, b) for n, b in failed if out_of_time() or not attempt(n, b)]
+    if failed:
+        left = sum(len(b) for _, b in failed)
+        why = f"the {minutes:g} minute AI time limit (max_minutes) was reached" if out_of_time() else "every AI provider failed"
+        report.ai_notes.append(f"{left} stories left as headlines only because {why}.")
+    _deadline = float("inf")

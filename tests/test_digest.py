@@ -117,6 +117,34 @@ class NewFilterTests(unittest.TestCase):
         self.assertIn("gemini-9-flash", calls[-1])
 
 
+class BusyAITests(unittest.TestCase):
+    def test_busy_model_switches_to_flash_lite(self):
+        def fake_post(url, headers, body):
+            if "flash-lite" not in url:
+                raise ai.ProviderError("HTTP 503: high demand")
+            return {"candidates": [{"content": {"parts": [{"text": "{}"}]}}]}
+
+        c = cfg()
+        with mock.patch.object(ai, "_post_json", fake_post), \
+                mock.patch.object(ai, "_newest_gemini", lambda pattern: "gemini-3.8-flash-lite"), \
+                mock.patch.dict(os.environ, {"GEMINI_API_KEY": "k"}):
+            self.assertEqual(ai.call_gemini(c, "prompt"), "{}")
+        self.assertEqual(c["ai"]["gemini_model"], "gemini-3.8-flash-lite")
+
+    def test_time_limit_stops_the_ai_stage(self):
+        c = cfg()
+        cats = settings.enabled_categories(c)
+        c["ai"]["max_minutes"] = 0
+        stories = cluster.build_stories([item("Perth rail line to close for six weeks")], c, cats, NOW)
+        called = []
+        with mock.patch.object(ai, "CALLERS", {"gemini": lambda *a: called.append(1)}), \
+                mock.patch.dict(os.environ, {"GEMINI_API_KEY": "k"}):
+            ai.summarise(stories, c, cats)
+        self.assertEqual(called, [])
+        self.assertFalse(stories[0].processed)
+        self.assertEqual(ai._deadline, float("inf"))
+
+
 class CollectTests(unittest.TestCase):
     def test_parse_google_news_feed(self):
         items = collect.parse_feed(SAMPLE_RSS, "perth", "perth")

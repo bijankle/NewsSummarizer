@@ -42,6 +42,7 @@ DEFAULTS = {
         "groq_model": "llama-3.3-70b-versatile",
         "stories_per_request": 5,
         "seconds_between_requests": 8,
+        "max_minutes": 12,
     },
     "regions": {"perth": 3.0, "australia": 2.0, "international": 1.0},
     "sources": {"blocked": [], "exclude_headline_words": []},

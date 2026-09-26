@@ -63,6 +63,11 @@ groq_model = "llama-3.3-70b-versatile"
 stories_per_request = 5
 seconds_between_requests = 8
 
+# Most minutes the AI stage may take. When Google's AI is overloaded, the
+# program first switches to the lighter Flash Lite model, and stops at this
+# limit so the digest still goes out (unfinished stories show headlines only).
+max_minutes = 12
+
 
 [regions]
 # How strongly each region is favoured when ranking stories.
