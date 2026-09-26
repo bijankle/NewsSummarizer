@@ -61,8 +61,12 @@ def available_providers(cfg):
     return order
 
 
+BUSY_WAITS = (20, 40, 60, 60, 60)  # seconds; Gemini's "high demand" spells can last minutes
+
+
 def _post_json(url, headers, body):
-    for attempt in range(4):
+    error = ""
+    for attempt in range(len(BUSY_WAITS) + 1):
         try:
             resp = requests.post(url, headers=headers, json=body, timeout=120)
         except requests.RequestException as exc:
@@ -73,7 +77,9 @@ def _post_json(url, headers, body):
             error = f"HTTP {resp.status_code}: {resp.text[:300]}"
             if resp.status_code not in (429, 500, 502, 503, 504):
                 raise ProviderError(error)
-        wait = 15 * (attempt + 1)
+        if attempt == len(BUSY_WAITS):
+            break
+        wait = BUSY_WAITS[attempt]
         print(f"    AI request failed ({error[:120]}), retrying in {wait}s")
         time.sleep(wait)
     raise ProviderError(error)
@@ -236,7 +242,8 @@ def summarise(stories, cfg, categories):
     pause = float(cfg["ai"]["seconds_between_requests"])
     batches = [stories[i:i + size] for i in range(0, len(stories), size)]
     print(f"AI: {len(stories)} stories in {len(batches)} requests via {', '.join(providers)}")
-    for n, batch in enumerate(batches, start=1):
+
+    def attempt(n, batch):
         for provider in providers:
             try:
                 prompt = build_prompt(batch, categories, CHAR_BUDGET[provider])
@@ -250,8 +257,19 @@ def summarise(stories, cfg, categories):
                     apply_result(story, results[story.id], categories)
             print(f"  batch {n}: done by {provider}")
             report.ai_notes.append(f"Request {n}: done by {provider} ({len(batch)} stories)")
-            break
-        else:
-            report.ai_notes.append(f"Request {n}: every provider failed, {len(batch)} stories left as headlines only")
+            return True
+        return False
+
+    failed = []
+    for n, batch in enumerate(batches, start=1):
+        if not attempt(n, batch):
+            failed.append((n, batch))
         if n < len(batches):
             time.sleep(pause)
+    if failed:
+        # Busy spells usually pass within a few minutes: one more go at the end.
+        print(f"  retrying {len(failed)} failed request(s) after a pause")
+        time.sleep(60)
+        for n, batch in failed:
+            if not attempt(n, batch):
+                report.ai_notes.append(f"Request {n}: every provider failed twice, {len(batch)} stories left as headlines only")

@@ -126,6 +126,19 @@ class CollectTests(unittest.TestCase):
         self.assertEqual(items[0].domain, "abc.net.au")
         self.assertEqual(items[0].summary, "")
 
+    def test_busy_feed_is_retried(self):
+        class Resp:
+            def __init__(self, code):
+                self.status_code, self.content = code, SAMPLE_RSS
+
+            def raise_for_status(self):
+                pass
+
+        replies = [Resp(503), Resp(503), Resp(200)]
+        with mock.patch.object(collect.requests, "get", lambda *a, **k: replies.pop(0)), \
+                mock.patch.object(collect.time, "sleep", lambda s: None):
+            self.assertEqual(len(collect.fetch_feed("https://news.google.com/rss/x", "perth", "perth")), 2)
+
     def test_feed_plan_uses_australian_edition(self):
         c = cfg()
         plan = collect.feed_plan(c, settings.enabled_categories(c), 30)

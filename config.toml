@@ -105,7 +105,9 @@ exclude_headline_words = [
 #   google_news_topics    Google News sections: WORLD, NATION, BUSINESS,
 #                         TECHNOLOGY, SCIENCE, HEALTH
 #   google_news_searches  Any search words, just like the Google News search box
-#   feeds                 Direct RSS feed addresses from any outlet
+#   feeds                 Direct RSS feed addresses from any outlet. These keep
+#                         the digest going when Google News is busy. If one stops
+#                         working, the Run details panel lists it under failed feeds.
 #
 # To add a new category, copy a block, give it a new name in the square
 # brackets and change the values.
@@ -117,7 +119,7 @@ weight = 1.0
 region = "perth"
 google_news_topics = []
 google_news_searches = ["Perth WA", "Western Australia", "WA government", "Perth WA transport OR housing OR council"]
-feeds = []
+feeds = ["https://www.watoday.com.au/rss/feed.xml"]
 
 [categories.engineering]
 enabled = true
@@ -126,7 +128,7 @@ weight = 1.0
 region = "international"
 google_news_topics = []
 google_news_searches = ["engineering", "infrastructure project Australia", "mining engineering", "renewable energy project"]
-feeds = ["https://spectrum.ieee.org/feeds/feed.rss"]
+feeds = ["https://spectrum.ieee.org/feeds/feed.rss", "https://newatlas.com/index.rss"]
 
 [categories.science]
 enabled = true
@@ -135,7 +137,7 @@ weight = 1.0
 region = "international"
 google_news_topics = ["SCIENCE"]
 google_news_searches = ["CSIRO"]
-feeds = []
+feeds = ["https://www.sciencedaily.com/rss/all.xml"]
 
 [categories.technology]
 enabled = true
@@ -144,7 +146,7 @@ weight = 1.0
 region = "international"
 google_news_topics = ["TECHNOLOGY"]
 google_news_searches = []
-feeds = ["https://feeds.arstechnica.com/arstechnica/index"]
+feeds = ["https://feeds.arstechnica.com/arstechnica/index", "https://www.theregister.com/headlines.atom"]
 
 [categories.economy]
 enabled = true
@@ -153,7 +155,7 @@ weight = 1.1
 region = "australia"
 google_news_topics = ["BUSINESS"]
 google_news_searches = ["ABS data", "Reserve Bank interest rates", "unemployment rate Australia", "housing affordability Australia", "cost of living Australia"]
-feeds = []
+feeds = ["https://www.rba.gov.au/rss/rss-cb-media-releases.xml"]
 
 [categories.au_politics]
 enabled = true
@@ -162,7 +164,7 @@ weight = 1.0
 region = "australia"
 google_news_topics = ["NATION"]
 google_news_searches = ["federal parliament Australia", "WA parliament"]
-feeds = []
+feeds = ["https://www.abc.net.au/news/feed/51120/rss.xml", "https://www.sbs.com.au/news/feed"]
 
 [categories.us_politics]
 enabled = false

@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>News Digest</title>
+<meta name="description" content="Daily fact focused news for Perth: facts, key numbers and why they matter.">
+<meta name="theme-color" content="#0b5cad">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root {
   --bg: #f2f4f6; --paper: #ffffff; --ink: #1d2329; --muted: #5b6670; --rule: #dfe3e7;
@@ -21,7 +26,9 @@
 body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 Georgia, "Times New Roman", serif; }
 .wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 48px; background: var(--paper); min-height: 100vh; }
 header, .controls, .tags, .sources, .meta, footer, select, input, button { font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
-h1 { font-size: 20px; letter-spacing: .08em; text-transform: uppercase; margin: 0; }
+h1 { font-size: 20px; letter-spacing: .08em; text-transform: uppercase; margin: 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+h1 .chip { letter-spacing: 0; text-transform: none; font-weight: normal; }
+[hidden] { display: none !important; }
 .meta { color: var(--muted); font-size: 13px; margin: 2px 0 0; }
 .meta a, .sources a { color: var(--accent); }
 .controls { position: sticky; top: 0; background: var(--paper); padding: 12px 0 10px; border-bottom: 1px solid var(--rule); z-index: 2; }
@@ -64,7 +71,7 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
 <body>
 <div class="wrap">
   <header>
-    <h1>News Digest</h1>
+    <h1>News Digest <button class="chip" id="install" hidden>Install app</button></h1>
     <p class="meta" id="meta">Loading...</p>
   </header>
 
@@ -348,6 +355,24 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
   }
   document.getElementById("reload").addEventListener("click", function () { loadIndex(true); });
   loadIndex(false);
+
+  // Offline support and the Chrome "Install app" option.
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  }
+  var installPrompt = null;
+  var installBtn = document.getElementById("install");
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    installPrompt = e;
+    installBtn.hidden = false;
+  });
+  installBtn.addEventListener("click", function () {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    installPrompt.userChoice.finally(function () { installPrompt = null; installBtn.hidden = true; });
+  });
+  window.addEventListener("appinstalled", function () { installBtn.hidden = true; });
 })();
 </script>
 </body>

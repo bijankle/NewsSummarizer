@@ -1,6 +1,7 @@
 """Station one: gather headlines from Google News RSS and direct outlet feeds."""
 
 import math
+import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from urllib.parse import quote_plus
@@ -73,22 +74,47 @@ def parse_feed(content, category, region):
     return items
 
 
+RETRY_STATUS = {429, 500, 502, 503, 504}
+RETRY_WAITS = (5, 15)     # seconds before the second and third attempts
+GOOGLE_SPACING = 2.0      # seconds between Google News requests
+
+
 def fetch_feed(url, category, region):
-    try:
-        resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=20)
-        resp.raise_for_status()
-    except requests.RequestException as exc:
-        print(f"  feed failed: {url[:90]} ({exc})")
-        report.feed_failures.append({"url": url, "error": str(exc)[:200]})
-        return []
-    return parse_feed(resp.content, category, region)
+    error = ""
+    for attempt in range(len(RETRY_WAITS) + 1):
+        try:
+            resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=20)
+            if resp.status_code not in RETRY_STATUS:
+                resp.raise_for_status()
+                return parse_feed(resp.content, category, region)
+            error = f"HTTP {resp.status_code} (busy or rate limited)"
+        except requests.RequestException as exc:
+            error = str(exc)
+            if getattr(exc, "response", None) is not None and exc.response.status_code not in RETRY_STATUS:
+                break  # a 404 or similar will not fix itself
+        if attempt < len(RETRY_WAITS):
+            time.sleep(RETRY_WAITS[attempt])
+    print(f"  feed failed: {url[:90]} ({error})")
+    report.feed_failures.append({"url": url, "error": error[:200]})
+    return []
 
 
 def collect(cfg, categories, lookback_hours):
+    """Direct outlet feeds are fetched in parallel. Google News feeds go one at a
+    time with a pause between them, because Google answers "503 busy" to a burst
+    of simultaneous requests from GitHub's servers."""
     plan = feed_plan(cfg, categories, lookback_hours)
-    print(f"Collecting from {len(plan)} feeds")
-    with ThreadPoolExecutor(max_workers=6) as pool:
-        results = list(pool.map(lambda p: fetch_feed(*p), plan))
+    google = [p for p in plan if p[0].startswith(GOOGLE_NEWS)]
+    direct = [p for p in plan if not p[0].startswith(GOOGLE_NEWS)]
+    print(f"Collecting from {len(plan)} feeds ({len(google)} Google News, {len(direct)} direct)")
+    results = []
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        direct_results = pool.map(lambda p: fetch_feed(*p), direct)
+        for n, p in enumerate(google):
+            if n:
+                time.sleep(GOOGLE_SPACING)
+            results.append(fetch_feed(*p))
+        results.extend(direct_results)
     items = [item for batch in results for item in batch]
     print(f"  {len(items)} headlines collected")
     report.stage(f"Headlines collected from {len(plan) - len(report.feed_failures)} of {len(plan)} feeds", len(items))
