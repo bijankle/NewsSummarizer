@@ -249,6 +249,7 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
       banner.appendChild(el("p", { "class": "banner" }, "This is a preview. Nothing was emailed and the memory of sent stories was not changed, " +
         "so the next real email should match this unless the news changes in the meantime."));
     }
+    if (data.notice) banner.appendChild(el("p", { "class": "banner" }, data.notice));
     var d = data.diagnostics;
     if (!d) return;
     var det = el("details", { "class": "diag" });
@@ -304,6 +305,7 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
   }
 
   function loadEdition(file, index) {
+    if (file.indexOf("/") < 0 && file !== "preview.json") file = "digests/" + file;  // early digests
     fetch("data/" + file + "?t=" + Date.now(), { cache: "no-store" })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (d) { data = d; setMeta(index); renderDiagnostics(); renderAll(); })

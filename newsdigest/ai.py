@@ -20,7 +20,7 @@ For every story you are given, follow these rules.
 
 1. Report only facts stated in the supplied articles: who, what, when, where, how many. Attribute claims to whoever made them ("police said", "the ABS reported", "the company claims"). Never add facts that are not in the text. If outlets disagree on a fact, say so.
 2. Remove opinion, speculation, loaded or emotional adjectives, commentators' predictions and rhetorical framing.
-3. Set is_opinion to true if the piece is mainly opinion, a column, an editorial, a review, a lifestyle or entertainment feature, a promotion, or has no real news event. Otherwise false.
+3. Set is_opinion to true if the piece is mainly opinion, a column, an editorial, a review, a promotion, or has no real news event. Otherwise false. Set kind to exactly one of: "news", "opinion", "sport", "entertainment", "lifestyle", "promotional". Match reports, team news, fixtures and how to watch guides are "sport". Celebrity, arts and TV are "entertainment". Lotto wins, travel, food and human interest fluff are "lifestyle". Press releases and advertorials are "promotional".
 4. headline: a plain, neutral headline of at most 14 words.
 5. facts: two to four plain sentences covering the core facts.
 6. key_numbers: up to four figures, each with units and context, for example "Unemployment rate: 4.1% in August, up from 4.0% in July". Use an empty list if there are none.
@@ -35,9 +35,11 @@ For every story you are given, follow these rules.
 Write in Australian English with plain sentences, using commas and full stops rather than dashes. Respond with JSON only."""
 
 FORMAT_HINT = """Return a JSON object of this exact shape:
-{"stories": [{"id": "s1", "is_opinion": false, "headline": "...", "facts": "...", "key_numbers": ["..."], "why_it_matters": "...", "category": "...", "region": "perth", "importance": 3, "has_new_facts": true, "update_summary": "", "debate": null}]}
+{"stories": [{"id": "s1", "is_opinion": false, "kind": "news", "headline": "...", "facts": "...", "key_numbers": ["..."], "why_it_matters": "...", "category": "...", "region": "perth", "importance": 3, "has_new_facts": true, "update_summary": "", "debate": null}]}
 where debate, when present, looks like {"question": "...", "sides": [{"side": "...", "position": "...", "evidence": "..."}]}.
 Include one object for every story id given."""
+
+KINDS = ("news", "opinion", "sport", "entertainment", "lifestyle", "promotional")
 
 # Characters of article text per request, sized to each free tier.
 CHAR_BUDGET = {"gemini": 60000, "groq": 14000}
@@ -77,16 +79,57 @@ def _post_json(url, headers, body):
     raise ProviderError(error)
 
 
+GEMINI_API = "https://generativelanguage.googleapis.com/v1beta"
+FLASH_NAME = re.compile(r"^gemini-(\d+(?:\.\d+)?)-flash$")
+
+
+def replacement_gemini_model(error_text, current):
+    """When Google retires a model, find the newest plain Flash model instead.
+
+    Google's error usually names the successor. Otherwise ask for the model list.
+    """
+    hinted = [m for m in re.findall(r"models/(gemini[\w.\-]*\w)", error_text) if m != current]
+    if hinted:
+        return hinted[0]
+    try:
+        resp = requests.get(
+            f"{GEMINI_API}/models", params={"pageSize": 1000},
+            headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"].strip()}, timeout=30,
+        )
+        resp.raise_for_status()
+        models = resp.json().get("models", [])
+    except (requests.RequestException, ValueError):
+        return None
+    candidates = []
+    for m in models:
+        name = m.get("name", "").removeprefix("models/")
+        match = FLASH_NAME.match(name)
+        if match and "generateContent" in m.get("supportedGenerationMethods", []):
+            candidates.append((float(match.group(1)), name))
+    return max(candidates)[1] if candidates else None
+
+
 def call_gemini(cfg, prompt):
     model = cfg["ai"]["gemini_model"]
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
     headers = {"x-goog-api-key": os.environ["GEMINI_API_KEY"].strip()}
     body = {
         "systemInstruction": {"parts": [{"text": SYSTEM_PROMPT}]},
         "contents": [{"role": "user", "parts": [{"text": prompt}]}],
         "generationConfig": {"responseMimeType": "application/json", "temperature": 0.2},
     }
-    data = _post_json(url, headers, body)
+    try:
+        data = _post_json(f"{GEMINI_API}/models/{model}:generateContent", headers, body)
+    except ProviderError as exc:
+        if "404" not in str(exc):
+            raise
+        new_model = replacement_gemini_model(str(exc), model)
+        if not new_model:
+            raise
+        note = f"Gemini model {model} is not available, switched to {new_model}. Set gemini_model = \"{new_model}\" in config.toml to make this permanent."
+        print(f"  {note}")
+        report.ai_notes.append(note)
+        cfg["ai"]["gemini_model"] = new_model  # the rest of this run uses it too
+        data = _post_json(f"{GEMINI_API}/models/{new_model}:generateContent", headers, body)
     try:
         parts = data["candidates"][0]["content"]["parts"]
     except (KeyError, IndexError) as exc:
@@ -155,6 +198,8 @@ def _text(value):
 def apply_result(story, result, categories):
     story.processed = True
     story.is_opinion = story.is_opinion or bool(result.get("is_opinion"))
+    kind = _text(result.get("kind")).lower()
+    story.kind = kind if kind in KINDS else ("opinion" if story.is_opinion else "news")
     story.headline = _text(result.get("headline")) or story.items[0].title
     story.facts = _text(result.get("facts"))
     story.key_numbers = [str(n).strip() for n in result.get("key_numbers") or [] if str(n).strip()][:4]

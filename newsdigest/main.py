@@ -57,7 +57,7 @@ def build(cfg, state, history, now, preview=False):
         # A preview carries on, so the failures show up in the run details.
         raise SystemExit("No headlines could be collected from any feed")
     seen_links = {link for entry in history for link in entry.get("links", [])}
-    items = cluster.screen(items, since, cfg["sources"]["blocked"], seen_links)
+    items = cluster.screen(items, since, cfg["sources"]["blocked"], seen_links, cfg["sources"]["exclude_headline_words"])
     stories = cluster.build_stories(items, cfg, categories, now)
     cluster.match_history(stories, history, d["similarity_threshold"])
 
@@ -82,8 +82,11 @@ def build(cfg, state, history, now, preview=False):
 
     kept = []
     for story in candidates:
-        if story.is_opinion:
+        if story.is_opinion and "opinion" in d["exclude_kinds"]:
             report.drop_story(story, "opinion or not news (AI judgement)")
+            continue
+        if story.kind in d["exclude_kinds"] and story.kind != "opinion":
+            report.drop_story(story, f"{story.kind} (excluded kind, AI judgement)")
             continue
         if story.previous and not story.has_new_facts:
             report.drop_story(story, f"already sent on {story.previous.get('date', 'an earlier day')}, no new facts")
@@ -101,6 +104,12 @@ def build(cfg, state, history, now, preview=False):
     kept = kept[:web_count]
     email_count = int(d["email_story_count"])
     dicts = [render.story_to_dict(s, categories, n < email_count) for n, s in enumerate(kept)]
+    unprocessed = sum(1 for s in kept if not s.processed)
+    if use_ai and kept and unprocessed:
+        report.notice = (
+            f"The AI could not summarise {unprocessed} of {len(kept)} stories this run, so those show headlines only "
+            "and were not checked for opinion or sport. See Run details on the web page for the reason."
+        )
     print(f"Digest: {min(email_count, len(dicts))} stories for email, {len(dicts)} for the web page")
     report.stage("Stories on the web page", len(dicts))
     report.stage("Stories in the email", min(email_count, len(dicts)))
@@ -135,6 +144,10 @@ def _read_index(path):
     except (FileNotFoundError, json.JSONDecodeError):
         index = {}
     index.setdefault("digests", [])
+    for entry in index["digests"]:
+        # Early digests stored bare file names inside digests/.
+        if "/" not in entry["file"]:
+            entry["file"] = f"digests/{entry['file']}"
     return index
 
 
@@ -153,6 +166,7 @@ def publish(local, dicts, debates, web_url, settings_url, preview):
         "settings_url": settings_url,
         "stories": dicts,
         "debates": debates,
+        "notice": report.notice,
         "diagnostics": report.to_dict(),
     }
     path = "preview.json" if preview else f"digests/{local:%Y-%m-%d-%H%M}.json"
@@ -194,8 +208,8 @@ def run(preview=False, now=None):
     email_debates = render.collect_debates(email_dicts) if show_debates else []
     web_debates = render.collect_debates(dicts) if show_debates else []
     web_url, settings_url = repo_urls(cfg)
-    html = render.email_html(local.date(), email_dicts, email_debates, web_url, settings_url)
-    text = render.email_text(local.date(), email_dicts, email_debates, web_url)
+    html = render.email_html(local.date(), email_dicts, email_debates, web_url, settings_url, report.notice)
+    text = render.email_text(local.date(), email_dicts, email_debates, web_url, report.notice)
     n = len(email_dicts)
     subject = f"News Digest, {local:%a} {local.day} {local:%b}: {n} {'story' if n == 1 else 'stories'}"
 

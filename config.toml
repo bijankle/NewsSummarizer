@@ -35,6 +35,11 @@ show_updates = true
 # Add the "Debates and Contested Claims" section at the bottom.
 debates_section = true
 
+# Kinds of story to leave out. The AI labels every story as one of:
+# "news", "opinion", "sport", "entertainment", "lifestyle", "promotional".
+# Remove "sport" from this list if you want sport results back.
+exclude_kinds = ["opinion", "sport", "entertainment", "lifestyle", "promotional"]
+
 # Google News edition. "en-AU" and "AU" give the Australian edition.
 language = "en-AU"
 country = "AU"
@@ -48,7 +53,9 @@ web_page_url = ""
 # "none" sends plain headlines only, useful for testing the plumbing.
 # If the chosen one fails and the other has a key, the other is tried.
 provider = "gemini"
-gemini_model = "gemini-2.5-flash"
+# If Google retires this model, the program switches to the newest Flash
+# model by itself and says so in the run details. Update it here when it does.
+gemini_model = "gemini-3.8-flash"
 groq_model = "llama-3.3-70b-versatile"
 
 # Stories sent to the AI per request, and the pause between requests.
@@ -74,6 +81,18 @@ blocked = [
   "washingtonpost.com", "thetimes.co.uk", "telegraph.co.uk",
 ]
 
+# Headlines containing any of these words or phrases are dropped before the
+# AI sees them (not case sensitive, whole words only). This is a cheap first
+# screen for sport and fluff. The AI's exclude_kinds check catches the rest.
+# The last line removes the "other Perths" in Scotland and Canada.
+exclude_headline_words = [
+  "AFL", "NRL", "AFLW", "A-League", "Wallabies", "Springboks", "Socceroos", "Matildas",
+  "rugby", "cricket", "netball", "grand final", "premiership", "Brownlow",
+  "Wildcats", "Dockers", "West Coast Eagles", "Perth Glory", "Scorchers", "Perth Inferno",
+  "how to watch", "Lotto", "Powerball", "horoscope", "live departures",
+  "Scotland", "Perthshire", "Perth and Kinross", "Ontario", "Perth County", "OPP",
+]
+
 
 # CATEGORIES
 #
@@ -97,7 +116,7 @@ label = "Perth and WA"
 weight = 1.0
 region = "perth"
 google_news_topics = []
-google_news_searches = ["Perth", "Western Australia", "WA government", "Perth traffic OR transport OR housing"]
+google_news_searches = ["Perth WA", "Western Australia", "WA government", "Perth WA transport OR housing OR council"]
 feeds = []
 
 [categories.engineering]

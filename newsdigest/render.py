@@ -128,7 +128,15 @@ def collect_debates(story_dicts):
     ]
 
 
-def email_html(day, stories, debates, web_url, settings_url):
+def notice_html(notice):
+    if not notice:
+        return ""
+    c = COLOURS
+    return (f'<p style="margin:12px 0 0;padding:8px 10px;background:{c["update_bg"]};border-left:3px solid {c["update"]};'
+            f'font-size:13px">{escape(notice)}</p>')
+
+
+def email_html(day, stories, debates, web_url, settings_url, notice=""):
     c = COLOURS
     links = []
     if web_url:
@@ -147,6 +155,7 @@ def email_html(day, stories, debates, web_url, settings_url):
 <h1 style="font-size:20px;letter-spacing:.08em;text-transform:uppercase;margin:0">News Digest</h1>
 <p style="margin:2px 0 0;color:{c['muted']};font-size:13px">{escape(long_date(day))}, {counts}</p>
 {link_row}
+{notice_html(notice)}
 </div>
 {body}
 {debates_html(debates)}
@@ -154,8 +163,10 @@ def email_html(day, stories, debates, web_url, settings_url):
 </div></body></html>"""
 
 
-def email_text(day, stories, debates, web_url):
+def email_text(day, stories, debates, web_url, notice=""):
     lines = [f"NEWS DIGEST, {long_date(day).upper()}", ""]
+    if notice:
+        lines += [f"NOTE: {notice}", ""]
     if web_url:
         lines += [f"View and filter online: {web_url}", ""]
     for n, s in enumerate(stories, start=1):

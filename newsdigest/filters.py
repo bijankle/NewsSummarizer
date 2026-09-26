@@ -27,6 +27,14 @@ def is_opinion_url(url):
     return bool(OPINION_URL.search(url or ""))
 
 
+def excluded_word(title, words):
+    """The first excluded word or phrase found in the headline, if any."""
+    for word in words:
+        if re.search(r"(?<!\w)" + re.escape(word) + r"(?!\w)", title or "", re.IGNORECASE):
+            return word
+    return None
+
+
 def is_blocked(domain, blocked):
     domain = (domain or "").lower()
     return any(domain == b or domain.endswith("." + b) for b in blocked)

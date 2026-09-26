@@ -17,6 +17,7 @@ class Report:
         self.feed_failures = []   # {"url", "error"}
         self.ai_notes = []        # one line per AI request
         self.lookback_hours = 0
+        self.notice = ""          # shown at the top of the email and the page
 
     def stage(self, label, count):
         self.funnel.append([label, count])
@@ -40,6 +41,8 @@ class Report:
     def markdown(self, email_stories, web_url, preview):
         """Summary shown on the GitHub Actions run page."""
         lines = ["## " + ("Preview, not emailed" if preview else "Digest sent"), ""]
+        if self.notice:
+            lines += [f"> **Warning.** {self.notice}", ""]
         if web_url:
             lines += [f"Web page: {web_url}" + (" (choose the Preview edition)" if preview else ""), ""]
         lines += ["### Stories " + ("that would be in the email" if preview else "in the email"), ""]

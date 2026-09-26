@@ -34,16 +34,17 @@ DEFAULTS = {
         "articles_per_story": 2,
         "similarity_threshold": 0.3,
         "history_days": 30,
+        "exclude_kinds": ["opinion", "sport", "entertainment", "lifestyle", "promotional"],
     },
     "ai": {
         "provider": "gemini",
-        "gemini_model": "gemini-2.5-flash",
+        "gemini_model": "gemini-3.8-flash",
         "groq_model": "llama-3.3-70b-versatile",
         "stories_per_request": 5,
         "seconds_between_requests": 8,
     },
     "regions": {"perth": 3.0, "australia": 2.0, "international": 1.0},
-    "sources": {"blocked": []},
+    "sources": {"blocked": [], "exclude_headline_words": []},
     "categories": {},
 }
 

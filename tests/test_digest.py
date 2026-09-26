@@ -86,6 +86,37 @@ class TextTests(unittest.TestCase):
         self.assertTrue(is_blocked("amp.afr.com", ["afr.com"]))
 
 
+class NewFilterTests(unittest.TestCase):
+    def test_excluded_words_whole_word_only(self):
+        from newsdigest.filters import excluded_word
+        words = cfg()["sources"]["exclude_headline_words"]
+        self.assertEqual(excluded_word("Talking points for today's AFL grand final", words), "AFL")
+        self.assertEqual(excluded_word("Crash closes A9 in the Highlands of Scotland", words), "Scotland")
+        self.assertIsNone(excluded_word("Wafl ruling hits council budget", ["AFL"]))
+        self.assertIsNone(excluded_word("RBA holds cash rate at 3.6 per cent", words))
+
+    def test_gemini_successor_from_error_message(self):
+        msg = ('HTTP 404: "This model models/gemini-2.5-flash is no longer available to new users. '
+               'Please update your code to use models/gemini-3.8-flash for the latest"')
+        self.assertEqual(ai.replacement_gemini_model(msg, "gemini-2.5-flash"), "gemini-3.8-flash")
+
+    def test_gemini_switches_model_on_404(self):
+        calls = []
+
+        def fake_post(url, headers, body):
+            calls.append(url)
+            if "gemini-old" in url:
+                raise ai.ProviderError("HTTP 404: use models/gemini-9-flash instead")
+            return {"candidates": [{"content": {"parts": [{"text": "{}"}]}}]}
+
+        c = cfg()
+        c["ai"]["gemini_model"] = "gemini-old"
+        with mock.patch.object(ai, "_post_json", fake_post), mock.patch.dict(os.environ, {"GEMINI_API_KEY": "k"}):
+            self.assertEqual(ai.call_gemini(c, "prompt"), "{}")
+        self.assertEqual(c["ai"]["gemini_model"], "gemini-9-flash")
+        self.assertIn("gemini-9-flash", calls[-1])
+
+
 class CollectTests(unittest.TestCase):
     def test_parse_google_news_feed(self):
         items = collect.parse_feed(SAMPLE_RSS, "perth", "perth")
@@ -255,6 +286,25 @@ class PipelineTests(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 main.run(preview=False, now=NOW)
         self.assertEqual(self.sent, [])
+
+    def test_sport_dropped_by_ai_kind(self):
+        def reply(provider_cfg, prompt):
+            data = json.loads(fake_ai_reply()(provider_cfg, prompt))
+            data["stories"][0]["kind"] = "sport"
+            return json.dumps(data)
+
+        with mock.patch.object(ai, "CALLERS", {"gemini": reply}):
+            self.run_with([item("Perth Heat win baseball series opener at home")], NOW)
+        self.assertIn("0 stories", self.sent[0][0])
+
+    def test_ai_failure_is_announced(self):
+        def broken(provider_cfg, prompt):
+            raise ai.ProviderError("HTTP 404: model gone")
+
+        with mock.patch.object(ai, "CALLERS", {"gemini": broken}):
+            self.run_with([item("Perth rail line to close for six weeks")], NOW)
+        self.assertIn("could not summarise 1 of 1", self.sent[0][1])
+        self.assertIn("NOTE:", self.sent[0][2])
 
     def test_headlines_only_without_ai_key(self):
         with mock.patch.dict(os.environ, {"GEMINI_API_KEY": ""}):

@@ -5,12 +5,12 @@ from collections import Counter
 from datetime import datetime, timedelta, timezone
 
 from .diagnostics import report
-from .filters import is_blocked, is_opinion_title
+from .filters import excluded_word, is_blocked, is_opinion_title
 from .models import Story
 from .textutil import best_similarity, tokens
 
 
-def screen(items, since, blocked, seen_links):
+def screen(items, since, blocked, seen_links, exclude_words=()):
     """Drop old, already sent, blocked and obviously opinion headlines."""
     kept, seen = [], set()
     counts = Counter()
@@ -27,14 +27,18 @@ def screen(items, since, blocked, seen_links):
             reason = "opinion by headline"
         elif len(tokens(item.title)) < 3:
             reason = "headline too short"
+        elif excluded_word(item.title, exclude_words):
+            reason = f'excluded word "{excluded_word(item.title, exclude_words)}"'
         else:
             kept.append(item)
             seen.add(item.link)
             continue
-        counts[reason] += 1
         # Old, duplicate and sent items are too numerous to list one by one.
-        if reason in ("blocked outlet", "opinion by headline", "headline too short"):
+        if reason not in ("duplicate feed entry", "already sent", "too old"):
             report.drop(item.title, item.source, reason)
+            counts["excluded word" if reason.startswith("excluded") else reason] += 1
+        else:
+            counts[reason] += 1
     summary = ", ".join(f"{n} {why}" for why, n in counts.items()) or "nothing"
     print(f"Screen kept {len(kept)} headlines (removed {summary})")
     report.stage(f"Headlines left after screening (removed {summary})", len(kept))

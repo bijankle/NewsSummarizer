@@ -46,6 +46,7 @@ class Story:
     # Filled in by the AI stage.
     processed: bool = False
     is_opinion: bool = False
+    kind: str = "news"
     headline: str = ""
     facts: str = ""
     key_numbers: list = field(default_factory=list)
