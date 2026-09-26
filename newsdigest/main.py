@@ -1,8 +1,7 @@
-"""Runs the whole production line once: collect, screen, group, extract, summarise, send, publish.
+"""Runs the whole production line once: collect, screen, group, extract, summarise, publish.
 
-python -m newsdigest              build, email, publish the web page and save memory
-python -m newsdigest --preview    build only: publish a Preview edition to the web page, no email,
-                                  and the memory of sent stories is left untouched
+python -m newsdigest              build, publish to the web page and save the memory of published stories
+python -m newsdigest --dry-run    build only, write output/latest.json, change nothing else
 """
 
 import argparse
@@ -41,7 +40,7 @@ def repo_urls(cfg):
     return web, settings
 
 
-def build(cfg, state, history, now, preview=False):
+def build(cfg, state, history, now):
     categories = enabled_categories(cfg)
     if not categories:
         raise SystemExit("No categories are enabled in config.toml")
@@ -52,24 +51,26 @@ def build(cfg, state, history, now, preview=False):
     report.lookback_hours = hours
 
     items = collect.collect(cfg, categories, hours)
-    if not items and not preview:
+    if not items:
         # Every feed failed. Fail the run so the next hourly check retries.
-        # A preview carries on, so the failures show up in the run details.
         raise SystemExit("No headlines could be collected from any feed")
     seen_links = {link for entry in history for link in entry.get("links", [])}
-    items = cluster.screen(items, since, cfg["sources"]["blocked"], seen_links, cfg["sources"]["exclude_headline_words"])
+    words = list(cfg["sources"]["exclude_headline_words"])
+    if "sport" in d["exclude_kinds"]:
+        words += cfg["sources"]["sport_headline_words"]
+    items = cluster.screen(items, since, cfg["sources"]["blocked"], seen_links, words)
     stories = cluster.build_stories(items, cfg, categories, now)
     cluster.match_history(stories, history, d["similarity_threshold"])
 
     use_ai = bool(ai.available_providers(cfg))
     if not (use_ai and d["show_updates"]):
-        why = "repeat of a story already sent (updates are off)" if use_ai else "repeat of a story already sent (no AI to check for new facts)"
+        why = "already published (updates are off)" if use_ai else "already published (no AI to check for new facts)"
         for s in stories:
             if s.previous:
                 report.drop_story(s, why)
         stories = [s for s in stories if not s.previous]
     # Process a few extra, because some turn out to be opinion or old news.
-    web_count = int(d["web_story_count"])
+    web_count = int(d["stories_per_run"])
     candidates = stories[: web_count + max(5, web_count // 4)]
     report.stage("Top events picked for full processing", len(candidates))
 
@@ -89,7 +90,7 @@ def build(cfg, state, history, now, preview=False):
             report.drop_story(story, f"{story.kind} (excluded kind, AI judgement)")
             continue
         if story.previous and not story.has_new_facts:
-            report.drop_story(story, f"already sent on {story.previous.get('date', 'an earlier day')}, no new facts")
+            report.drop_story(story, f"already published on {story.previous.get('date', 'an earlier day')}, no new facts")
             continue
         if cluster.region_weight(cfg, story.region) <= 0:
             report.drop_story(story, f"region {story.region} is set to 0")
@@ -102,17 +103,15 @@ def build(cfg, state, history, now, preview=False):
     for story in kept[web_count:]:
         report.drop_story(story, f"ranked below the top {web_count}")
     kept = kept[:web_count]
-    email_count = int(d["email_story_count"])
-    dicts = [render.story_to_dict(s, categories, n < email_count) for n, s in enumerate(kept)]
+    dicts = [render.story_to_dict(s, categories) for s in kept]
     unprocessed = sum(1 for s in kept if not s.processed)
     if use_ai and kept and unprocessed:
         report.notice = (
             f"The AI could not summarise {unprocessed} of {len(kept)} stories this run, so those show headlines only "
             "and were not checked for opinion or sport. See Run details on the web page for the reason."
         )
-    print(f"Digest: {min(email_count, len(dicts))} stories for email, {len(dicts)} for the web page")
-    report.stage("Stories on the web page", len(dicts))
-    report.stage("Stories in the email", min(email_count, len(dicts)))
+    print(f"Publishing {len(dicts)} stories")
+    report.stage("Stories published to the web page", len(dicts))
     return kept, dicts, categories
 
 
@@ -151,91 +150,73 @@ def _read_index(path):
     return index
 
 
-def publish(local, dicts, debates, web_url, settings_url, preview):
-    """Write the web page data. A preview replaces the single Preview edition."""
+def publish(local, dicts, web_url, settings_url):
+    """Write this run's stories as a new edition and list it in index.json."""
     data_dir = DOCS_DIR / "data"
-    digest_dir = data_dir / "digests"
-    digest_dir.mkdir(parents=True, exist_ok=True)
-    label = render.long_date(local.date())
-    if preview:
-        label = f"Preview, {local:%a} {local.day} {local:%b} {local:%H:%M}, not emailed"
+    (data_dir / "digests").mkdir(parents=True, exist_ok=True)
     payload = {
         "generated": local.isoformat(timespec="minutes"),
-        "label": label,
-        "preview": preview,
+        "label": render.long_date(local.date()),
         "settings_url": settings_url,
         "stories": dicts,
-        "debates": debates,
         "notice": report.notice,
         "diagnostics": report.to_dict(),
     }
-    path = "preview.json" if preview else f"digests/{local:%Y-%m-%d-%H%M}.json"
+    path = f"digests/{local:%Y-%m-%d-%H%M}.json"
     (data_dir / path).write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
 
     index_path = data_dir / "index.json"
     index = _read_index(index_path)
-    entry = {"file": path, "label": label, "stories": len(dicts), "generated": payload["generated"]}
-    if preview:
-        index["preview"] = entry
-    else:
-        entries = [entry] + [e for e in index["digests"] if e["file"] != path]
-        for old in entries[KEEP_DIGESTS:]:
-            (data_dir / old["file"]).unlink(missing_ok=True)
-        index["digests"] = entries[:KEEP_DIGESTS]
+    entry = {"file": path, "label": payload["label"], "stories": len(dicts), "generated": payload["generated"]}
+    entries = [entry] + [e for e in index["digests"] if e["file"] != path]
+    for old in entries[KEEP_DIGESTS:]:
+        (data_dir / old["file"]).unlink(missing_ok=True)
+    index["digests"] = entries[:KEEP_DIGESTS]
+    index.pop("preview", None)
+    (data_dir / "preview.json").unlink(missing_ok=True)
     index.update(settings_url=settings_url, web_url=web_url)
     index_path.write_text(json.dumps(index, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"Web page data written: {label}")
+    print(f"Web page data written: {payload['label']}, {len(dicts)} stories")
 
 
-def write_run_summary(email_dicts, web_url, preview):
+def write_run_summary(dicts, web_url):
     """Shown on the run's page in the GitHub Actions tab."""
     path = os.environ.get("GITHUB_STEP_SUMMARY")
     if path:
         with open(path, "a", encoding="utf-8") as f:
-            f.write(report.markdown(email_dicts, web_url, preview))
+            f.write(report.markdown(dicts, web_url))
 
 
-def run(preview=False, now=None):
+def run(dry_run=False, now=None):
     now = now or datetime.now(timezone.utc)
     report.reset()
     cfg = load_config()
     state, history = load_state(), load_history()
     local = now.astimezone(ZoneInfo(cfg["schedule"]["timezone"]))
 
-    stories, dicts, _ = build(cfg, state, history, now, preview)
-    email_dicts = [s for s in dicts if s["in_email"]]
-    show_debates = cfg["digest"]["debates_section"]
-    email_debates = render.collect_debates(email_dicts) if show_debates else []
-    web_debates = render.collect_debates(dicts) if show_debates else []
+    stories, dicts, _ = build(cfg, state, history, now)
+    if not cfg["digest"]["debates_section"]:
+        for s in dicts:
+            s["debate"] = None
     web_url, settings_url = repo_urls(cfg)
-    html = render.email_html(local.date(), email_dicts, email_debates, web_url, settings_url, report.notice)
-    text = render.email_text(local.date(), email_dicts, email_debates, web_url, report.notice)
-    n = len(email_dicts)
-    subject = f"News Digest, {local:%a} {local.day} {local:%b}: {n} {'story' if n == 1 else 'stories'}"
 
-    out_dir = ROOT / "output"
-    out_dir.mkdir(exist_ok=True)
-    (out_dir / "preview.html").write_text(html, encoding="utf-8")
-    (out_dir / "preview.txt").write_text(text, encoding="utf-8")
-    if preview:
-        publish(local, dicts, web_debates, web_url, settings_url, preview=True)
-        write_run_summary(email_dicts, web_url, preview=True)
-        print(f"Preview only, nothing emailed. Email layout saved in {out_dir / 'preview.html'}")
+    if dry_run:
+        out_dir = ROOT / "output"
+        out_dir.mkdir(exist_ok=True)
+        (out_dir / "latest.json").write_text(json.dumps(dicts, ensure_ascii=False, indent=1), encoding="utf-8")
+        print(f"Dry run, nothing published. Stories saved in {out_dir / 'latest.json'}")
         return
 
-    from .emailer import send_email
-
-    send_email(subject, html, text)
-    publish(local, dicts, web_debates, web_url, settings_url, preview=False)
-    write_run_summary(email_dicts, web_url, preview=False)
+    publish(local, dicts, web_url, settings_url)
+    write_run_summary(dicts, web_url)
     save_history(remember(history, stories, local.date().isoformat(), cfg, now))
     save_state({"last_sent_utc": now.isoformat(timespec="seconds"), "last_sent_local_date": local.date().isoformat()})
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Build and send the news digest.")
-    parser.add_argument("--preview", action="store_true", help="build and publish a Preview edition, no email, memory untouched")
-    run(preview=parser.parse_args().preview)
+    parser = argparse.ArgumentParser(description="Build the news digest and publish it to the web page.")
+    parser.add_argument("--dry-run", action="store_true", help="build only, publish and save nothing")
+    run(dry_run=parser.parse_args().dry_run)
 
 
 if __name__ == "__main__":

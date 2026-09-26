@@ -17,12 +17,11 @@ DAY_NAMES = ("mon", "tue", "wed", "thu", "fri", "sat", "sun")
 DEFAULTS = {
     "schedule": {
         "timezone": "Australia/Perth",
-        "send_time": "03:00",
-        "send_days": list(DAY_NAMES),
+        "update_time": "03:00",
+        "update_days": list(DAY_NAMES),
     },
     "digest": {
-        "email_story_count": 10,
-        "web_story_count": 40,
+        "stories_per_run": 40,
         "show_updates": True,
         "debates_section": True,
         "language": "en-AU",
@@ -45,7 +44,7 @@ DEFAULTS = {
         "max_minutes": 12,
     },
     "regions": {"perth": 3.0, "australia": 2.0, "international": 1.0},
-    "sources": {"blocked": [], "exclude_headline_words": []},
+    "sources": {"blocked": [], "exclude_headline_words": [], "sport_headline_words": []},
     "categories": {},
 }
 
@@ -62,6 +61,11 @@ CATEGORY_DEFAULTS = {
 def load_config(path=CONFIG_PATH):
     with open(path, "rb") as f:
         raw = tomllib.load(f)
+    # Older settings files used these names.
+    for section, old, new in (("schedule", "send_time", "update_time"), ("schedule", "send_days", "update_days"),
+                              ("digest", "web_story_count", "stories_per_run")):
+        if old in raw.get(section, {}):
+            raw[section].setdefault(new, raw[section][old])
     cfg = {}
     for section, defaults in DEFAULTS.items():
         merged = dict(defaults)
@@ -75,7 +79,7 @@ def load_config(path=CONFIG_PATH):
             merged["region"] = "international"
         categories[key] = merged
     cfg["categories"] = categories
-    cfg["schedule"]["send_days"] = [d.lower()[:3] for d in cfg["schedule"]["send_days"]]
+    cfg["schedule"]["update_days"] = [d.lower()[:3] for d in cfg["schedule"]["update_days"]]
     return cfg
 
 

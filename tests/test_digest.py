@@ -44,7 +44,7 @@ def item(title, source="ABC News", hours_ago=2, category="perth", link=None):
 
 
 class GateTests(unittest.TestCase):
-    def test_sends_after_send_time_once_per_day(self):
+    def test_runs_after_update_time_once_per_day(self):
         c = cfg()
         self.assertTrue(should_send(c, {}, NOW)[0])
         self.assertFalse(should_send(c, {"last_sent_local_date": "2026-09-25"}, NOW)[0])
@@ -55,7 +55,7 @@ class GateTests(unittest.TestCase):
 
     def test_skips_days_not_listed(self):
         c = cfg()
-        c["schedule"]["send_days"] = ["sun"]
+        c["schedule"]["update_days"] = ["sun"]
         self.assertFalse(should_send(c, {}, NOW)[0])
         self.assertTrue(should_send(c, {}, NOW, force=True)[0])
 
@@ -89,7 +89,7 @@ class TextTests(unittest.TestCase):
 class NewFilterTests(unittest.TestCase):
     def test_excluded_words_whole_word_only(self):
         from newsdigest.filters import excluded_word
-        words = cfg()["sources"]["exclude_headline_words"]
+        words = cfg()["sources"]["exclude_headline_words"] + cfg()["sources"]["sport_headline_words"]
         self.assertEqual(excluded_word("Talking points for today's AFL grand final", words), "AFL")
         self.assertEqual(excluded_word("Crash closes A9 in the Highlands of Scotland", words), "Scotland")
         self.assertIsNone(excluded_word("Wafl ruling hits council budget", ["AFL"]))
@@ -235,7 +235,7 @@ def fake_ai_reply(update_ids=()):
 
 
 class PipelineTests(unittest.TestCase):
-    """Runs the full line twice with the network replaced by fakes."""
+    """Runs the full line with the network replaced by fakes."""
 
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
@@ -253,31 +253,32 @@ class PipelineTests(unittest.TestCase):
         for p in patches:
             p.start()
             self.addCleanup(p.stop)
-        self.sent = []
-        emailer = mock.patch("newsdigest.emailer.send_email", lambda *a: self.sent.append(a))
-        emailer.start()
-        self.addCleanup(emailer.stop)
 
-    def run_with(self, items, now):
+    def run_with(self, items, now, **kwargs):
         with mock.patch.object(collect, "collect", lambda *a: list(items)):
-            main.run(now=now)
+            main.run(now=now, **kwargs)
+
+    def latest(self):
+        index = json.loads((self.tmp / "docs/data/index.json").read_text())
+        return index, json.loads((self.tmp / "docs/data" / index["digests"][0]["file"]).read_text())
 
     def test_two_days(self):
         day1 = [
-            item("Perth rail line to close for six weeks", "ABC News", link="https://news.google.com/a1"),
-            item("Six week closure of Perth rail line confirmed", "WAtoday", link="https://news.google.com/a2"),
+            item("Perth rail line to close for six weeks", "ABC News", hours_ago=5, link="https://news.google.com/a1"),
+            item("Six week closure of Perth rail line confirmed", "WAtoday", hours_ago=2, link="https://news.google.com/a2"),
             item("CSIRO discovers coral species off Ningaloo reef", "ABC News", category="science", link="https://news.google.com/b1"),
         ]
         self.run_with(day1, NOW)
-        self.assertEqual(len(self.sent), 1)
-        subject, html, text = self.sent[0]
-        self.assertIn("2 stories", subject)
-        self.assertIn("Facts for", html)
-        self.assertIn("someone.github.io/NewsSummarizer", html)
+        index, edition = self.latest()
+        self.assertEqual(len(edition["stories"]), 2)
+        self.assertIn("Facts for", edition["stories"][0]["facts"])
+        self.assertIn("someone.github.io/NewsSummarizer", index["web_url"])
+        rail = next(s for s in edition["stories"] if len(s["sources"]) == 2)
+        self.assertEqual(rail["published"], (NOW - timedelta(hours=5)).isoformat(), "first outlet's time")
+        self.assertEqual(rail["latest_report"], (NOW - timedelta(hours=2)).isoformat())
+        self.assertNotIn("in_email", rail)
         history = json.loads((self.tmp / "history.json").read_text())
         self.assertEqual(len(history), 2)
-        index = json.loads((self.tmp / "docs/data/index.json").read_text())
-        self.assertEqual(len(index["digests"]), 1)
 
         # Day two: same links again (must be skipped), plus a follow up on the rail story.
         day2_now = NOW + timedelta(days=1)
@@ -286,11 +287,12 @@ class PipelineTests(unittest.TestCase):
             i.published = day2_now - timedelta(hours=3)
         with mock.patch.object(ai, "CALLERS", {"gemini": fake_ai_reply(update_ids={"s1"})}):
             self.run_with(day2, day2_now)
-        subject, html, text = self.sent[1]
-        self.assertIn("1 story", subject)
-        self.assertIn("UPDATE", text)
-        self.assertIn("What is new", html)
-        self.assertIn("Original story, sent on", html)
+        index, edition = self.latest()
+        self.assertEqual(len(index["digests"]), 2)
+        self.assertEqual(len(edition["stories"]), 1)
+        self.assertTrue(edition["stories"][0]["is_update"])
+        self.assertEqual(edition["stories"][0]["update_summary"], "New detail.")
+        self.assertEqual(edition["stories"][0]["previous"]["date"], "2026-09-25")
         history = json.loads((self.tmp / "history.json").read_text())
         self.assertEqual(len(history), 2, "an update replaces its original entry")
 
@@ -300,33 +302,31 @@ class PipelineTests(unittest.TestCase):
         repeat = item("Perth rail line closure for six weeks begins", "WAtoday", link="https://news.google.com/a9")
         repeat.published = later - timedelta(hours=2)
         self.run_with([repeat], later)
-        self.assertIn("0 stories", self.sent[1][0])
+        _, edition = self.latest()
+        self.assertEqual(edition["stories"], [])
+        self.assertIn("no new facts", edition["diagnostics"]["dropped"][0]["reason"])
 
-    def test_preview_publishes_without_email_or_memory(self):
+    def test_run_details_are_published(self):
         items = [
             item("Perth rail line to close for six weeks", link="https://news.google.com/a1"),
             item("Opinion: the rail closure is a disaster", "WAtoday", link="https://news.google.com/a2"),
         ]
-        with mock.patch.object(collect, "collect", lambda *a: list(items)):
-            main.run(preview=True, now=NOW)
-        self.assertEqual(self.sent, [])
-        self.assertFalse((self.tmp / "history.json").exists())
-        self.assertFalse((self.tmp / "state.json").exists())
-        index = json.loads((self.tmp / "docs/data/index.json").read_text())
-        self.assertEqual(index["digests"], [])
-        preview = json.loads((self.tmp / "docs/data" / index["preview"]["file"]).read_text())
-        self.assertTrue(preview["preview"])
-        self.assertTrue(preview["stories"][0]["in_email"])
-        diag = preview["diagnostics"]
-        self.assertIn(["Stories in the email", 1], diag["funnel"])
+        self.run_with(items, NOW)
+        _, edition = self.latest()
+        diag = edition["diagnostics"]
+        self.assertIn(["Stories published to the web page", 1], diag["funnel"])
         self.assertIn("opinion by headline", [d["reason"] for d in diag["dropped"]])
 
-    def test_preview_with_every_feed_failing_still_reports(self):
+    def test_dry_run_changes_nothing(self):
+        self.run_with([item("Perth rail line to close for six weeks")], NOW, dry_run=True)
+        self.assertFalse((self.tmp / "history.json").exists())
+        self.assertFalse((self.tmp / "docs/data/index.json").exists())
+        self.assertEqual(len(json.loads((self.tmp / "output/latest.json").read_text())), 1)
+
+    def test_every_feed_failing_fails_the_run(self):
         with mock.patch.object(collect, "collect", lambda *a: []):
-            main.run(preview=True, now=NOW)
             with self.assertRaises(SystemExit):
-                main.run(preview=False, now=NOW)
-        self.assertEqual(self.sent, [])
+                main.run(now=NOW)
 
     def test_sport_dropped_by_ai_kind(self):
         def reply(provider_cfg, prompt):
@@ -336,7 +336,14 @@ class PipelineTests(unittest.TestCase):
 
         with mock.patch.object(ai, "CALLERS", {"gemini": reply}):
             self.run_with([item("Perth Heat win baseball series opener at home")], NOW)
-        self.assertIn("0 stories", self.sent[0][0])
+        self.assertEqual(self.latest()[1]["stories"], [])
+
+    def test_sport_words_only_apply_while_sport_is_excluded(self):
+        c = cfg()
+        c["digest"]["exclude_kinds"] = ["opinion"]
+        with mock.patch.object(main, "load_config", lambda: c):
+            self.run_with([item("Wallabies name squad for Perth test against Argentina")], NOW)
+        self.assertEqual(len(self.latest()[1]["stories"]), 1)
 
     def test_ai_failure_is_announced(self):
         def broken(provider_cfg, prompt):
@@ -344,23 +351,26 @@ class PipelineTests(unittest.TestCase):
 
         with mock.patch.object(ai, "CALLERS", {"gemini": broken}):
             self.run_with([item("Perth rail line to close for six weeks")], NOW)
-        self.assertIn("could not summarise 1 of 1", self.sent[0][1])
-        self.assertIn("NOTE:", self.sent[0][2])
+        self.assertIn("could not summarise 1 of 1", self.latest()[1]["notice"])
 
     def test_headlines_only_without_ai_key(self):
         with mock.patch.dict(os.environ, {"GEMINI_API_KEY": ""}):
             self.run_with([item("Perth rail line to close for six weeks")], NOW)
-        self.assertIn("Headline only", self.sent[0][1])
+        self.assertFalse(self.latest()[1]["stories"][0]["processed"])
 
 
-class RenderTests(unittest.TestCase):
-    def test_escapes_html(self):
-        c = cfg()
-        cats = settings.enabled_categories(c)
-        story = cluster.build_stories([item("Perth <script> rail line closes for weeks")], c, cats, NOW)[0]
-        story.articles.append(Article("ABC News", "https://abc.net.au/x", "text"))
-        d = render.story_to_dict(story, cats, True)
-        self.assertNotIn("<script>", render.story_html(d))
+class SettingsTests(unittest.TestCase):
+    def test_old_setting_names_still_work(self):
+        path = Path(tempfile.mkdtemp()) / "config.toml"
+        path.write_text('[schedule]\nsend_time = "06:15"\nsend_days = ["sun"]\n[digest]\nweb_story_count = 12\n')
+        c = settings.load_config(path)
+        self.assertEqual(c["schedule"]["update_time"], "06:15")
+        self.assertEqual(c["schedule"]["update_days"], ["sun"])
+        self.assertEqual(c["digest"]["stories_per_run"], 12)
+
+    def test_direct_feed_outlet_names(self):
+        self.assertEqual(collect.outlet_name("abc.net.au", "Just In"), "ABC News")
+        self.assertEqual(collect.outlet_name("example.org", "Example Feed"), "Example Feed")
 
 
 if __name__ == "__main__":

@@ -59,8 +59,8 @@ def parse_feed(content, category, region):
         if not link:
             continue
         src = entry.get("source") or {}
-        source = strip_html(src.get("title", "")) or feed_title or domain_of(link)
         domain = domain_of(src.get("href", "")) or domain_of(link)
+        source = strip_html(src.get("title", "")) or outlet_name(domain, feed_title or domain)
         title = clean_headline(entry.get("title", ""), source)
         summary = strip_html(entry.get("summary", ""))
         # Google News summaries just repeat the headline and outlet name.
@@ -72,6 +72,22 @@ def parse_feed(content, category, region):
             category=category, region=region,
         ))
     return items
+
+
+# Direct feeds name themselves oddly ("Just In", "Ars Technica - All content").
+OUTLET_NAMES = {
+    "abc.net.au": "ABC News", "sbs.com.au": "SBS News", "watoday.com.au": "WAtoday",
+    "rba.gov.au": "Reserve Bank of Australia", "sciencedaily.com": "ScienceDaily",
+    "newatlas.com": "New Atlas", "theregister.com": "The Register", "arstechnica.com": "Ars Technica",
+    "spectrum.ieee.org": "IEEE Spectrum", "perthnow.com.au": "PerthNow", "thewest.com.au": "The West Australian",
+}
+
+
+def outlet_name(domain, fallback):
+    for known, name in OUTLET_NAMES.items():
+        if domain == known or domain.endswith("." + known):
+            return name
+    return fallback
 
 
 RETRY_STATUS = {429, 500, 502, 503, 504}

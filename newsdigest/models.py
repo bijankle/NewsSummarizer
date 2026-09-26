@@ -69,8 +69,15 @@ class Story:
 
     @property
     def published(self):
+        """Time of the most recent report."""
         dates = [i.published for i in self.items if i.published]
         return max(dates) if dates else None
+
+    @property
+    def first_published(self):
+        """When the first outlet published it."""
+        dates = [i.published for i in self.items if i.published]
+        return min(dates) if dates else None
 
     @property
     def titles(self):

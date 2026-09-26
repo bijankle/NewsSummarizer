@@ -1,6 +1,6 @@
 // Lets the News Digest app open with the last loaded news when offline.
 // Always tries the network first, so new digests appear straight away.
-const CACHE = "news-digest-v1";
+const CACHE = "news-digest-v2";
 
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (event) => event.waitUntil(self.clients.claim()));

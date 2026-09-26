@@ -17,7 +17,7 @@ class Report:
         self.feed_failures = []   # {"url", "error"}
         self.ai_notes = []        # one line per AI request
         self.lookback_hours = 0
-        self.notice = ""          # shown at the top of the email and the page
+        self.notice = ""          # shown at the top of the web page
 
     def stage(self, label, count):
         self.funnel.append([label, count])
@@ -38,19 +38,16 @@ class Report:
             "dropped": self.dropped,
         }
 
-    def markdown(self, email_stories, web_url, preview):
+    def markdown(self, stories, web_url):
         """Summary shown on the GitHub Actions run page."""
-        lines = ["## " + ("Preview, not emailed" if preview else "Digest sent"), ""]
+        lines = [f"## {len(stories)} stories published", ""]
         if self.notice:
             lines += [f"> **Warning.** {self.notice}", ""]
         if web_url:
-            lines += [f"Web page: {web_url}" + (" (choose the Preview edition)" if preview else ""), ""]
-        lines += ["### Stories " + ("that would be in the email" if preview else "in the email"), ""]
-        for n, s in enumerate(email_stories, start=1):
+            lines += [f"News page: {web_url}", ""]
+        for n, s in enumerate(stories, start=1):
             tag = "UPDATE: " if s["is_update"] else ""
             lines.append(f"{n}. {tag}{s['headline']} ({s['category_label']}, {s['region']})")
-        if not email_stories:
-            lines.append("None.")
         lines += ["", "### How many survived each stage", "", "| Stage | Count |", "|---|---|"]
         lines += [f"| {label} | {count} |" for label, count in self.funnel]
         if self.feed_failures:

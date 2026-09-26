@@ -2,15 +2,9 @@ name: News Digest
 
 on:
   schedule:
-    # Checks every hour. The send time itself is set in config.toml.
+    # Checks every hour. The update time itself is set in config.toml.
     - cron: "7 * * * *"
-  workflow_dispatch:
-    inputs:
-      mode:
-        description: "send now: email it and update the web page. preview: no email, results appear on the web page as the Preview edition."
-        type: choice
-        options: ["send now", "preview"]
-        default: "send now"
+  workflow_dispatch:  # the "Run workflow" button: update the news page now
 
 permissions:
   contents: write
@@ -26,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Is it time to send?
+      - name: Is it time to update?
         id: gate
         env:
           FORCE: ${{ github.event_name == 'workflow_dispatch' }}
@@ -42,34 +36,22 @@ jobs:
         if: steps.gate.outputs.run == 'true'
         run: pip install -r requirements.txt
 
-      - name: Build and send the digest
+      - name: Build the news update
         if: steps.gate.outputs.run == 'true'
         env:
           PYTHONUNBUFFERED: "1"  # show progress in the log as it happens
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          EMAIL_TO: ${{ secrets.EMAIL_TO }}
-        run: python -m newsdigest ${{ inputs.mode == 'preview' && '--preview' || '' }}
+        run: python -m newsdigest
 
-      - name: Keep the preview
-        if: steps.gate.outputs.run == 'true' && always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: digest-preview
-          path: output/
-          if-no-files-found: ignore
-          retention-days: 7
-
-      - name: Save memory and web page
+      - name: Publish to the news page
         if: steps.gate.outputs.run == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add state docs/data
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "${{ inputs.mode == 'preview' && 'Preview' || 'Digest' }} for $(TZ=Australia/Perth date '+%F %H:%M')"
+          git commit -m "News for $(TZ=Australia/Perth date '+%F %H:%M')"
           for attempt in 1 2 3; do
             git pull --rebase && git push && exit 0
             sleep 5

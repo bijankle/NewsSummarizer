@@ -1,38 +1,35 @@
 # NEWS DIGEST SETTINGS
 #
-# This is the control panel for your digest. Edit it on the GitHub website
+# This is the control panel for your news page. Edit it on the GitHub website
 # (click the pencil icon), then press "Commit changes". The next run uses
 # the new values. Lines starting with # are notes and are ignored.
 
 
 [schedule]
-# Local time zone used for the send time and the send days.
+# Local time zone used for the update time and the update days.
 timezone = "Australia/Perth"
 
-# Send time on a 24 hour clock. "03:00" is 3am, "18:30" is 6:30pm.
-# GitHub checks every hour, so the email arrives within about an hour
-# after this time (usually 5 to 20 minutes after).
-send_time = "03:00"
+# When the news page gets its daily update, on a 24 hour clock.
+# "03:00" is 3am, "18:30" is 6:30pm. GitHub checks every hour, so new
+# stories appear within about an hour after this time.
+update_time = "03:00"
 
-# Which days get an email. Remove days to send less often.
+# Which days get an update. Remove days to update less often.
 # Weekdays only:  ["mon", "tue", "wed", "thu", "fri"]
 # Weekly:         ["sun"]
 # News is still gathered across skipped days, so nothing is lost.
-send_days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+update_days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
 
 [digest]
-# How many stories go in the email.
-email_story_count = 10
+# Most new stories added to the news page per update.
+stories_per_run = 40
 
-# How many stories go on the filterable web page (includes the email ones).
-web_story_count = 40
-
-# Re send a story you already received when it gains genuinely new facts,
-# marked UPDATE with the new facts on top.
+# Show a story again when it gains genuinely new facts, marked UPDATE
+# with the new facts on top and the original story underneath.
 show_updates = true
 
-# Add the "Debates and Contested Claims" section at the bottom.
+# Show the sides of any genuine debate inside each story.
 debates_section = true
 
 # Kinds of story to leave out. The AI labels every story as one of:
@@ -88,14 +85,18 @@ blocked = [
 
 # Headlines containing any of these words or phrases are dropped before the
 # AI sees them (not case sensitive, whole words only). This is a cheap first
-# screen for sport and fluff. The AI's exclude_kinds check catches the rest.
+# screen for fluff. The AI's exclude_kinds check catches the rest.
 # The last line removes the "other Perths" in Scotland and Canada.
 exclude_headline_words = [
+  "how to watch", "Lotto", "Powerball", "horoscope", "live departures",
+  "Scotland", "Perthshire", "Perth and Kinross", "Ontario", "Perth County", "OPP",
+]
+
+# Sport words, applied only while "sport" is in exclude_kinds above.
+sport_headline_words = [
   "AFL", "NRL", "AFLW", "A-League", "Wallabies", "Springboks", "Socceroos", "Matildas",
   "rugby", "cricket", "netball", "grand final", "premiership", "Brownlow",
   "Wildcats", "Dockers", "West Coast Eagles", "Perth Glory", "Scorchers", "Perth Inferno",
-  "how to watch", "Lotto", "Powerball", "horoscope", "live departures",
-  "Scotland", "Perthshire", "Perth and Kinross", "Ontario", "Perth County", "OPP",
 ]
 
 
