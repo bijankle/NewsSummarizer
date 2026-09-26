@@ -1,5 +1,9 @@
 # News Digest
 
+## [Open today's news summaries](https://bijankle.github.io/NewsSummarizer/)
+
+**https://bijankle.github.io/NewsSummarizer/** is the news page itself. Bookmark that link. This page you are reading now is only the instruction manual.
+
 A free daily email of the news that matters to you, stripped down to facts, key numbers and why they matter. Opinion pieces are filtered out, the same event reported by several outlets is merged into one story, and genuine disagreements are laid out side by side at the bottom. Every digest is also published to a web page where you can filter by region and topic.
 
 It runs entirely on GitHub's free servers. Your computer does not need to be on.
@@ -40,7 +44,7 @@ GitHub checks every hour whether your send time has passed on a send day. If it 
 
 Secrets are encrypted. Nobody can read them, even on a public repository, and they never appear in logs.
 
-**Step 4. Turn on the web page.** In the repository go to Settings, then Pages. Under "Build and deployment" choose "Deploy from a branch", pick the default branch and the `/docs` folder, then Save. After a minute or two the page lives at `https://<your GitHub username>.github.io/<repository name>/`. GitHub Pages is free for public repositories.
+**Step 4. Turn on the web page.** In the repository go to Settings, then Pages. Under "Build and deployment" choose "Deploy from a branch", pick the default branch and the `/docs` folder, then Save. (If `/ (root)` is picked instead, the site still works: it forwards to the news page.) After a minute or two the page lives at `https://<your GitHub username>.github.io/<repository name>/`. GitHub Pages is free for public repositories.
 
 **Step 5. Run it once by hand.** Go to the Actions tab. If GitHub asks, click to enable workflows. Choose "News Digest" on the left, click "Run workflow", leave the mode on "send now" and click the green button. After about five minutes the email should arrive. From then on it runs by itself.
 
