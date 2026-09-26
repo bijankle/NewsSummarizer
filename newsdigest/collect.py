@@ -8,6 +8,7 @@ from urllib.parse import quote_plus
 import feedparser
 import requests
 
+from .diagnostics import report
 from .models import Item
 from .textutil import clean_headline, domain_of, strip_html
 
@@ -78,6 +79,7 @@ def fetch_feed(url, category, region):
         resp.raise_for_status()
     except requests.RequestException as exc:
         print(f"  feed failed: {url[:90]} ({exc})")
+        report.feed_failures.append({"url": url, "error": str(exc)[:200]})
         return []
     return parse_feed(resp.content, category, region)
 
@@ -89,4 +91,5 @@ def collect(cfg, categories, lookback_hours):
         results = list(pool.map(lambda p: fetch_feed(*p), plan))
     items = [item for batch in results for item in batch]
     print(f"  {len(items)} headlines collected")
+    report.stage(f"Headlines collected from {len(plan) - len(report.feed_failures)} of {len(plan)} feeds", len(items))
     return items

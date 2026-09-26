@@ -230,6 +230,32 @@ class PipelineTests(unittest.TestCase):
         self.run_with([repeat], later)
         self.assertIn("0 stories", self.sent[1][0])
 
+    def test_preview_publishes_without_email_or_memory(self):
+        items = [
+            item("Perth rail line to close for six weeks", link="https://news.google.com/a1"),
+            item("Opinion: the rail closure is a disaster", "WAtoday", link="https://news.google.com/a2"),
+        ]
+        with mock.patch.object(collect, "collect", lambda *a: list(items)):
+            main.run(preview=True, now=NOW)
+        self.assertEqual(self.sent, [])
+        self.assertFalse((self.tmp / "history.json").exists())
+        self.assertFalse((self.tmp / "state.json").exists())
+        index = json.loads((self.tmp / "docs/data/index.json").read_text())
+        self.assertEqual(index["digests"], [])
+        preview = json.loads((self.tmp / "docs/data" / index["preview"]["file"]).read_text())
+        self.assertTrue(preview["preview"])
+        self.assertTrue(preview["stories"][0]["in_email"])
+        diag = preview["diagnostics"]
+        self.assertIn(["Stories in the email", 1], diag["funnel"])
+        self.assertIn("opinion by headline", [d["reason"] for d in diag["dropped"]])
+
+    def test_preview_with_every_feed_failing_still_reports(self):
+        with mock.patch.object(collect, "collect", lambda *a: []):
+            main.run(preview=True, now=NOW)
+            with self.assertRaises(SystemExit):
+                main.run(preview=False, now=NOW)
+        self.assertEqual(self.sent, [])
+
     def test_headlines_only_without_ai_key(self):
         with mock.patch.dict(os.environ, {"GEMINI_API_KEY": ""}):
             self.run_with([item("Perth rail line to close for six weeks")], NOW)

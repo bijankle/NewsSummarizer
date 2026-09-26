@@ -4,6 +4,7 @@ import math
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 
+from .diagnostics import report
 from .filters import is_blocked, is_opinion_title
 from .models import Story
 from .textutil import best_similarity, tokens
@@ -14,21 +15,29 @@ def screen(items, since, blocked, seen_links):
     kept, seen = [], set()
     counts = Counter()
     for item in items:
-        if item.link in seen_links or item.link in seen:
-            counts["already sent"] += 1
+        if item.link in seen:
+            reason = "duplicate feed entry"
+        elif item.link in seen_links:
+            reason = "already sent"
         elif item.published and item.published < since:
-            counts["too old"] += 1
+            reason = "too old"
         elif is_blocked(item.domain, blocked):
-            counts["blocked outlet"] += 1
+            reason = "blocked outlet"
         elif is_opinion_title(item.title):
-            counts["opinion by title"] += 1
+            reason = "opinion by headline"
         elif len(tokens(item.title)) < 3:
-            counts["headline too short"] += 1
+            reason = "headline too short"
         else:
             kept.append(item)
             seen.add(item.link)
+            continue
+        counts[reason] += 1
+        # Old, duplicate and sent items are too numerous to list one by one.
+        if reason in ("blocked outlet", "opinion by headline", "headline too short"):
+            report.drop(item.title, item.source, reason)
     summary = ", ".join(f"{n} {why}" for why, n in counts.items()) or "nothing"
     print(f"Screen kept {len(kept)} headlines (removed {summary})")
+    report.stage(f"Headlines left after screening (removed {summary})", len(kept))
     return kept
 
 
@@ -78,6 +87,7 @@ def build_stories(items, cfg, categories, now):
             stories.append(story)
     stories.sort(key=lambda s: s.score, reverse=True)
     print(f"Grouped into {len(stories)} distinct events")
+    report.stage("Distinct events after grouping headlines", len(stories))
     return stories
 
 

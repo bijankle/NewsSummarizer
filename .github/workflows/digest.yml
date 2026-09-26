@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "send now: email it and update the web page. preview: build only, download the result from this run's page."
+        description: "send now: email it and update the web page. preview: no email, results appear on the web page as the Preview edition."
         type: choice
         options: ["send now", "preview"]
         default: "send now"
@@ -62,13 +62,13 @@ jobs:
           retention-days: 7
 
       - name: Save memory and web page
-        if: steps.gate.outputs.run == 'true' && inputs.mode != 'preview'
+        if: steps.gate.outputs.run == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add state docs/data
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Digest for $(TZ=Australia/Perth date +%F)"
+          git commit -m "${{ inputs.mode == 'preview' && 'Preview' || 'Digest' }} for $(TZ=Australia/Perth date '+%F %H:%M')"
           for attempt in 1 2 3; do
             git pull --rebase && git push && exit 0
             sleep 5

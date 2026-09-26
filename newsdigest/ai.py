@@ -11,6 +11,7 @@ import time
 
 import requests
 
+from .diagnostics import report
 from .settings import REGIONS
 
 SYSTEM_PROMPT = """You are the editor of a strictly factual news briefing for a reader in Perth, Western Australia. The reader is an engineer who wants facts, numbers and consequences, with no opinion, spin or filler.
@@ -184,6 +185,7 @@ def summarise(stories, cfg, categories):
     providers = available_providers(cfg)
     if not providers:
         print("AI: no provider configured, sending headlines only")
+        report.ai_notes.append("No AI key found (or provider is \"none\"), so stories are headlines only.")
         return
     size = max(1, int(cfg["ai"]["stories_per_request"]))
     pause = float(cfg["ai"]["seconds_between_requests"])
@@ -196,11 +198,15 @@ def summarise(stories, cfg, categories):
                 results = parse_reply(CALLERS[provider](cfg, prompt))
             except (ProviderError, ValueError, KeyError) as exc:
                 print(f"  batch {n}: {provider} failed ({str(exc)[:200]})")
+                report.ai_notes.append(f"Request {n}: {provider} failed: {str(exc)[:200]}")
                 continue
             for story in batch:
                 if story.id in results:
                     apply_result(story, results[story.id], categories)
             print(f"  batch {n}: done by {provider}")
+            report.ai_notes.append(f"Request {n}: done by {provider} ({len(batch)} stories)")
             break
+        else:
+            report.ai_notes.append(f"Request {n}: every provider failed, {len(batch)} stories left as headlines only")
         if n < len(batches):
             time.sleep(pause)

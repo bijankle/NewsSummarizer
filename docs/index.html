@@ -48,8 +48,17 @@ h3.section { font-family: system-ui, Arial, sans-serif; font-size: 15px; letter-
 .debate td { vertical-align: top; padding: 6px 10px 6px 0; }
 .debate td:first-child { width: 28%; font-weight: bold; }
 .empty { padding: 30px 0; color: var(--muted); }
+.banner { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--update); background: var(--update-bg); font: 14px/1.45 system-ui, Arial, sans-serif; }
+details.diag { margin: 14px 0 4px; border: 1px solid var(--rule); border-radius: 6px; padding: 8px 12px; font: 14px/1.45 system-ui, Arial, sans-serif; }
+details.diag summary { cursor: pointer; font-weight: 600; }
+details.diag h4 { margin: 14px 0 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+details.diag table { width: 100%; border-collapse: collapse; font-size: 13px; }
+details.diag td, details.diag th { text-align: left; vertical-align: top; padding: 4px 8px 4px 0; border-bottom: 1px solid var(--rule); }
+details.diag td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+details.diag .scroll { max-height: 360px; overflow: auto; }
+details.diag p { margin: 4px 0; overflow-wrap: anywhere; }
 footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
-@media (max-width: 520px) { .row .label { width: 100%; } .debate td:first-child { width: 35%; } }
+@media (max-width: 520px) { .controls { position: static; } .row .label { width: 100%; } .debate td:first-child { width: 35%; } }
 </style>
 </head>
 <body>
@@ -63,6 +72,7 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     <div class="row">
       <span class="label">Edition</span>
       <select id="edition" aria-label="Choose a digest"></select>
+      <button class="chip" id="reload" aria-pressed="false">Reload</button>
       <input type="search" id="search" placeholder="Search headlines and facts" aria-label="Search">
     </div>
     <div class="row" id="regions"><span class="label">Region</span></div>
@@ -75,6 +85,9 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     </div>
     <p class="count" id="count"></p>
   </div>
+
+  <div id="banner"></div>
+  <div id="diagnostics"></div>
 
   <main id="stories"></main>
   <section id="debates"></section>
@@ -143,7 +156,7 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     var a = el("article");
     var tags = el("div", { "class": "tags" });
     if (s.is_update) tags.appendChild(el("span", { "class": "upd" }, "Update"));
-    if (s.in_email) tags.appendChild(el("span", { "class": "top" }, "In email"));
+    if (s.in_email) tags.appendChild(el("span", { "class": "top" }, data.preview ? "Would be in email" : "In email"));
     tags.appendChild(el("span", null, REGION_LABELS[s.region] || s.region));
     tags.appendChild(el("span", null, s.category_label));
     a.appendChild(tags);
@@ -212,6 +225,55 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     return wrap;
   }
 
+  function table(rows, headers, numericLast) {
+    var t = el("table");
+    if (headers) {
+      var hr = el("tr");
+      headers.forEach(function (h) { hr.appendChild(el("th", null, h)); });
+      t.appendChild(hr);
+    }
+    rows.forEach(function (r) {
+      var tr = el("tr");
+      r.forEach(function (cell, i) { tr.appendChild(el("td", numericLast && i === r.length - 1 ? { "class": "n" } : null, String(cell))); });
+      t.appendChild(tr);
+    });
+    return t;
+  }
+
+  function renderDiagnostics() {
+    var box = document.getElementById("diagnostics");
+    var banner = document.getElementById("banner");
+    box.textContent = "";
+    banner.textContent = "";
+    if (data.preview) {
+      banner.appendChild(el("p", { "class": "banner" }, "This is a preview. Nothing was emailed and the memory of sent stories was not changed, " +
+        "so the next real email should match this unless the news changes in the meantime."));
+    }
+    var d = data.diagnostics;
+    if (!d) return;
+    var det = el("details", { "class": "diag" });
+    if (data.preview) det.setAttribute("open", "");
+    det.appendChild(el("summary", null, "Run details: how stories were picked (" + (d.dropped || []).length + " dropped listed)"));
+    det.appendChild(el("p", null, "Looked back " + d.lookback_hours + " hours for news."));
+    det.appendChild(el("h4", null, "Stories surviving each stage"));
+    det.appendChild(table(d.funnel || [], null, true));
+    if (d.ai_notes && d.ai_notes.length) {
+      det.appendChild(el("h4", null, "AI"));
+      d.ai_notes.forEach(function (n) { det.appendChild(el("p", null, n)); });
+    }
+    if (d.feed_failures && d.feed_failures.length) {
+      det.appendChild(el("h4", null, "Feeds that failed (" + d.feed_failures.length + ")"));
+      d.feed_failures.forEach(function (f) { det.appendChild(el("p", null, f.url + ": " + f.error)); });
+    }
+    if (d.dropped && d.dropped.length) {
+      det.appendChild(el("h4", null, "Dropped stories and why"));
+      var wrap = el("div", { "class": "scroll" });
+      wrap.appendChild(table(d.dropped.map(function (x) { return [x.headline, x.source, x.reason]; }), ["Headline", "Outlet", "Reason"]));
+      det.appendChild(wrap);
+    }
+    box.appendChild(det);
+  }
+
   function renderAll() {
     if (!data) return;
     var stories = data.stories || [];
@@ -242,9 +304,9 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
   }
 
   function loadEdition(file, index) {
-    fetch("data/digests/" + file, { cache: "no-cache" })
+    fetch("data/" + file + "?t=" + Date.now(), { cache: "no-store" })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (d) { data = d; setMeta(index); renderAll(); })
+      .then(function (d) { data = d; setMeta(index); renderDiagnostics(); renderAll(); })
       .catch(function () { document.getElementById("meta").textContent = "Could not load this digest."; });
   }
 
@@ -258,17 +320,32 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     save(); renderAll();
   });
 
-  fetch("data/index.json", { cache: "no-cache" })
-    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function (index) {
-      var list = index.digests || [];
-      var sel = document.getElementById("edition");
-      if (!list.length) { document.getElementById("meta").textContent = "No digests yet. The first one appears after the first run."; return; }
-      list.forEach(function (d) { sel.appendChild(el("option", { value: d.file }, d.label + " (" + d.stories + ")")); });
-      sel.addEventListener("change", function () { loadEdition(sel.value, index); });
-      loadEdition(list[0].file, index);
-    })
-    .catch(function () { document.getElementById("meta").textContent = "No digests yet. The first one appears after the first run."; });
+  var current = null;
+  function loadIndex(keepSelection) {
+    fetch("data/index.json?t=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (index) {
+        var list = (index.digests || []).slice();
+        var latest = list[0];
+        if (index.preview) {
+          // Show the preview first when it is newer than the last real digest.
+          if (!latest || index.preview.generated > latest.generated) list.unshift(index.preview);
+          else list.push(index.preview);
+        }
+        var sel = document.getElementById("edition");
+        sel.textContent = "";
+        if (!list.length) { document.getElementById("meta").textContent = "No digests yet. The first one appears after the first run."; return; }
+        list.forEach(function (d) { sel.appendChild(el("option", { value: d.file }, d.label + " (" + d.stories + ")")); });
+        sel.onchange = function () { current = sel.value; loadEdition(sel.value, index); };
+        var files = list.map(function (d) { return d.file; });
+        current = keepSelection && files.indexOf(current) >= 0 ? current : list[0].file;
+        sel.value = current;
+        loadEdition(current, index);
+      })
+      .catch(function () { document.getElementById("meta").textContent = "No digests yet. The first one appears after the first run."; });
+  }
+  document.getElementById("reload").addEventListener("click", function () { loadIndex(true); });
+  loadIndex(false);
 })();
 </script>
 </body>

@@ -6,6 +6,7 @@ import requests
 import trafilatura
 
 from .collect import USER_AGENT
+from .diagnostics import report
 from .filters import is_blocked, is_opinion_url
 from .models import Article
 from .textutil import domain_of
@@ -97,3 +98,4 @@ def extract_stories(stories, cfg):
         list(pool.map(work, stories))
     with_text = sum(1 for s in stories if s.articles)
     print(f"  full text for {with_text} of {len(stories)} stories")
+    report.stage("Events with full article text downloaded (others use headlines only)", with_text)

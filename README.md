@@ -46,7 +46,15 @@ Secrets are encrypted. Nobody can read them, even on a public repository, and th
 
 ## Everyday use
 
-**One click digest.** Actions tab, then News Digest, then Run workflow. Choose "preview" to build without emailing. The result can be downloaded from the run's summary page under Artifacts.
+**One click digest.** Actions tab, then News Digest, then Run workflow, with the mode on "send now".
+
+**Seeing what the email would contain, without sending it.** Actions tab, then News Digest, then Run workflow, and change the mode to "preview". Nothing is emailed and the memory of sent stories is not touched, so you can preview as often as you like and the next real email is unaffected. After about five minutes the results show up in two places.
+
+On the web page, a "Preview" edition appears at the top of the Edition list, with the stories marked "Would be in email". Press Reload if the page was already open. GitHub Pages can take a minute or two after the run finishes to pick up the new data.
+
+On the run's own page in the Actions tab, the summary lists the email stories and the stage counts, with no waiting for the web page.
+
+Both show a "Run details" panel for troubleshooting. It gives the number of stories left after each stage, from headlines collected down to stories in the email, plus any feeds that failed, what the AI did on each request, and every dropped story with the reason it was dropped (opinion, already sent with no new facts, region set to 0, ranked below the cut and so on). Real digests carry the same panel, so you can check afterwards why a story did or did not make it.
 
 **Changing settings.** Open `config.toml` on GitHub, click the pencil icon, edit and click "Commit changes". Every setting has a note explaining it. The email and the web page both have a "Change settings" link that goes straight there. The main ones are listed here.
 
