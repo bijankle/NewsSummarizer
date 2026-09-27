@@ -6,19 +6,9 @@
 
 
 [schedule]
-# Local time zone used for the update time and the update days.
+# Local time zone for dates and times. News updates only when you press
+# "Update news now" in the app; there is no automatic schedule.
 timezone = "Australia/Perth"
-
-# When the news page gets its daily update, on a 24 hour clock.
-# "03:00" is 3am, "18:30" is 6:30pm. GitHub checks every hour, so new
-# stories appear within about an hour after this time.
-update_time = "03:00"
-
-# Which days get an update. Remove days to update less often.
-# Weekdays only:  ["mon", "tue", "wed", "thu", "fri"]
-# Weekly:         ["sun"]
-# News is still gathered across skipped days, so nothing is lost.
-update_days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
 
 [digest]
@@ -31,6 +21,12 @@ show_updates = true
 
 # Show the sides of any genuine debate inside each story.
 debates_section = true
+
+# Merge headlines that describe the same event in different words, using
+# Google's free embedding model. merge_threshold is how alike two headlines
+# must be (0 to 1); raise it if unrelated stories get merged.
+smart_merge = true
+merge_threshold = 0.88
 
 # Kinds of story to leave out. The AI labels every story as one of:
 # "news", "opinion", "sport", "entertainment", "lifestyle", "promotional".

@@ -81,9 +81,13 @@ def base_score(story, cfg, categories, now):
     return outlet_factor * categories[story.category]["weight"] * region_weight(cfg, story.region) * freshness
 
 
-def build_stories(items, cfg, categories, now):
+def build_stories(items, cfg, categories, now, merge=None):
+    """merge: optional function that joins groups describing the same event."""
+    groups = group(items, cfg["digest"]["similarity_threshold"])
+    if merge:
+        groups = merge(groups)
     stories = []
-    for n, members in enumerate(group(items, cfg["digest"]["similarity_threshold"]), start=1):
+    for n, members in enumerate(groups, start=1):
         category = _category_for(members, categories)
         story = Story(id=f"s{n}", items=members, category=category, region=categories[category]["region"])
         story.score = base_score(story, cfg, categories, now)

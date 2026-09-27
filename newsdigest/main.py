@@ -10,7 +10,7 @@ import os
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
-from . import ai, cluster, collect, extract, render
+from . import ai, cluster, collect, extract, meaning, render
 from .diagnostics import report
 from .settings import DOCS_DIR, ROOT, enabled_categories, load_config, load_history, load_state, save_history, save_state
 
@@ -59,7 +59,10 @@ def build(cfg, state, history, now):
     if "sport" in d["exclude_kinds"]:
         words += cfg["sources"]["sport_headline_words"]
     items = cluster.screen(items, since, cfg["sources"]["blocked"], seen_links, words)
-    stories = cluster.build_stories(items, cfg, categories, now)
+    merge = None
+    if d["smart_merge"] and "gemini" in ai.available_providers(cfg):
+        merge = lambda groups: meaning.merge_groups(groups, float(d["merge_threshold"]))
+    stories = cluster.build_stories(items, cfg, categories, now, merge)
     cluster.match_history(stories, history, d["similarity_threshold"])
 
     use_ai = bool(ai.available_providers(cfg))

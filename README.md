@@ -8,17 +8,25 @@ A free daily news page stripped down to facts, key numbers and why they matter. 
 
 ## Using the app
 
-**Unread, Archived, All.** New stories land in Unread, newest update first. Tick the "Read" box beside a story when you are done with it and it moves to Archived. "Undo" appears for a few seconds after each tick. "Mark all shown as read" clears everything currently shown. Read marks are remembered in the browser on that device.
+**Nothing runs by itself.** The AI only works when you press a button, so no effort is wasted on news you will not read. **Update news** collects and summarises new stories, usually in 5 to 15 minutes. Keep reading meanwhile; a line at the top shows progress and the stories appear by themselves when ready.
 
-**Each story** shows when the first outlet published it (and the latest report, if the story kept developing), the facts, key numbers, why it matters, the sides of any debate, and links to every outlet that reported it. An UPDATE label means a story you already had gained genuinely new facts: the new facts are on top and the original story is underneath.
+**Unread, Favourites, Read.** New stories land in Unread. Cards are compact: tap the headline or "Show story" to open the full facts, key numbers, why it matters, debate and sources.
 
-**Filters.** Region and topic buttons, a search box and "Updates only". They change only what is shown.
+Swipe a story **right** to mark it read, or **left** to add it to Favourites (which also clears it from Unread). On a computer, use the Read tickbox, the star, or the buttons inside an open story. Undo appears for a few seconds after each action. Favourites stay until you remove them; Read keeps the last 30 days.
 
-**Settings** (button at the top) has two parts.
+With your GitHub key saved (see Settings below), Read and Favourites **sync between your devices**. They are stored in `state/reader.json` in this project, which is public like the rest of the project.
 
-*On this device*: text size, sort order (importance or newest first) and how many days of news to keep. These apply straight away.
+**Fact check** (inside an open story) re reads that story's source articles and checks every sentence and number against them, one story at a time and only when pressed. It usually takes 1 to 3 minutes and shows each claim as supported, contradicted or not found, with the quote that decides it. Checked stories get a badge.
 
-*News collection*: daily update time and days, stories per update, topics, region priority, and whether to include sport, updates and debates. These are saved into this project and apply from the next daily update. Saving them, and the "Update news now" button, need a free GitHub key, made once:
+**Week in review** writes a one page summary of the last 7 days, grouped by topic, from the stories already published. It also runs only when you press its button.
+
+**Settings** has two parts.
+
+*On this device*: compact or full cards, text size, sort order and how many days Unread keeps. These apply straight away.
+
+*News collection*: stories per update, topics, region priority, and whether to include sport, updates and debates. These are saved into this project.
+
+The buttons and sync need a free GitHub key, made once:
 
 1. Open https://github.com/settings/personal-access-tokens/new and name it "News Digest app".
 2. Pick an expiration date.
@@ -32,13 +40,13 @@ The key stays in that browser only. "Forget GitHub key" removes it. Anything not
 
 ## How it works
 
-It works like a production line that runs once a day, at 3am Perth time by default.
+It works like a production line that runs each time you press Update news.
 
 **Intake.** Headlines come from Google News RSS (Australian edition, by topic and by search words) plus direct outlet feeds.
 
 **Coarse screen.** Rules reject opinion sections, paywalled outlets, sport words, stale items and anything already published.
 
-**Grouping and ranking.** Headlines about the same event are grouped and ranked by how many independent outlets reported them, topic weights and region priority.
+**Grouping and ranking.** Headlines about the same event are grouped, first by shared words and then by meaning (Google's free embedding model, so "RBA lifts cash rate" and "Reserve Bank raises interest rates" become one story), and ranked by how many independent outlets reported them, topic weights and region priority.
 
 **Extraction.** The top candidates have their full article text downloaded.
 
@@ -46,7 +54,7 @@ It works like a production line that runs once a day, at 3am Perth time by defau
 
 **Publishing.** The stories are added to the web page and remembered, so nothing repeats unless it has new facts.
 
-GitHub checks every hour whether the update time has passed on an update day. If a run fails, the next hourly check tries again.
+If a run fails, the app shows it with a Details link to the run log on GitHub.
 
 ## One time setup
 
@@ -58,9 +66,9 @@ This is already done for this project. It is here in case it ever needs redoing.
 
 **Step 3. Turn on the web page.** Settings, Pages, "Deploy from a branch", pick the default branch and the `/docs` folder (or `/ (root)`, which forwards to the news page), then Save.
 
-**Step 4. First run.** Actions tab, "News Digest", "Run workflow". About ten minutes later the news appears on the page. The "Update news now" button in the app's Settings does the same thing.
+**Step 4. First run.** Press Update news in the app (or in GitHub: Actions tab, "News Digest", "Run workflow").
 
-If a run fails it shows a red cross in the Actions tab; click it and then "Build the news update" to read what happened. GitHub pauses scheduled workflows in repositories with no activity for 60 days; the daily update counts as activity, so this should not happen, but the Actions tab has a button to re enable it if it does.
+If a run fails it shows a red cross in the Actions tab; click it and then the "Run the update task" step to read what happened.
 
 ## Running on your own computer (optional)
 
@@ -80,8 +88,8 @@ The stories are written to `output/latest.json` and nothing is published. The te
 |---|---|
 | `config.toml` | All settings |
 | `newsdigest/` | The program, one file per station of the production line |
-| `.github/workflows/digest.yml` | The hourly schedule and the steps GitHub runs |
+| `.github/workflows/digest.yml` | The steps GitHub runs when a button is pressed (update, fact check, week in review) |
 | `docs/index.html` | The news app |
 | `docs/data/` | Published stories, written automatically |
-| `state/` | Memory of what has been published, written automatically |
+| `state/` | Memory of what has been published, and your synced Read and Favourites |
 | `DESIGN.md` | The design decisions behind all this |

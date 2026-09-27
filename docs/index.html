@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>News Digest</title>
-<meta name="description" content="Daily fact focused news for Perth: facts, key numbers and why they matter.">
+<meta name="description" content="Fact focused news for Perth: facts, key numbers and why they matter.">
 <meta name="theme-color" content="#0b5cad">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -13,48 +13,71 @@
 :root {
   --bg: #f2f4f6; --paper: #ffffff; --ink: #1d2329; --muted: #5b6670; --rule: #dfe3e7;
   --tag: #eef2f5; --accent: #0b5cad; --accent-ink: #ffffff; --num-bg: #f6f9fc;
-  --update: #b3541e; --update-bg: #fdf3ec; --done: #2f7d4f;
+  --update: #b3541e; --update-bg: #fdf3ec; --done: #2f7d4f; --fav: #c98a00;
+  --ok: #2f7d4f; --warn: #a86500; --bad: #b3261e;
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #111416; --paper: #1a1e22; --ink: #e6e9ec; --muted: #9aa5af; --rule: #2d3339;
     --tag: #262c32; --accent: #6aa9ec; --accent-ink: #0d1114; --num-bg: #20262c;
-    --update: #e08a55; --update-bg: #2a211b; --done: #6cc28f;
+    --update: #e08a55; --update-bg: #2a211b; --done: #6cc28f; --fav: #f0b429;
+    --ok: #6cc28f; --warn: #f0b429; --bad: #f28b82;
   }
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 Georgia, "Times New Roman", serif; }
-.wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 64px; background: var(--paper); min-height: 100vh; }
-header, .controls, .tags, .sources, .meta, footer, select, input, button, .tabs, .readbox, .toast, details.diag { font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
-h1 { font-size: 20px; letter-spacing: .08em; text-transform: uppercase; margin: 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-h1 .chip { letter-spacing: 0; text-transform: none; font-weight: normal; }
-.meta { color: var(--muted); font-size: 13px; margin: 2px 0 0; }
-.meta a, .sources a { color: var(--accent); }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 Georgia, "Times New Roman", serif; overflow-x: hidden; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 72px; background: var(--paper); min-height: 100vh; zoom: var(--zoom, 1); }
+.ui, header, .controls, .tags, .sources, .meta, footer, input, select, button, .tabs, .toast, details.diag, .panel, .when, .actions, .fc { font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+h1 { font-size: 20px; letter-spacing: .08em; text-transform: uppercase; margin: 0 8px 0 0; }
+.top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.meta { color: var(--muted); font-size: 13px; margin: 4px 0 0; }
+.meta a, .sources a, .panel a, .fc a { color: var(--accent); }
+.chip { border: 1px solid var(--rule); background: var(--tag); color: var(--ink); border-radius: 999px; padding: 4px 11px; font-size: 13px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 6px; padding: 6px 12px; font-size: 14px; cursor: pointer; }
+.btn.secondary { background: none; color: var(--accent); }
+.btn:disabled { opacity: .5; cursor: default; }
+.job { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--accent); background: var(--num-bg); font-size: 14px; }
+.job.err { border-left-color: var(--bad); }
+.banner { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--update); background: var(--update-bg); font-size: 14px; }
 
-.tabs { display: flex; gap: 4px; margin: 16px 0 0; border-bottom: 1px solid var(--rule); }
+.tabs { display: flex; gap: 4px; margin: 14px 0 0; border-bottom: 1px solid var(--rule); }
 .tab { border: 0; background: none; color: var(--muted); font-size: 15px; padding: 8px 12px; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; }
 .tab[aria-selected="true"] { color: var(--ink); font-weight: 600; border-bottom-color: var(--accent); }
-.tab .n { display: inline-block; min-width: 20px; padding: 0 6px; margin-left: 4px; border-radius: 999px; background: var(--tag); font-size: 12px; font-weight: 600; }
+.tab .n { display: inline-block; min-width: 20px; padding: 0 6px; margin-left: 4px; border-radius: 999px; background: var(--tag); font-size: 12px; font-weight: 600; text-align: center; }
 .tab[aria-selected="true"] .n { background: var(--accent); color: var(--accent-ink); }
 
 .controls { padding: 10px 0 8px; border-bottom: 1px solid var(--rule); }
 .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 6px 0; }
 .row .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; width: 64px; flex-shrink: 0; }
-.chip { border: 1px solid var(--rule); background: var(--tag); color: var(--ink); border-radius: 999px; padding: 4px 11px; font-size: 13px; cursor: pointer; }
-.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 input[type=search] { flex: 1; min-width: 160px; font-size: 14px; padding: 6px 9px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); color: var(--ink); }
 .count { font-size: 13px; color: var(--muted); margin: 8px 0 0; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; align-items: center; }
 
-article { display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--rule); transition: opacity .25s; }
-article.leaving { opacity: .35; }
-.readbox { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; width: 44px; padding-top: 2px; cursor: pointer; font-size: 11px; color: var(--muted); user-select: none; }
-.readbox input { width: 24px; height: 24px; margin: 0; accent-color: var(--done); cursor: pointer; }
+/* Cards and swiping */
+.slot { position: relative; border-bottom: 1px solid var(--rule); overflow: hidden; }
+.under { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; font: 600 14px system-ui, Arial, sans-serif; color: #fff; }
+.under .l { visibility: hidden; } .under .r { visibility: hidden; }
+.slot.swipe-read .under { background: var(--done); } .slot.swipe-read .under .l { visibility: visible; }
+.slot.swipe-fav .under { background: var(--fav); } .slot.swipe-fav .under .r { visibility: visible; }
+article { position: relative; background: var(--paper); display: flex; gap: 12px; padding: 14px 0; touch-action: pan-y; transition: transform .2s ease, opacity .25s; }
+article.dragging { transition: none; }
+article.leaving { opacity: .3; }
+.readbox { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; width: 40px; padding-top: 2px; cursor: pointer; font: 11px system-ui, Arial, sans-serif; color: var(--muted); user-select: none; }
+.readbox input { width: 22px; height: 22px; margin: 0; accent-color: var(--done); cursor: pointer; }
 .body { flex: 1; min-width: 0; }
+.head { display: flex; gap: 8px; align-items: flex-start; }
+.head h2 { flex: 1; font-size: 18px; line-height: 1.3; margin: 4px 0 2px; cursor: pointer; }
+.star { flex-shrink: 0; border: 0; background: none; font-size: 22px; line-height: 1; cursor: pointer; color: var(--muted); padding: 2px 2px 0; }
+.star[aria-pressed="true"] { color: var(--fav); }
 .tags span { display: inline-block; background: var(--tag); color: var(--muted); font-size: 11px; letter-spacing: .04em; padding: 2px 7px; border-radius: 3px; margin: 0 4px 2px 0; text-transform: uppercase; }
 .tags .upd { background: var(--update); color: #fff; font-weight: bold; }
-article h2 { font-size: 19px; line-height: 1.3; margin: 6px 0; }
-article p { margin: 6px 0; }
+.tags .fcb.supported { background: var(--ok); color: #fff; }
+.tags .fcb.partly_supported { background: var(--warn); color: #fff; }
+.tags .fcb.contradicted { background: var(--bad); color: #fff; }
+.when { font-size: 12px; color: var(--muted); margin: 0; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.toggle { border: 0; background: none; color: var(--accent); font-size: 12px; cursor: pointer; padding: 0; }
+.detail p { margin: 6px 0; }
 .nums { padding: 6px 10px; border-left: 3px solid var(--accent); background: var(--num-bg); font-size: 15px; }
 .new { padding: 8px 10px; border-left: 3px solid var(--update); background: var(--update-bg); }
 .orig { margin-top: 10px; padding: 8px 10px; border: 1px dashed var(--rule); font-size: 14px; color: var(--muted); }
@@ -64,70 +87,98 @@ article p { margin: 6px 0; }
 .debate td { vertical-align: top; padding: 5px 10px 5px 0; border-top: 1px solid var(--rule); }
 .debate td:first-child { width: 28%; font-weight: bold; }
 .sources { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.actions .btn { font-size: 13px; padding: 5px 10px; }
 .muted { color: var(--muted); font-style: italic; }
 .empty { padding: 36px 0; color: var(--muted); text-align: center; }
-.banner { margin: 12px 0 0; padding: 8px 12px; border-left: 3px solid var(--update); background: var(--update-bg); font: 14px/1.45 system-ui, Arial, sans-serif; }
+
+/* Fact check result */
+.fc { margin-top: 10px; border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; font-size: 14px; }
+.fc .v { font-weight: 700; }
+.fc .v.supported { color: var(--ok); } .fc .v.partly_supported { color: var(--warn); } .fc .v.contradicted { color: var(--bad); } .fc .v.unavailable { color: var(--muted); }
+.fc ul { list-style: none; margin: 6px 0 0; padding: 0; }
+.fc li { padding: 5px 0; border-top: 1px solid var(--rule); }
+.fc li b { display: inline-block; min-width: 84px; }
+.fc li .supported { color: var(--ok); } .fc li .contradicted { color: var(--bad); } .fc li .not_found { color: var(--warn); }
+.fc q { color: var(--muted); font-style: italic; }
+
+/* Panels (settings, week in review) */
+.panel { margin: 12px 0 0; border: 1px solid var(--rule); border-radius: 8px; padding: 4px 14px 14px; font-size: 14px; }
+.panel h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; margin: 16px 0 2px; }
+.panel .hint { color: var(--muted); font-size: 13px; margin: 2px 0 8px; }
+.panel .field { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 8px 0; border-top: 1px solid var(--rule); }
+.panel .field > span:first-child { width: 150px; flex-shrink: 0; }
+.panel input[type=number], .panel input[type=password], .panel select { font-size: 14px; padding: 5px 8px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); color: var(--ink); }
+.panel input[type=password] { flex: 1; min-width: 180px; }
+.panel label.opt { display: inline-flex; align-items: center; gap: 6px; margin-right: 10px; }
+.panel .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+.panel ol { margin: 6px 0; padding-left: 20px; }
+.status { font-size: 13px; } .status.err { color: var(--bad); }
+.week h4 { font: 700 15px Georgia, serif; margin: 14px 0 4px; }
+.week ul { margin: 0; padding-left: 18px; font: 15px/1.5 Georgia, serif; }
+.week li { margin: 4px 0; }
+.week .big { font: 15px/1.5 Georgia, serif; padding: 8px 10px; background: var(--num-bg); border-left: 3px solid var(--accent); }
 
 details.diag { margin: 28px 0 0; border: 1px solid var(--rule); border-radius: 6px; padding: 8px 12px; font-size: 14px; line-height: 1.45; }
 details.diag summary { cursor: pointer; font-weight: 600; }
 details.diag h4 { margin: 14px 0 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
 details.diag table { width: 100%; border-collapse: collapse; font-size: 13px; }
 details.diag td, details.diag th { text-align: left; vertical-align: top; padding: 4px 8px 4px 0; border-bottom: 1px solid var(--rule); }
-details.diag td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+details.diag td.n { text-align: right; white-space: nowrap; }
 details.diag .scroll { max-height: 360px; overflow: auto; }
 details.diag p { margin: 4px 0; overflow-wrap: anywhere; }
 
-.toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 10px 14px; border-radius: 8px; font-size: 14px; display: flex; gap: 14px; align-items: center; box-shadow: 0 4px 16px rgba(0,0,0,.25); max-width: calc(100% - 32px); }
-.toast button { background: none; border: 0; color: var(--accent); font-weight: 700; font-size: 14px; cursor: pointer; padding: 0; }
+.toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 10px 14px; border-radius: 8px; font-size: 14px; display: flex; gap: 14px; align-items: center; box-shadow: 0 4px 16px rgba(0,0,0,.25); max-width: calc(100% - 32px); z-index: 5; }
+.toast button { background: none; border: 0; color: #6aa9ec; font-weight: 700; font-size: 14px; cursor: pointer; padding: 0; }
 @media (prefers-color-scheme: dark) { .toast button { color: #0b5cad; } }
-.wrap { zoom: var(--zoom, 1); }
-.when { font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; font-size: 12px; color: var(--muted); margin: 0 0 4px; }
-#settings { margin: 14px 0 0; border: 1px solid var(--rule); border-radius: 8px; padding: 4px 14px 14px; font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; font-size: 14px; }
-#settings h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; margin: 16px 0 2px; }
-#settings .hint { color: var(--muted); font-size: 13px; margin: 2px 0 8px; }
-#settings .field { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 8px 0; border-top: 1px solid var(--rule); }
-#settings .field > span:first-child { width: 150px; flex-shrink: 0; }
-#settings input[type=time], #settings input[type=number], #settings input[type=password], #settings select { font-size: 14px; padding: 5px 8px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); color: var(--ink); }
-#settings input[type=password] { flex: 1; min-width: 180px; }
-#settings label.opt { display: inline-flex; align-items: center; gap: 6px; margin-right: 10px; }
-#settings .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
-.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 6px; padding: 7px 14px; font-size: 14px; cursor: pointer; }
-.btn.secondary { background: none; color: var(--accent); }
-.btn:disabled { opacity: .5; cursor: default; }
-#settings .status { font-size: 13px; }
-#settings .status.err { color: var(--update); }
-#settings ol { margin: 6px 0; padding-left: 20px; }
-#settings a { color: var(--accent); }
 footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
 @media (max-width: 520px) {
-  #settings .field > span:first-child { width: 100%; }
-  .row .label { width: 100%; }
+  .row .label, .panel .field > span:first-child { width: 100%; }
   .debate td:first-child { width: 35%; }
-  .readbox { width: 36px; }
-  article { gap: 10px; }
+  .readbox { width: 32px; }
+  article { gap: 8px; }
 }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1>News Digest <button class="chip" id="settingsBtn" aria-expanded="false">Settings</button> <button class="chip" id="install" hidden>Install app</button></h1>
+    <div class="top">
+      <h1>News Digest</h1>
+      <button class="btn" id="updateBtn">Update news</button>
+      <button class="chip" id="weekBtn" aria-pressed="false">Week in review</button>
+      <button class="chip" id="settingsBtn" aria-pressed="false">Settings</button>
+      <button class="chip" id="install" hidden>Install app</button>
+    </div>
     <p class="meta" id="meta">Loading...</p>
+    <div id="jobs"></div>
   </header>
 
-  <section id="settings" hidden>
+  <!-- Week in review -->
+  <section class="panel week" id="weekPanel" hidden>
+    <h3 id="weekTitle">Week in review</h3>
+    <div id="weekBody" class="hint">Loading...</div>
+    <div class="bar">
+      <button class="btn" id="weekMake">Write this week's review</button>
+      <select id="weekPick" aria-label="Earlier reviews" hidden></select>
+      <span class="status" id="weekStatus"></span>
+    </div>
+    <p class="hint">Written by the AI from the stories already published over the last 7 days, only when you press the button.</p>
+  </section>
+
+  <!-- Settings -->
+  <section class="panel" id="settings" hidden>
     <h3>On this device</h3>
     <p class="hint">Saved in this browser straight away.</p>
+    <div class="field"><span>Card style</span><span id="styleChips"></span></div>
     <div class="field"><span>Text size</span><span id="zoomChips"></span></div>
     <div class="field"><span>Sort stories by</span><span id="sortChips"></span></div>
-    <div class="field"><span>Keep news for</span><span id="daysChips"></span></div>
+    <div class="field"><span>Unread keeps news for</span><span id="daysChips"></span></div>
 
     <h3>News collection</h3>
-    <p class="hint">What gets collected at each daily update. Changes apply from the next update.</p>
+    <p class="hint">What gets collected when you press Update news.</p>
     <div id="cfgLoading" class="hint">Loading current settings...</div>
     <div id="cfgForm" hidden>
-      <div class="field"><span>Update time</span><input type="time" id="cfgTime"><span class="hint" style="margin:0">Perth time</span></div>
-      <div class="field"><span>Update days</span><span id="cfgDays"></span></div>
       <div class="field"><span>Stories per update</span><input type="number" id="cfgCount" min="5" max="80" step="5"></div>
       <div class="field"><span>Topics</span><span id="cfgTopics"></span></div>
       <div class="field"><span>Region priority</span><span id="cfgRegions"></span></div>
@@ -136,32 +187,29 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
         <label class="opt"><input type="checkbox" id="cfgUpdates"> Updates to earlier stories</label>
         <label class="opt"><input type="checkbox" id="cfgDebates"> Sides of debates</label>
       </div>
+      <div class="bar"><button class="btn" id="cfgSave">Save collection settings</button><span class="status" id="cfgStatus"></span></div>
     </div>
 
+    <h3>GitHub key</h3>
     <div id="connectBox">
-      <div class="field"><span>GitHub key</span><input type="password" id="token" placeholder="Paste your key once, it stays in this browser" autocomplete="off"></div>
-      <p class="hint">Saving collection settings, and the Update news now button, need a free GitHub key for this project. To make one:</p>
+      <p class="hint">Needed for Update news, Fact check, Week in review, saving collection settings and syncing your Read and Favourites between devices.</p>
+      <div class="field"><span>Key</span><input type="password" id="token" placeholder="Paste your key once, it stays in this browser" autocomplete="off"><button class="btn" id="tokenSave">Save key</button></div>
       <ol class="hint">
-        <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> and give it a name such as News Digest app.</li>
+        <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> and name it News Digest app.</li>
         <li>Set Expiration to the longest option you are comfortable with.</li>
         <li>Under Repository access choose Only select repositories, then pick NewsSummarizer.</li>
         <li>Under Permissions, Repository permissions, set Contents to Read and write, and Actions to Read and write.</li>
-        <li>Click Generate token, copy it and paste it into the box above.</li>
+        <li>Click Generate token, copy it and paste it above.</li>
       </ol>
     </div>
-    <div class="actions">
-      <button class="btn" id="cfgSave" disabled>Save collection settings</button>
-      <button class="btn secondary" id="runNow">Update news now</button>
-      <button class="btn secondary" id="disconnect" hidden>Forget GitHub key</button>
-      <span class="status" id="cfgStatus"></span>
-    </div>
+    <div class="bar" id="connected" hidden><span class="status">Key saved in this browser.</span><button class="btn secondary" id="disconnect">Forget GitHub key</button></div>
     <p class="hint" style="margin-top:12px">Everything else (search words, outlets, blocked sites, AI model) lives in the <a id="advancedLink" href="#" target="_blank" rel="noopener">full settings file</a>.</p>
   </section>
 
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" data-view="unread">Unread <span class="n" id="nUnread">0</span></button>
-    <button class="tab" role="tab" data-view="archived">Archived <span class="n" id="nArchived">0</span></button>
-    <button class="tab" role="tab" data-view="all">All</button>
+    <button class="tab" role="tab" data-view="favourites">Favourites <span class="n" id="nFav">0</span></button>
+    <button class="tab" role="tab" data-view="read">Read <span class="n" id="nRead">0</span></button>
   </div>
 
   <div class="controls">
@@ -183,81 +231,203 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
   <main id="stories"></main>
   <div id="diagnostics"></div>
 
-  <footer>Facts are extracted automatically by AI from the linked articles. Check the sources before relying on any figure. Read and archived stories are remembered in this browser on this device.</footer>
+  <footer>Swipe a story right to mark it read, or left to add it to Favourites. Facts are extracted automatically by AI from the linked articles; use Fact check on a story to verify it against the sources. Read keeps the last 30 days; Favourites stay until you remove them.</footer>
 </div>
 <div class="toast" id="toast" hidden><span id="toastText"></span><button id="undo">Undo</button></div>
 
 <script>
 (function () {
+  "use strict";
   var REGION_LABELS = { perth: "Perth", australia: "Australia", international: "International" };
-  var READ_KEEP_DAYS = 120;     // read marks older than this are forgotten
-  var FILTER_KEY = "newsdigest-filters";
-  var READ_KEY = "newsdigest-read";
+  var READ_KEEP_DAYS = 30;
+  var DAY = 86400000;
+  var KEYS = { filters: "newsdigest-filters", prefs: "newsdigest-prefs", reader: "newsdigest-reader", oldRead: "newsdigest-read",
+               token: "newsdigest-github-key", jobs: "newsdigest-jobs" };
 
-  var stories = [];             // merged across editions, newest first
-  var latest = null;            // the newest edition, for the banner and run details
-  var filters = loadJSON(FILTER_KEY, { view: "unread", regions: [], categories: [], updatesOnly: false, search: "" });
-  var read = loadJSON(READ_KEY, {});   // story key -> time marked read (ms)
-  var PREFS_KEY = "newsdigest-prefs";
-  var prefs = loadJSON(PREFS_KEY, { zoom: 1, sort: "importance", days: 14 });
-  var lastAction = null;
-
+  // ---------- small helpers ----------
   function loadJSON(key, base) {
     try {
       var saved = JSON.parse(localStorage.getItem(key) || "null");
-      if (saved && typeof saved === "object") {
-        if (Array.isArray(base)) return saved;
-        for (var k in saved) base[k] = saved[k];
-      }
+      if (saved && typeof saved === "object") for (var k in saved) base[k] = saved[k];
     } catch (e) {}
     return base;
   }
-  function saveJSON(key, value) {
-    try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
-  }
+  function saveJSON(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
   function el(tag, attrs, text) {
     var node = document.createElement(tag);
     if (attrs) for (var k in attrs) node.setAttribute(k, attrs[k]);
     if (text !== undefined) node.textContent = text;
     return node;
   }
-  function shortDate(iso) {
+  function $(id) { return document.getElementById(id); }
+  function dateTime(iso) {
     var d = new Date(iso);
-    return isNaN(d) ? "" : d.toLocaleDateString("en-AU", { day: "numeric", month: "short" });
+    return isNaN(d) ? "" : d.toLocaleString("en-AU", { weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
   }
   function niceDate(iso) {
     if (!iso) return "an earlier day";
     var d = new Date(iso + "T00:00:00");
     return isNaN(d) ? iso : d.toLocaleDateString("en-AU", { day: "numeric", month: "long" });
   }
-  function dateTime(iso) {
-    var d = new Date(iso);
-    return isNaN(d) ? "" : d.toLocaleString("en-AU", { weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
-  }
-  function publishedText(s) {
-    if (!s.published) return s.edition ? "Collected " + dateTime(s.edition) : "";
-    var text = "Published " + dateTime(s.published);
-    var gap = s.latest_report ? Date.parse(s.latest_report) - Date.parse(s.published) : 0;
-    if (gap > 2 * 3600000) text += ", latest report " + dateTime(s.latest_report);
-    return text;
-  }
-  function toggle(list, value) {
-    var i = list.indexOf(value);
-    if (i >= 0) list.splice(i, 1); else list.push(value);
-  }
-  // A stable key per story, so its read mark survives reloads and new editions.
+  function toggle(list, value) { var i = list.indexOf(value); if (i >= 0) list.splice(i, 1); else list.push(value); }
   function storyKey(s) {
     var text = (s.headline || "").toLowerCase() + "|" + ((s.sources && s.sources[0] && s.sources[0].url) || "") + "|" + (s.is_update ? s.update_summary : "");
     var h = 5381;
     for (var i = 0; i < text.length; i++) h = ((h * 33) ^ text.charCodeAt(i)) >>> 0;
     return h.toString(36);
   }
-  function isRead(s) { return Object.prototype.hasOwnProperty.call(read, s.key); }
 
-  function pruneRead() {
-    var cutoff = Date.now() - READ_KEEP_DAYS * 86400000;
-    for (var k in read) if (read[k] < cutoff) delete read[k];
+  // ---------- state ----------
+  var filters = loadJSON(KEYS.filters, { view: "unread", regions: [], categories: [], updatesOnly: false, search: "" });
+  if (["unread", "favourites", "read"].indexOf(filters.view) < 0) filters.view = "unread";
+  var prefs = loadJSON(KEYS.prefs, { zoom: 1, sort: "importance", days: 14, compact: true });
+  var stories = [];              // loaded editions, newest first, unique by key
+  var byKey = {};
+  var latest = null, index = null, settingsUrl = "";
+  var loadedDays = 0;
+  var expanded = {};             // key -> true when the card is open
+  var factIndex = {}, factResults = {};
+
+  // Reader state, synced through state/reader.json: marks[key] = {r: read time, f: favourite time, t: last change}
+  var reader = loadJSON(KEYS.reader, { marks: {}, favs: {} });
+  (function migrateOldReadMarks() {
+    var old = loadJSON(KEYS.oldRead, {});
+    var moved = false;
+    for (var k in old) if (!reader.marks[k]) { reader.marks[k] = { r: old[k], f: 0, t: old[k] }; moved = true; }
+    if (moved) { saveJSON(KEYS.reader, reader); try { localStorage.removeItem(KEYS.oldRead); } catch (e) {} }
+  })();
+  function mark(key) { return reader.marks[key] || { r: 0, f: 0, t: 0 }; }
+  function isRead(s) { return mark(s.key).r > 0; }
+  function isFav(s) { return mark(s.key).f > 0; }
+  function snapshot(s) {
+    var copy = {};
+    for (var k in s) if (k !== "leaving") copy[k] = s[k];
+    return copy;
   }
+  function setMark(s, change) {
+    var m = mark(s.key);
+    var next = { r: m.r, f: m.f, t: Date.now() };
+    if ("read" in change) next.r = change.read ? (m.r || Date.now()) : 0;
+    if ("fav" in change) next.f = change.fav ? (m.f || Date.now()) : 0;
+    reader.marks[s.key] = next;
+    if (next.f) reader.favs[s.key] = snapshot(s); else delete reader.favs[s.key];
+    saveJSON(KEYS.reader, reader);
+    scheduleSync();
+  }
+  function pruneReader(r) {
+    var cutoff = Date.now() - READ_KEEP_DAYS * DAY;
+    for (var k in r.marks) {
+      var m = r.marks[k];
+      if (!m.f && ((m.r && m.r < cutoff) || (!m.r && m.t < cutoff))) delete r.marks[k];
+    }
+    for (var f in r.favs) if (!r.marks[f] || !r.marks[f].f) delete r.favs[f];
+    return r;
+  }
+  function mergeReaders(a, b) {
+    var out = { marks: {}, favs: {} };
+    [a, b].forEach(function (src) {
+      for (var k in src.marks || {}) {
+        var m = src.marks[k];
+        if (!out.marks[k] || m.t > out.marks[k].t) out.marks[k] = m;
+      }
+    });
+    for (var k in out.marks) if (out.marks[k].f) out.favs[k] = (b.favs && b.favs[k]) || (a.favs && a.favs[k]);
+    return pruneReader(out);
+  }
+
+  // ---------- GitHub API (for the buttons and sync) ----------
+  function getToken() { try { return localStorage.getItem(KEYS.token) || ""; } catch (e) { return ""; } }
+  function setToken(v) { try { if (v) localStorage.setItem(KEYS.token, v); else localStorage.removeItem(KEYS.token); } catch (e) {} }
+  function repoInfo() {
+    var m = /github\.com\/([^/]+\/[^/]+)\/edit\/(.+)\/config\.toml/.exec(settingsUrl);
+    return m ? { repo: m[1], branch: m[2] } : null;
+  }
+  function api(method, path, body, raw) {
+    if (!repoInfo()) return Promise.reject(new Error("the project details are not loaded yet"));
+    var headers = { "Accept": raw ? "application/vnd.github.raw+json" : "application/vnd.github+json" };
+    var token = getToken();
+    if (token) headers["Authorization"] = "Bearer " + token;
+    if (body) headers["Content-Type"] = "application/json";
+    return fetch("https://api.github.com/repos/" + repoInfo().repo + path, { method: method, headers: headers, body: body ? JSON.stringify(body) : undefined, cache: "no-store" })
+      .then(function (r) {
+        if (r.status === 204) return null;
+        if (raw && r.ok) return r.text();
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          if (!r.ok) {
+            var err = new Error(r.status === 401 ? "the GitHub key was not accepted" : r.status === 403 ? "the GitHub key does not have permission for this" : r.status === 404 ? "not found" : (j.message || "HTTP " + r.status));
+            err.status = r.status;
+            throw err;
+          }
+          return j;
+        });
+      });
+  }
+  function contentsPath(path) { return "/contents/" + path + "?ref=" + encodeURIComponent(repoInfo().branch); }
+  function fromBase64(b64) {
+    var bin = atob(b64.replace(/\s/g, "")), bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+  function toBase64(text) {
+    var bytes = new TextEncoder().encode(text), bin = "";
+    for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin);
+  }
+  function needKey(action) {
+    if (getToken()) return false;
+    showToast(action + " needs your GitHub key. Opening Settings.", true);
+    openPanel("settings");
+    $("token").focus();
+    return true;
+  }
+  function dispatch(inputs) {
+    return api("POST", "/actions/workflows/digest.yml/dispatches", { ref: repoInfo().branch, inputs: inputs });
+  }
+
+  // ---------- sync of Read and Favourites ----------
+  var READER_PATH = "state/reader.json";
+  var remoteSha = null, syncTimer = null, syncing = false, syncState = "";
+  function setSyncState(text) { syncState = text; drawMeta(); }
+  function pullReader() {
+    if (!repoInfo()) return Promise.resolve();
+    return api("GET", contentsPath(READER_PATH)).then(function (j) {
+      remoteSha = j.sha;
+      var remote = JSON.parse(fromBase64(j.content) || "{}");
+      reader = mergeReaders(reader, remote);
+      saveJSON(KEYS.reader, reader);
+      setSyncState(getToken() ? "Synced" : "Showing synced marks; add your GitHub key to save changes");
+      render();
+    }).catch(function (e) {
+      if (e.status === 404) { remoteSha = null; setSyncState(getToken() ? "Synced" : ""); }
+      else setSyncState("Sync unavailable (" + e.message + ")");
+    });
+  }
+  function scheduleSync() {
+    if (!getToken()) { setSyncState("Saved on this device only; add your GitHub key in Settings to sync"); return; }
+    clearTimeout(syncTimer);
+    setSyncState("Saving...");
+    syncTimer = setTimeout(pushReader, 3000);
+  }
+  function pushReader(retry) {
+    if (syncing || !getToken() || !repoInfo()) return;
+    syncing = true;
+    clearTimeout(syncTimer);
+    pruneReader(reader);
+    var body = { message: "Sync read and favourites from the app", content: toBase64(JSON.stringify({ version: 1, marks: reader.marks, favs: reader.favs })), branch: repoInfo().branch };
+    if (remoteSha) body.sha = remoteSha;
+    api("PUT", "/contents/" + READER_PATH, body).then(function (j) {
+      remoteSha = j.content.sha;
+      setSyncState("Synced");
+    }).catch(function (e) {
+      if ((e.status === 409 || e.status === 422) && !retry) {
+        // Another device saved first: merge its changes, then save again.
+        syncing = false;
+        return pullReader().then(function () { pushReader(true); });
+      }
+      setSyncState("Not synced (" + e.message + "); saved on this device");
+    }).finally(function () { syncing = false; });
+  }
+  document.addEventListener("visibilitychange", function () { if (document.hidden && syncTimer) pushReader(); });
 
   // ---------- filtering ----------
   function matchesFilters(s) {
@@ -271,29 +441,152 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     }
     return true;
   }
-  function inView(s) {
-    if (filters.view === "unread") return !isRead(s);
-    if (filters.view === "archived") return isRead(s);
-    return true;
+  function viewList() {
+    var unreadCutoff = Date.now() - prefs.days * DAY;
+    if (filters.view === "favourites") {
+      return Object.keys(reader.favs).map(function (k) { var s = byKey[k] || reader.favs[k]; s.key = k; return s; })
+        .filter(Boolean).sort(function (a, b) { return mark(b.key).f - mark(a.key).f; });
+    }
+    if (filters.view === "read") {
+      return stories.filter(function (s) { return isRead(s); }).sort(function (a, b) { return mark(b.key).r - mark(a.key).r; });
+    }
+    var list = stories.filter(function (s) { return !isRead(s) && (Date.parse(s.edition) || 0) >= unreadCutoff; });
+    if (prefs.sort === "newest") list.sort(function (a, b) { return (Date.parse(b.published || b.edition) || 0) - (Date.parse(a.published || a.edition) || 0); });
+    return list;
   }
 
   // ---------- rendering ----------
   function chipRow(containerId, values, labels, key) {
-    var row = document.getElementById(containerId);
+    var row = $(containerId);
     while (row.children.length > 1) row.removeChild(row.lastChild);
     values.forEach(function (v) {
       var b = el("button", { "class": "chip", "aria-pressed": String(filters[key].indexOf(v) >= 0) }, labels[v] || v);
-      b.addEventListener("click", function () { toggle(filters[key], v); saveJSON(FILTER_KEY, filters); render(); });
+      b.addEventListener("click", function () { toggle(filters[key], v); saveJSON(KEYS.filters, filters); render(); });
       row.appendChild(b);
     });
   }
+  function publishedText(s) {
+    if (!s.published) return s.edition ? "Collected " + dateTime(s.edition) : "";
+    var text = "Published " + dateTime(s.published);
+    var gap = s.latest_report ? Date.parse(s.latest_report) - Date.parse(s.published) : 0;
+    if (gap > 2 * 3600000) text += ", latest report " + dateTime(s.latest_report);
+    return text;
+  }
 
-  function storyNode(s) {
+  var VERDICT_LABELS = { supported: "Fact check: supported", partly_supported: "Fact check: partly supported", contradicted: "Fact check: contradicted", unavailable: "Fact check: not possible" };
+  var CLAIM_LABELS = { supported: "Supported", contradicted: "Contradicted", not_found: "Not found" };
+
+  function factNode(s) {
+    var job = jobFor("factcheck", s.key);
+    var res = factResults[s.key];
+    if (job && !job.error) return el("div", { "class": "fc" }, "Fact check running. It re reads the source articles and checks each claim, usually 1 to 3 minutes.");
+    if (job && job.error) return el("div", { "class": "fc" }, "Fact check failed: " + job.error);
+    if (!res) return null;
+    var box = el("div", { "class": "fc" });
+    var head = el("p", { style: "margin:0" });
+    head.appendChild(el("span", { "class": "v " + res.verdict }, VERDICT_LABELS[res.verdict] || res.verdict));
+    head.appendChild(document.createTextNode(" (" + dateTime(res.checked) + "). " + (res.summary || "")));
+    box.appendChild(head);
+    if (res.claims && res.claims.length) {
+      var ul = el("ul");
+      res.claims.forEach(function (c) {
+        var li = el("li");
+        li.appendChild(el("b", { "class": c.status }, CLAIM_LABELS[c.status] || c.status));
+        li.appendChild(document.createTextNode(" " + c.claim));
+        if (c.evidence) {
+          li.appendChild(el("br"));
+          li.appendChild(el("q", null, c.evidence));
+          if (c.source) li.appendChild(document.createTextNode(" (" + c.source + ")"));
+        }
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    }
+    return box;
+  }
+
+  function detailNode(s) {
+    var d = el("div", { "class": "detail" });
+    if (s.is_update) {
+      var n = el("p", { "class": "new" });
+      n.appendChild(el("b", null, "What is new. "));
+      n.appendChild(document.createTextNode(s.update_summary || "New details have been reported."));
+      d.appendChild(n);
+    }
+    if (s.facts) d.appendChild(el("p", null, s.facts));
+    else if (!s.processed) d.appendChild(el("p", { "class": "muted" }, "Summary not available for this story. Headline only."));
+    if (s.key_numbers && s.key_numbers.length) {
+      var nums = el("p", { "class": "nums" });
+      nums.appendChild(el("b", null, "Key numbers"));
+      s.key_numbers.forEach(function (k) { nums.appendChild(el("br")); nums.appendChild(document.createTextNode(k)); });
+      d.appendChild(nums);
+    }
+    if (s.why_it_matters) {
+      var w = el("p");
+      w.appendChild(el("b", null, "Why it matters. "));
+      w.appendChild(document.createTextNode(s.why_it_matters));
+      d.appendChild(w);
+    }
+    if (s.debate && s.debate.sides && s.debate.sides.length) {
+      var db = el("div", { "class": "debate" });
+      db.appendChild(el("b", { "class": "q" }, "Debate: " + s.debate.question));
+      var t = el("table");
+      s.debate.sides.forEach(function (side) {
+        var tr = el("tr");
+        tr.appendChild(el("td", null, side.side));
+        var td = el("td", null, side.position);
+        if (side.evidence) { td.appendChild(el("br")); td.appendChild(el("span", { "class": "muted" }, "Evidence cited: " + side.evidence)); }
+        tr.appendChild(td);
+        t.appendChild(tr);
+      });
+      db.appendChild(t);
+      d.appendChild(db);
+    }
+    if (s.is_update && s.previous) {
+      var o = el("div", { "class": "orig" });
+      o.appendChild(el("b", null, "Original story, published " + niceDate(s.previous.date)));
+      o.appendChild(el("br"));
+      o.appendChild(document.createTextNode(s.previous.headline + ". " + s.previous.facts));
+      d.appendChild(o);
+    }
+    var src = el("p", { "class": "sources" }, s.sources.length === 1 ? "Source: " : "Reported by " + s.sources.length + " outlets: ");
+    s.sources.forEach(function (x, i) {
+      if (i) src.appendChild(document.createTextNode(", "));
+      src.appendChild(el("a", { href: x.url, target: "_blank", rel: "noopener" }, x.name));
+    });
+    d.appendChild(src);
+    var fc = factNode(s);
+    if (fc) d.appendChild(fc);
+
+    var actions = el("div", { "class": "actions" });
+    var readBtn = el("button", { "class": "btn secondary" }, isRead(s) ? "Mark unread" : "Mark read");
+    readBtn.addEventListener("click", function () { act(s, { read: !isRead(s) }); });
+    var favBtn = el("button", { "class": "btn secondary" }, isFav(s) ? "Remove from favourites" : "Add to favourites");
+    favBtn.addEventListener("click", function () { act(s, isFav(s) ? { fav: false } : { fav: true, read: true }); });
+    var job = jobFor("factcheck", s.key);
+    var fcBtn = el("button", { "class": "btn" }, factResults[s.key] ? "Fact check again" : "Fact check");
+    fcBtn.disabled = !!(job && !job.error) || !s.file;
+    if (!s.file) fcBtn.title = "This story's source edition is no longer stored";
+    fcBtn.addEventListener("click", function () { startFactCheck(s); });
+    actions.appendChild(readBtn);
+    actions.appendChild(favBtn);
+    actions.appendChild(fcBtn);
+    d.appendChild(actions);
+    return d;
+  }
+
+  function cardNode(s) {
+    var slot = el("div", { "class": "slot" });
+    var under = el("div", { "class": "under" });
+    under.appendChild(el("span", { "class": "l" }, isRead(s) ? "Mark unread" : "Read"));
+    under.appendChild(el("span", { "class": "r" }, isFav(s) ? "Remove favourite" : "Favourite"));
+    slot.appendChild(under);
+
     var a = el("article");
-    var box = el("label", { "class": "readbox", title: isRead(s) ? "Move back to Unread" : "Mark as read and archive" });
+    var box = el("label", { "class": "readbox", title: isRead(s) ? "Mark unread" : "Mark read" });
     var cb = el("input", { type: "checkbox", "aria-label": "Read: " + s.headline });
     cb.checked = isRead(s);
-    cb.addEventListener("change", function () { setRead([s], cb.checked, a); });
+    cb.addEventListener("change", function () { act(s, { read: cb.checked }); });
     box.appendChild(cb);
     box.appendChild(document.createTextNode("Read"));
     a.appendChild(box);
@@ -303,142 +596,323 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     if (s.is_update) tags.appendChild(el("span", { "class": "upd" }, "Update"));
     tags.appendChild(el("span", null, REGION_LABELS[s.region] || s.region));
     tags.appendChild(el("span", null, s.category_label));
+    var fcv = (factResults[s.key] && factResults[s.key].verdict) || (factIndex[s.key] && factIndex[s.key].verdict);
+    if (fcv && fcv !== "unavailable") tags.appendChild(el("span", { "class": "fcb " + fcv }, fcv === "supported" ? "Checked" : fcv === "contradicted" ? "Check failed" : "Partly checked"));
     body.appendChild(tags);
-    body.appendChild(el("h2", null, s.headline));
-    var when = publishedText(s);
-    if (when) body.appendChild(el("p", { "class": "when" }, when));
-    if (s.is_update) {
-      var n = el("p", { "class": "new" });
-      n.appendChild(el("b", null, "What is new. "));
-      n.appendChild(document.createTextNode(s.update_summary || "New details have been reported."));
-      body.appendChild(n);
+
+    var head = el("div", { "class": "head" });
+    var h2 = el("h2", null, s.headline);
+    var open = !prefs.compact || expanded[s.key];
+    h2.addEventListener("click", function () { if (Date.now() < suppressClickUntil) return; expanded[s.key] = !open; if (expanded[s.key]) loadFactResult(s); render(); });
+    head.appendChild(h2);
+    var star = el("button", { "class": "star", "aria-pressed": String(isFav(s)), title: isFav(s) ? "Remove from favourites" : "Add to favourites", "aria-label": "Favourite" }, isFav(s) ? "★" : "☆");
+    star.addEventListener("click", function () { act(s, isFav(s) ? { fav: false } : { fav: true, read: true }); });
+    head.appendChild(star);
+    body.appendChild(head);
+
+    var when = el("p", { "class": "when" });
+    when.appendChild(el("span", null, publishedText(s)));
+    when.appendChild(el("span", null, s.sources.length + (s.sources.length === 1 ? " outlet" : " outlets")));
+    if (prefs.compact) {
+      var tg = el("button", { "class": "toggle", "aria-expanded": String(open) }, open ? "Hide story ▴" : "Show story ▾");
+      tg.addEventListener("click", function () { expanded[s.key] = !open; if (expanded[s.key]) loadFactResult(s); render(); });
+      when.appendChild(tg);
     }
-    if (s.facts) body.appendChild(el("p", null, s.facts));
-    else if (!s.processed) body.appendChild(el("p", { "class": "muted" }, "Summary not available for this story. Headline only."));
-    if (s.key_numbers && s.key_numbers.length) {
-      var nums = el("p", { "class": "nums" });
-      nums.appendChild(el("b", null, "Key numbers"));
-      s.key_numbers.forEach(function (k) { nums.appendChild(el("br")); nums.appendChild(document.createTextNode(k)); });
-      body.appendChild(nums);
-    }
-    if (s.why_it_matters) {
-      var w = el("p");
-      w.appendChild(el("b", null, "Why it matters. "));
-      w.appendChild(document.createTextNode(s.why_it_matters));
-      body.appendChild(w);
-    }
-    if (s.debate && s.debate.sides && s.debate.sides.length) {
-      var d = el("div", { "class": "debate" });
-      d.appendChild(el("b", { "class": "q" }, "Debate: " + s.debate.question));
-      var t = el("table");
-      s.debate.sides.forEach(function (side) {
-        var tr = el("tr");
-        tr.appendChild(el("td", null, side.side));
-        var td = el("td", null, side.position);
-        if (side.evidence) {
-          td.appendChild(el("br"));
-          td.appendChild(el("span", { "class": "muted" }, "Evidence cited: " + side.evidence));
-        }
-        tr.appendChild(td);
-        t.appendChild(tr);
-      });
-      d.appendChild(t);
-      body.appendChild(d);
-    }
-    if (s.is_update && s.previous) {
-      var o = el("div", { "class": "orig" });
-      o.appendChild(el("b", null, "Original story, published " + niceDate(s.previous.date)));
-      o.appendChild(el("br"));
-      o.appendChild(document.createTextNode(s.previous.headline + ". " + s.previous.facts));
-      body.appendChild(o);
-    }
-    var src = el("p", { "class": "sources" }, s.sources.length === 1 ? "Source: " : "Reported by " + s.sources.length + " outlets: ");
-    s.sources.forEach(function (x, i) {
-      if (i) src.appendChild(document.createTextNode(", "));
-      src.appendChild(el("a", { href: x.url, target: "_blank", rel: "noopener" }, x.name));
-    });
-    body.appendChild(src);
+    body.appendChild(when);
+    if (open) body.appendChild(detailNode(s));
     a.appendChild(body);
-    return a;
+    slot.appendChild(a);
+    enableSwipe(slot, a, s);
+    return slot;
   }
 
   function render() {
-    // Tabs and counts
-    var unread = stories.filter(function (s) { return !isRead(s); }).length;
-    document.getElementById("nUnread").textContent = unread;
-    document.getElementById("nArchived").textContent = stories.length - unread;
+    var unreadCutoff = Date.now() - prefs.days * DAY;
+    var unread = stories.filter(function (s) { return !isRead(s) && (Date.parse(s.edition) || 0) >= unreadCutoff; }).length;
+    $("nUnread").textContent = unread;
+    $("nFav").textContent = Object.keys(reader.favs).length;
+    $("nRead").textContent = stories.filter(isRead).length;
     Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (t) {
       t.setAttribute("aria-selected", String(t.getAttribute("data-view") === filters.view));
     });
     document.title = unread ? "(" + unread + ") News Digest" : "News Digest";
+    if (navigator.setAppBadge) { try { unread ? navigator.setAppBadge(unread) : navigator.clearAppBadge(); } catch (e) {} }
 
-    // Filter chips from the stories that exist
-    var regions = ["perth", "australia", "international"].filter(function (r) { return stories.some(function (s) { return s.region === r; }); });
+    var pool = stories.concat(Object.keys(reader.favs).map(function (k) { return reader.favs[k]; }));
+    var regions = ["perth", "australia", "international"].filter(function (r) { return pool.some(function (s) { return s.region === r; }); });
     var cats = [], catLabels = {};
-    stories.forEach(function (s) { if (cats.indexOf(s.category) < 0) { cats.push(s.category); catLabels[s.category] = s.category_label; } });
+    pool.forEach(function (s) { if (s.category && cats.indexOf(s.category) < 0) { cats.push(s.category); catLabels[s.category] = s.category_label; } });
     chipRow("regions", regions, REGION_LABELS, "regions");
     chipRow("categories", cats, catLabels, "categories");
-    document.getElementById("updatesOnly").setAttribute("aria-pressed", String(filters.updatesOnly));
+    $("updatesOnly").setAttribute("aria-pressed", String(filters.updatesOnly));
 
-    var visible = stories.filter(function (s) { return inView(s) && matchesFilters(s); });
-    if (filters.view === "archived") visible.sort(function (a, b) { return read[b.key] - read[a.key]; });
-    else if (prefs.sort === "newest") visible.sort(function (a, b) { return (Date.parse(b.published || b.edition) || 0) - (Date.parse(a.published || a.edition) || 0); });
-    var main = document.getElementById("stories");
+    var visible = viewList().filter(matchesFilters);
+    var main = $("stories");
     main.textContent = "";
     if (!visible.length) {
-      var msg = !stories.length ? "No news yet. The first update appears after the next run."
-        : filters.view === "unread" && !unread ? "All caught up. Read stories are in the Archived tab."
+      var msg = filters.view === "favourites" ? "No favourites yet. Swipe a story left, or tap its star, to keep it here."
+        : filters.view === "read" ? "Nothing read in the last " + READ_KEEP_DAYS + " days."
+        : !stories.length ? "No news yet. Press Update news to collect today's stories."
+        : !unread ? "All caught up. Press Update news when you want new stories."
         : "No stories match these filters.";
       main.appendChild(el("p", { "class": "empty" }, msg));
     }
-    visible.forEach(function (s) { main.appendChild(storyNode(s)); });
-    var label = filters.view === "unread" ? "unread" : filters.view === "archived" ? "archived" : "";
-    document.getElementById("count").textContent = "Showing " + visible.length + " " + label + " " + (visible.length === 1 ? "story" : "stories");
-    var markAll = document.getElementById("markAll");
+    visible.forEach(function (s) { main.appendChild(cardNode(s)); });
+    var label = { unread: "unread", favourites: "favourite", read: "read" }[filters.view];
+    $("count").textContent = "Showing " + visible.length + " " + label + " " + (visible.length === 1 ? "story" : "stories");
+    var markAll = $("markAll");
     markAll.hidden = !(filters.view === "unread" && visible.length);
-    markAll.onclick = function () { setRead(visible, true); };
+    markAll.onclick = function () { actMany(visible, { read: true }); };
   }
 
-  // ---------- read and archive ----------
-  function setRead(list, value, node) {
-    var before = list.map(function (s) { return [s.key, read[s.key]]; });
-    list.forEach(function (s) { if (value) read[s.key] = Date.now(); else delete read[s.key]; });
-    saveJSON(READ_KEY, read);
-    lastAction = before;
-    var n = list.length;
-    showToast(value ? (n === 1 ? "Marked as read and archived" : n + " stories archived") : "Moved back to Unread");
-    // Let the tick register visibly before the card leaves the list.
-    if (node && filters.view !== "all") {
-      node.classList.add("leaving");
-      setTimeout(render, 250);
-    } else {
-      render();
-    }
+  // ---------- read, favourite, undo ----------
+  var lastAction = null;
+  function describe(change, n) {
+    if (change.fav === true) return n === 1 ? "Added to favourites" : n + " added to favourites";
+    if (change.fav === false) return "Removed from favourites";
+    if (change.read === true) return n === 1 ? "Marked as read" : n + " stories marked as read";
+    return "Moved back to Unread";
   }
-  var toastTimer = null;
-  function showToast(text) {
-    document.getElementById("toastText").textContent = text;
-    document.getElementById("toast").hidden = false;
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { document.getElementById("toast").hidden = true; }, 5000);
+  function actMany(list, change) {
+    lastAction = list.map(function (s) { return [s, { r: mark(s.key).r, f: mark(s.key).f }]; });
+    list.forEach(function (s) { setMark(s, change); });
+    showToast(describe(change, list.length));
+    render();
   }
-  document.getElementById("undo").addEventListener("click", function () {
+  function act(s, change, node) {
+    lastAction = [[s, { r: mark(s.key).r, f: mark(s.key).f }]];
+    setMark(s, change);
+    showToast(describe(change, 1));
+    if (node) { node.classList.add("leaving"); setTimeout(render, 200); } else render();
+  }
+  $("undo").addEventListener("click", function () {
     if (!lastAction) return;
-    lastAction.forEach(function (pair) { if (pair[1] === undefined) delete read[pair[0]]; else read[pair[0]] = pair[1]; });
+    lastAction.forEach(function (pair) {
+      var s = pair[0], before = pair[1];
+      reader.marks[s.key] = { r: before.r, f: before.f, t: Date.now() };
+      if (before.f) reader.favs[s.key] = snapshot(s); else delete reader.favs[s.key];
+    });
     lastAction = null;
-    saveJSON(READ_KEY, read);
-    document.getElementById("toast").hidden = true;
+    saveJSON(KEYS.reader, reader);
+    scheduleSync();
+    $("toast").hidden = true;
     render();
   });
+  var toastTimer = null;
+  function showToast(text, noUndo) {
+    $("toastText").textContent = text;
+    $("undo").hidden = !!noUndo;
+    $("toast").hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { $("toast").hidden = true; }, 5000);
+  }
+
+  // Swipe right: read (or unread in the Read tab). Swipe left: favourite (or remove it).
+  var suppressClickUntil = 0;   // a sideways drag must not also count as a tap
+  function enableSwipe(slot, card, s) {
+    var startX = 0, startY = 0, dx = 0, active = false, locked = null, id = null;
+    var THRESHOLD = 90;
+    card.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      if (e.target.closest("button, a, input, label")) return;
+      startX = e.clientX; startY = e.clientY; dx = 0; active = true; locked = null; id = e.pointerId;
+    });
+    card.addEventListener("pointermove", function (e) {
+      if (!active || e.pointerId !== id) return;
+      var mx = e.clientX - startX, my = e.clientY - startY;
+      if (locked === null && (Math.abs(mx) > 10 || Math.abs(my) > 10)) {
+        locked = Math.abs(mx) > Math.abs(my) ? "x" : "y";
+        if (locked === "x") { card.setPointerCapture(id); card.classList.add("dragging"); }
+      }
+      if (locked !== "x") return;
+      dx = mx;
+      card.style.transform = "translateX(" + dx + "px)";
+      slot.classList.toggle("swipe-read", dx > 0);
+      slot.classList.toggle("swipe-fav", dx < 0);
+    });
+    function end() {
+      if (!active) return;
+      active = false;
+      card.classList.remove("dragging");
+      if (locked === "x") suppressClickUntil = Date.now() + 400;
+      if (locked === "x" && Math.abs(dx) >= THRESHOLD) {
+        card.style.transform = "translateX(" + (dx > 0 ? "110%" : "-110%") + ")";
+        var change = dx > 0 ? { read: !isRead(s) } : (isFav(s) ? { fav: false } : { fav: true, read: true });
+        setTimeout(function () { act(s, change); }, 180);
+      } else {
+        card.style.transform = "";
+        setTimeout(function () { slot.classList.remove("swipe-read", "swipe-fav"); }, 200);
+      }
+    }
+    card.addEventListener("pointerup", end);
+    card.addEventListener("pointercancel", end);
+  }
+
+  // ---------- jobs: update news, fact check, week in review ----------
+  var jobs = loadJSON(KEYS.jobs, { list: [] }).list;
+  var pollTimer = null;
+  function saveJobs() { saveJSON(KEYS.jobs, { list: jobs }); }
+  function jobFor(task, key) { return jobs.filter(function (j) { return j.task === task && (!key || j.key === key); })[0]; }
+  function addJob(job) {
+    jobs = jobs.filter(function (j) { return !(j.task === job.task && j.key === job.key); });
+    job.started = Date.now();
+    jobs.push(job);
+    saveJobs();
+    drawJobs();
+    schedulePoll(5000);
+  }
+  function finishJob(job, error) {
+    jobs = jobs.filter(function (j) { return j !== job; });
+    if (error) { job.error = error; jobs.push(job); }
+    saveJobs();
+    drawJobs();
+  }
+  function drawJobs() {
+    var box = $("jobs");
+    box.textContent = "";
+    jobs.forEach(function (j) {
+      var mins = Math.max(0, Math.round((Date.now() - j.started) / 60000));
+      var text = j.error ? (j.label + " failed: " + j.error)
+        : j.label + " running for " + (mins < 1 ? "under a minute" : mins + (mins === 1 ? " minute" : " minutes")) + ". " + j.hint;
+      var p = el("p", { "class": "job" + (j.error ? " err" : "") }, text + " ");
+      if (j.error) {
+        if (j.runUrl) p.appendChild(el("a", { href: j.runUrl, target: "_blank", rel: "noopener" }, "Details"));
+        var x = el("button", { "class": "toggle", style: "margin-left:8px" }, "Dismiss");
+        x.addEventListener("click", function () { jobs = jobs.filter(function (k) { return k !== j; }); saveJobs(); drawJobs(); render(); });
+        p.appendChild(x);
+      }
+      box.appendChild(p);
+    });
+    var up = jobFor("update");
+    $("updateBtn").disabled = !!(up && !up.error);
+    $("updateBtn").textContent = up && !up.error ? "Updating..." : "Update news";
+    var wk = jobFor("weekly");
+    $("weekMake").disabled = !!(wk && !wk.error);
+  }
+  function schedulePoll(ms) { clearTimeout(pollTimer); pollTimer = setTimeout(poll, ms); }
+  function poll() {
+    var pending = jobs.filter(function (j) { return !j.error; });
+    if (!pending.length || !repoInfo()) return;
+    Promise.all(pending.map(checkJob)).then(function () {
+      return checkFailedRuns();
+    }).catch(function () {}).then(function () {
+      drawJobs();
+      if (jobs.some(function (j) { return !j.error; })) schedulePoll(15000);
+    });
+  }
+  function checkJob(job) {
+    if (Date.now() - job.started > 45 * 60000) { finishJob(job, "no result after 45 minutes"); return Promise.resolve(); }
+    var since = new Date(job.started - 60000).toISOString();
+    if (job.task === "update") {
+      return api("GET", contentsPath("docs/data/index.json"), null, true).then(function (text) {
+        var first = (JSON.parse(text).digests || [])[0];
+        if (first && Date.parse(first.generated) >= Date.parse(since)) { finishJob(job); showToast("New stories are in.", true); load(true); }
+      });
+    }
+    if (job.task === "weekly") {
+      return api("GET", contentsPath("docs/data/weekly/index.json"), null, true).then(function (text) {
+        var first = (JSON.parse(text).reviews || [])[0];
+        if (first && Date.parse(first.generated) >= Date.parse(since)) { finishJob(job); loadWeek(true); }
+      }).catch(function (e) { if (e.status !== 404) throw e; });
+    }
+    return api("GET", contentsPath("docs/data/factchecks/index.json"), null, true).then(function (text) {
+      var entry = JSON.parse(text)[job.key];
+      if (entry && Date.parse(entry.checked) >= Date.parse(since)) {
+        factIndex[job.key] = entry;
+        finishJob(job);
+        return loadFactResult({ key: job.key }, true).then(render);
+      }
+    }).catch(function (e) { if (e.status !== 404) throw e; });
+  }
+  var seenFailures = loadJSON("newsdigest-seen-failures", { ids: [] });
+  function checkFailedRuns() {
+    // GitHub creates one run per button press, in order. A failed run belongs to the
+    // pending job whose start time is closest before the run was created.
+    return api("GET", "/actions/runs?event=workflow_dispatch&per_page=10").then(function (j) {
+      (j.workflow_runs || []).forEach(function (run) {
+        if (run.status !== "completed" || run.conclusion === "success" || seenFailures.ids.indexOf(run.id) >= 0) return;
+        var created = Date.parse(run.created_at), owner = null;
+        jobs.forEach(function (job) {
+          if (job.error || job.started - 30000 > created) return;
+          if (!owner || job.started > owner.started) owner = job;
+        });
+        if (!owner) return;
+        seenFailures.ids = seenFailures.ids.concat(run.id).slice(-50);
+        saveJSON("newsdigest-seen-failures", seenFailures);
+        owner.runUrl = run.html_url;
+        finishJob(owner, "the run on GitHub " + (run.conclusion || "stopped") + ".");
+      });
+    }).catch(function () {});
+  }
+  function startUpdate() {
+    if (needKey("Update news")) return;
+    dispatch({ task: "update" }).then(function () {
+      addJob({ task: "update", label: "News update", hint: "It collects, filters and summarises new stories, usually 5 to 15 minutes. Keep reading meanwhile." });
+    }).catch(function (e) { showToast("Could not start the update: " + e.message, true); });
+  }
+  function startFactCheck(s) {
+    if (needKey("Fact check")) return;
+    dispatch({ task: "factcheck", story_file: s.file, story_id: s.id, story_key: s.key }).then(function () {
+      addJob({ task: "factcheck", key: s.key, label: "Fact check of “" + s.headline.slice(0, 60) + "”", hint: "Usually 1 to 3 minutes." });
+      render();
+    }).catch(function (e) { showToast("Could not start the fact check: " + e.message, true); });
+  }
+  function startWeekly() {
+    if (needKey("Week in review")) return;
+    dispatch({ task: "weekly" }).then(function () {
+      addJob({ task: "weekly", label: "Week in review", hint: "Usually 1 to 3 minutes." });
+      $("weekStatus").textContent = "Writing... it appears here when ready.";
+    }).catch(function (e) { $("weekStatus").textContent = "Could not start: " + e.message; });
+  }
+
+  // ---------- fact check results ----------
+  function loadFactResult(s, fresh) {
+    if (factResults[s.key] && !fresh) return Promise.resolve();
+    if (!fresh && !factIndex[s.key]) return Promise.resolve();
+    var get = fresh && repoInfo() ? api("GET", contentsPath("docs/data/factchecks/" + s.key + ".json"), null, true).then(JSON.parse)
+      : fetchJSON("data/factchecks/" + s.key + ".json");
+    return get.then(function (r) { factResults[s.key] = r; render(); }).catch(function () {});
+  }
+
+  // ---------- week in review ----------
+  var weekIndex = null;
+  function loadWeek(fresh) {
+    var get = fresh && repoInfo() ? api("GET", contentsPath("docs/data/weekly/index.json"), null, true).then(JSON.parse) : fetchJSON("data/weekly/index.json");
+    return get.then(function (idx) {
+      weekIndex = idx;
+      var pick = $("weekPick");
+      pick.textContent = "";
+      (idx.reviews || []).forEach(function (r) { pick.appendChild(el("option", { value: r.file }, r.label)); });
+      pick.hidden = (idx.reviews || []).length < 2;
+      if ((idx.reviews || []).length) showWeek(idx.reviews[0].file, fresh);
+      else $("weekBody").textContent = "No review yet. Press the button below to write one.";
+    }).catch(function () { $("weekBody").textContent = "No review yet. Press the button below to write one."; });
+  }
+  function showWeek(file, fresh) {
+    var get = fresh && repoInfo() ? api("GET", contentsPath("docs/data/weekly/" + file), null, true).then(JSON.parse) : fetchJSON("data/weekly/" + file);
+    get.then(function (w) {
+      $("weekTitle").textContent = w.label;
+      var body = $("weekBody");
+      body.textContent = "";
+      body.className = "";
+      if (w.big_picture) body.appendChild(el("p", { "class": "big" }, w.big_picture));
+      (w.sections || []).forEach(function (sec) {
+        body.appendChild(el("h4", null, sec.topic));
+        var ul = el("ul");
+        sec.points.forEach(function (p) { ul.appendChild(el("li", null, p)); });
+        body.appendChild(ul);
+      });
+      body.appendChild(el("p", { "class": "hint" }, "Written " + dateTime(w.generated) + " from " + w.stories_used + " stories."));
+      $("weekStatus").textContent = "";
+    }).catch(function () { $("weekBody").textContent = "Could not load this review."; });
+  }
+  $("weekPick").addEventListener("change", function () { showWeek(this.value); });
+  $("weekMake").addEventListener("click", startWeekly);
 
   // ---------- run details for the newest edition ----------
   function table(rows, headers, numericLast) {
     var t = el("table");
-    if (headers) {
-      var hr = el("tr");
-      headers.forEach(function (h) { hr.appendChild(el("th", null, h)); });
-      t.appendChild(hr);
-    }
+    if (headers) { var hr = el("tr"); headers.forEach(function (h) { hr.appendChild(el("th", null, h)); }); t.appendChild(hr); }
     rows.forEach(function (r) {
       var tr = el("tr");
       r.forEach(function (cell, i) { tr.appendChild(el("td", numericLast && i === r.length - 1 ? { "class": "n" } : null, String(cell))); });
@@ -447,23 +921,18 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     return t;
   }
   function renderLatestDetails() {
-    var banner = document.getElementById("banner");
-    var box = document.getElementById("diagnostics");
-    banner.textContent = "";
-    box.textContent = "";
+    var banner = $("banner"), box = $("diagnostics");
+    banner.textContent = ""; box.textContent = "";
     if (!latest) return;
     if (latest.notice) banner.appendChild(el("p", { "class": "banner" }, latest.notice));
     var d = latest.diagnostics;
     if (!d) return;
     var det = el("details", { "class": "diag" });
-    det.appendChild(el("summary", null, "Run details for the latest update (" + latest.label + ")"));
+    det.appendChild(el("summary", null, "Run details for the latest update (" + dateTime(latest.generated) + ")"));
     det.appendChild(el("p", null, "Looked back " + d.lookback_hours + " hours for news."));
     det.appendChild(el("h4", null, "Stories surviving each stage"));
     det.appendChild(table(d.funnel || [], null, true));
-    if (d.ai_notes && d.ai_notes.length) {
-      det.appendChild(el("h4", null, "AI"));
-      d.ai_notes.forEach(function (n) { det.appendChild(el("p", null, n)); });
-    }
+    if (d.ai_notes && d.ai_notes.length) { det.appendChild(el("h4", null, "AI")); d.ai_notes.forEach(function (n) { det.appendChild(el("p", null, n)); }); }
     if (d.feed_failures && d.feed_failures.length) {
       det.appendChild(el("h4", null, "Feeds that failed (" + d.feed_failures.length + ")"));
       d.feed_failures.forEach(function (f) { det.appendChild(el("p", null, f.url + ": " + f.error)); });
@@ -479,121 +948,71 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
 
   // ---------- loading ----------
   function fetchJSON(path) {
-    return fetch(path + "?t=" + Date.now(), { cache: "no-store" }).then(function (r) {
-      if (!r.ok) throw new Error(r.status);
-      return r.json();
-    });
+    return fetch(path + "?t=" + Date.now(), { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
   }
-  function load() {
-    fetchJSON("data/index.json").then(function (index) {
-      var cutoff = Date.now() - prefs.days * 86400000;
-      var list = (index.digests || []).filter(function (e, i) {
-        var t = Date.parse(e.generated || "");
-        return i === 0 || isNaN(t) || t >= cutoff;
-      });
-      var meta = document.getElementById("meta");
-      if (!list.length) { meta.textContent = "No news yet. The first update appears after the next run."; render(); return; }
+  function drawMeta() {
+    var meta = $("meta");
+    meta.textContent = latest ? "Last update " + dateTime(latest.generated) + "." : "";
+    if (syncState) meta.appendChild(document.createTextNode(" " + syncState + "."));
+  }
+  // fresh: read straight from GitHub instead of the web page copy, which lags a minute or two after an update.
+  function load(fresh, days) {
+    loadedDays = Math.max(days || prefs.days, loadedDays && !fresh ? loadedDays : 0);
+    var getIndex = fresh && repoInfo() ? api("GET", contentsPath("docs/data/index.json"), null, true).then(JSON.parse) : fetchJSON("data/index.json");
+    return getIndex.then(function (idx) {
+      index = idx;
+      settingsUrl = idx.settings_url || settingsUrl;
+      $("advancedLink").href = settingsUrl || "#";
+      var cutoff = Date.now() - loadedDays * DAY;
+      var list = (idx.digests || []).filter(function (e, i) { var t = Date.parse(e.generated || ""); return i === 0 || isNaN(t) || t >= cutoff; });
       return Promise.all(list.map(function (e) {
         var file = e.file.indexOf("/") < 0 ? "digests/" + e.file : e.file;
-        return fetchJSON("data/" + file).catch(function () { return null; });
-      })).then(function (editions) {
-        var seen = {};
-        stories = [];
-        latest = editions[0];
-        editions.forEach(function (ed) {
-          if (!ed) return;
-          (ed.stories || []).forEach(function (s) {
-            s.edition = ed.generated;
-            s.key = storyKey(s);
-            if (!seen[s.key]) { seen[s.key] = true; stories.push(s); }
-          });
+        var get = fresh && repoInfo() ? api("GET", contentsPath("docs/data/" + file), null, true).then(JSON.parse) : fetchJSON("data/" + file);
+        return get.then(function (ed) { ed.file = file; return ed; }).catch(function () { return null; });
+      }));
+    }).then(function (editions) {
+      var seen = {};
+      stories = []; byKey = {};
+      latest = editions[0] || null;
+      editions.forEach(function (ed) {
+        if (!ed) return;
+        (ed.stories || []).forEach(function (s) {
+          s.edition = ed.generated; s.file = ed.file; s.key = storyKey(s);
+          if (!seen[s.key]) { seen[s.key] = true; stories.push(s); byKey[s.key] = s; }
         });
-        meta.textContent = latest ? "Last updated " + new Date(latest.generated).toLocaleString("en-AU", { weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" }) + ". " : "";
-        settingsUrl = (latest && latest.settings_url) || index.settings_url || "";
-        document.getElementById("advancedLink").href = settingsUrl || "#";
-        renderLatestDetails();
-        render();
       });
+      drawMeta();
+      renderLatestDetails();
+      render();
+      fetchJSON("data/factchecks/index.json").then(function (fi) { factIndex = fi; render(); }).catch(function () {});
     }).catch(function () {
-      document.getElementById("meta").textContent = "Could not load the news. Check your connection and press Reload.";
+      $("meta").textContent = "Could not load the news. Check your connection and press Reload.";
+      render();
     });
   }
-
-  // ---------- controls ----------
-  Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (t) {
-    t.addEventListener("click", function () { filters.view = t.getAttribute("data-view"); saveJSON(FILTER_KEY, filters); render(); });
-  });
-  document.getElementById("search").value = filters.search;
-  document.getElementById("search").addEventListener("input", function (e) { filters.search = e.target.value; saveJSON(FILTER_KEY, filters); render(); });
-  document.getElementById("updatesOnly").addEventListener("click", function () { filters.updatesOnly = !filters.updatesOnly; saveJSON(FILTER_KEY, filters); render(); });
-  document.getElementById("reset").addEventListener("click", function () {
-    filters.regions = []; filters.categories = []; filters.updatesOnly = false; filters.search = "";
-    document.getElementById("search").value = "";
-    saveJSON(FILTER_KEY, filters); render();
-  });
-  document.getElementById("reload").addEventListener("click", load);
 
   // ---------- settings: on this device ----------
   function choiceChips(id, options, key, after) {
-    var box = document.getElementById(id);
+    var box = $(id);
     box.textContent = "";
     options.forEach(function (o) {
       var b = el("button", { "class": "chip", "aria-pressed": String(prefs[key] === o[0]) }, o[1]);
-      b.addEventListener("click", function () { prefs[key] = o[0]; saveJSON(PREFS_KEY, prefs); drawDevicePrefs(); if (after) after(); });
+      b.addEventListener("click", function () { prefs[key] = o[0]; saveJSON(KEYS.prefs, prefs); drawDevicePrefs(); if (after) after(); });
       box.appendChild(b);
       box.appendChild(document.createTextNode(" "));
     });
   }
   function drawDevicePrefs() {
     document.documentElement.style.setProperty("--zoom", prefs.zoom);
+    choiceChips("styleChips", [[true, "Compact"], [false, "Full stories"]], "compact", render);
     choiceChips("zoomChips", [[1, "Normal"], [1.15, "Large"], [1.3, "Extra large"]], "zoom");
     choiceChips("sortChips", [["importance", "Importance"], ["newest", "Newest first"]], "sort", render);
-    choiceChips("daysChips", [[7, "7 days"], [14, "14 days"], [30, "30 days"]], "days", load);
+    choiceChips("daysChips", [[7, "7 days"], [14, "14 days"], [30, "30 days"]], "days", function () { load(false, Math.max(prefs.days, filters.view === "read" ? READ_KEEP_DAYS : 0)); });
   }
 
   // ---------- settings: news collection (config.toml via the GitHub API) ----------
-  var TOKEN_KEY = "newsdigest-github-key";
-  var settingsUrl = "";
   var cfgText = null, cfgSha = null;
-  var DAY_NAMES = [["mon", "Mon"], ["tue", "Tue"], ["wed", "Wed"], ["thu", "Thu"], ["fri", "Fri"], ["sat", "Sat"], ["sun", "Sun"]];
   var LEVELS = [[0, "Off"], [1, "Low"], [2, "Medium"], [3, "High"]];
-
-  function getToken() { try { return localStorage.getItem(TOKEN_KEY) || ""; } catch (e) { return ""; } }
-  function setToken(v) { try { if (v) localStorage.setItem(TOKEN_KEY, v); else localStorage.removeItem(TOKEN_KEY); } catch (e) {} }
-  function repoInfo() {
-    var m = /github\.com\/([^/]+\/[^/]+)\/edit\/(.+)\/config\.toml/.exec(settingsUrl);
-    return m ? { repo: m[1], branch: m[2] } : null;
-  }
-  function status(text, isError) {
-    var st = document.getElementById("cfgStatus");
-    st.textContent = text;
-    st.className = "status" + (isError ? " err" : "");
-  }
-  function api(method, path, body) {
-    var headers = { "Accept": "application/vnd.github+json" };
-    var token = getToken();
-    if (token) headers["Authorization"] = "Bearer " + token;
-    if (body) headers["Content-Type"] = "application/json";
-    return fetch("https://api.github.com/repos/" + repoInfo().repo + path, { method: method, headers: headers, body: body ? JSON.stringify(body) : undefined })
-      .then(function (r) {
-        if (r.status === 204) return null;
-        return r.json().then(function (j) {
-          if (!r.ok) throw new Error(r.status === 401 ? "the GitHub key was not accepted" : r.status === 403 || r.status === 404 ? "the GitHub key does not have permission for this" : (j.message || "HTTP " + r.status));
-          return j;
-        });
-      });
-  }
-  function fromBase64(b64) {
-    var bin = atob(b64.replace(/\s/g, "")), bytes = new Uint8Array(bin.length);
-    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-    return new TextDecoder().decode(bytes);
-  }
-  function toBase64(text) {
-    var bytes = new TextEncoder().encode(text), bin = "";
-    for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-    return btoa(bin);
-  }
-  // Minimal reading and writing of single line values in config.toml.
   function sectionBounds(text, name) {
     var esc = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     var m = new RegExp("^\\[" + esc + "\\][ \\t]*$", "m").exec(text);
@@ -624,24 +1043,16 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     while ((m = re.exec(text))) keys.push(m[1]);
     return keys;
   }
-
   function loadConfig() {
-    if (!repoInfo()) { document.getElementById("cfgLoading").textContent = "Settings are not available until the first update has run."; return; }
-    document.getElementById("cfgLoading").hidden = false;
-    document.getElementById("cfgForm").hidden = true;
-    api("GET", "/contents/config.toml?ref=" + encodeURIComponent(repoInfo().branch)).then(function (j) {
-      cfgText = fromBase64(j.content);
-      cfgSha = j.sha;
+    if (!repoInfo()) { $("cfgLoading").textContent = "Settings are not available until the first update has run."; return; }
+    api("GET", contentsPath("config.toml")).then(function (j) {
+      cfgText = fromBase64(j.content); cfgSha = j.sha;
       fillForm();
-      document.getElementById("cfgLoading").hidden = true;
-      document.getElementById("cfgForm").hidden = false;
-      document.getElementById("cfgSave").disabled = false;
-    }).catch(function (e) {
-      document.getElementById("cfgLoading").textContent = "Could not load the current settings (" + e.message + ").";
-    });
+      $("cfgLoading").hidden = true; $("cfgForm").hidden = false;
+    }).catch(function (e) { $("cfgLoading").textContent = "Could not load the current settings (" + e.message + ")."; });
   }
   function checkboxGroup(id, items, checkedFn) {
-    var box = document.getElementById(id);
+    var box = $(id);
     box.textContent = "";
     items.forEach(function (it) {
       var lab = el("label", { "class": "opt" });
@@ -653,14 +1064,10 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     });
   }
   function fillForm() {
-    document.getElementById("cfgTime").value = getValue(cfgText, "schedule", "update_time") || getValue(cfgText, "schedule", "send_time") || "03:00";
-    var days = getValue(cfgText, "schedule", "update_days") || getValue(cfgText, "schedule", "send_days") || [];
-    checkboxGroup("cfgDays", DAY_NAMES, function (d) { return days.indexOf(d) >= 0; });
-    document.getElementById("cfgCount").value = getValue(cfgText, "digest", "stories_per_run") || getValue(cfgText, "digest", "web_story_count") || 40;
-    checkboxGroup("cfgTopics", categoryKeys(cfgText).map(function (k) {
-      return [k, getValue(cfgText, "categories." + k, "label") || k];
-    }), function (k) { return getValue(cfgText, "categories." + k, "enabled") !== false; });
-    var regions = document.getElementById("cfgRegions");
+    $("cfgCount").value = getValue(cfgText, "digest", "stories_per_run") || getValue(cfgText, "digest", "web_story_count") || 40;
+    checkboxGroup("cfgTopics", categoryKeys(cfgText).map(function (k) { return [k, getValue(cfgText, "categories." + k, "label") || k]; }),
+      function (k) { return getValue(cfgText, "categories." + k, "enabled") !== false; });
+    var regions = $("cfgRegions");
     regions.textContent = "";
     [["perth", "Perth"], ["australia", "Australia"], ["international", "International"]].forEach(function (r) {
       var lab = el("label", { "class": "opt" }, r[1] + " ");
@@ -675,103 +1082,109 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
       regions.appendChild(lab);
     });
     var kinds = getValue(cfgText, "digest", "exclude_kinds") || [];
-    document.getElementById("cfgSport").checked = kinds.indexOf("sport") < 0;
-    document.getElementById("cfgUpdates").checked = getValue(cfgText, "digest", "show_updates") !== false;
-    document.getElementById("cfgDebates").checked = getValue(cfgText, "digest", "debates_section") !== false;
+    $("cfgSport").checked = kinds.indexOf("sport") < 0;
+    $("cfgUpdates").checked = getValue(cfgText, "digest", "show_updates") !== false;
+    $("cfgDebates").checked = getValue(cfgText, "digest", "debates_section") !== false;
   }
   function checkedKeys(id) {
     return Array.prototype.filter.call(document.querySelectorAll("#" + id + " input"), function (c) { return c.checked; })
       .map(function (c) { return c.getAttribute("data-key"); });
   }
+  function cfgStatus(text, isError) { var st = $("cfgStatus"); st.textContent = text; st.className = "status" + (isError ? " err" : ""); }
   function saveConfig() {
-    var token = document.getElementById("token").value.trim();
-    if (token) setToken(token);
-    if (!getToken()) { status("Paste your GitHub key first (steps below the box).", true); return; }
-    var days = checkedKeys("cfgDays");
-    if (!days.length) { status("Pick at least one update day.", true); return; }
+    if (needKey("Saving collection settings")) return;
     var text = cfgText;
-    text = setValue(text, "schedule", "update_time", document.getElementById("cfgTime").value || "03:00");
-    text = setValue(text, "schedule", "update_days", days);
-    text = setValue(text, "digest", "stories_per_run", Math.max(5, Math.min(80, parseInt(document.getElementById("cfgCount").value, 10) || 40)));
+    text = setValue(text, "digest", "stories_per_run", Math.max(5, Math.min(80, parseInt($("cfgCount").value, 10) || 40)));
     var topics = checkedKeys("cfgTopics");
     categoryKeys(text).forEach(function (k) { text = setValue(text, "categories." + k, "enabled", topics.indexOf(k) >= 0); });
     Array.prototype.forEach.call(document.querySelectorAll("#cfgRegions select"), function (sel) {
       text = setValue(text, "regions", sel.getAttribute("data-key"), Number(sel.value));
     });
     var kinds = (getValue(text, "digest", "exclude_kinds") || []).filter(function (k) { return k !== "sport"; });
-    if (!document.getElementById("cfgSport").checked) kinds.push("sport");
+    if (!$("cfgSport").checked) kinds.push("sport");
     text = setValue(text, "digest", "exclude_kinds", kinds);
-    text = setValue(text, "digest", "show_updates", document.getElementById("cfgUpdates").checked);
-    text = setValue(text, "digest", "debates_section", document.getElementById("cfgDebates").checked);
-    if (text === cfgText) { status("Nothing changed."); return; }
-    document.getElementById("cfgSave").disabled = true;
-    status("Saving...");
-    api("PUT", "/contents/config.toml", {
-      message: "Update settings from the News Digest app",
-      content: toBase64(text), sha: cfgSha, branch: repoInfo().branch,
-    }).then(function (j) {
-      cfgText = text;
-      cfgSha = j.content.sha;
-      status("Saved. The next update uses these settings.");
-      drawConnect();
-    }).catch(function (e) {
-      status("Not saved: " + e.message + ".", true);
-    }).finally(function () { document.getElementById("cfgSave").disabled = false; });
-  }
-  function runNow() {
-    var token = document.getElementById("token").value.trim();
-    if (token) setToken(token);
-    if (!getToken()) { status("Paste your GitHub key first (steps below the box).", true); return; }
-    if (!repoInfo()) return;
-    status("Starting...");
-    api("POST", "/actions/workflows/digest.yml/dispatches", { ref: repoInfo().branch }).then(function () {
-      status("Update started. New stories appear here in about 10 to 20 minutes; press Reload then.");
-      drawConnect();
-    }).catch(function (e) { status("Could not start the update: " + e.message + ".", true); });
+    text = setValue(text, "digest", "show_updates", $("cfgUpdates").checked);
+    text = setValue(text, "digest", "debates_section", $("cfgDebates").checked);
+    if (text === cfgText) { cfgStatus("Nothing changed."); return; }
+    $("cfgSave").disabled = true;
+    cfgStatus("Saving...");
+    api("PUT", "/contents/config.toml", { message: "Update settings from the News Digest app", content: toBase64(text), sha: cfgSha, branch: repoInfo().branch })
+      .then(function (j) { cfgText = text; cfgSha = j.content.sha; cfgStatus("Saved. The next update uses these settings."); })
+      .catch(function (e) { cfgStatus("Not saved: " + e.message + ".", true); })
+      .finally(function () { $("cfgSave").disabled = false; });
   }
   function drawConnect() {
     var has = !!getToken();
-    document.getElementById("connectBox").hidden = has;
-    document.getElementById("disconnect").hidden = !has;
+    $("connectBox").hidden = has;
+    $("connected").hidden = !has;
   }
-  document.getElementById("cfgSave").addEventListener("click", saveConfig);
-  document.getElementById("runNow").addEventListener("click", runNow);
-  document.getElementById("disconnect").addEventListener("click", function () {
-    setToken("");
-    document.getElementById("token").value = "";
+  $("cfgSave").addEventListener("click", saveConfig);
+  $("tokenSave").addEventListener("click", function () {
+    var v = $("token").value.trim();
+    if (!v) return;
+    setToken(v);
+    $("token").value = "";
     drawConnect();
-    status("GitHub key removed from this browser.");
+    showToast("Key saved in this browser.", true);
+    pullReader().then(function () { pushReader(); });
   });
-  document.getElementById("settingsBtn").addEventListener("click", function () {
-    var panel = document.getElementById("settings");
-    panel.hidden = !panel.hidden;
-    this.setAttribute("aria-expanded", String(!panel.hidden));
-    this.setAttribute("aria-pressed", String(!panel.hidden));
-    if (!panel.hidden) { drawDevicePrefs(); drawConnect(); if (!cfgText) loadConfig(); }
-  });
+  $("disconnect").addEventListener("click", function () { setToken(""); drawConnect(); setSyncState("Saved on this device only"); });
 
-  pruneRead();
-  saveJSON(READ_KEY, read);
+  // ---------- panels ----------
+  function openPanel(which) {
+    var panels = { settings: $("settings"), week: $("weekPanel") };
+    var btns = { settings: $("settingsBtn"), week: $("weekBtn") };
+    for (var k in panels) {
+      var show = k === which && panels[k].hidden;
+      panels[k].hidden = !show;
+      btns[k].setAttribute("aria-pressed", String(show));
+    }
+    if (!$("settings").hidden) { drawDevicePrefs(); drawConnect(); if (!cfgText) loadConfig(); }
+    if (!$("weekPanel").hidden && !weekIndex) loadWeek();
+  }
+  $("settingsBtn").addEventListener("click", function () { openPanel("settings"); });
+  $("weekBtn").addEventListener("click", function () { openPanel("week"); });
+  $("updateBtn").addEventListener("click", startUpdate);
+
+  // ---------- controls ----------
+  Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (t) {
+    t.addEventListener("click", function () {
+      filters.view = t.getAttribute("data-view");
+      saveJSON(KEYS.filters, filters);
+      if (filters.view === "read" && loadedDays < READ_KEEP_DAYS) load(false, READ_KEEP_DAYS); else render();
+    });
+  });
+  $("search").value = filters.search;
+  $("search").addEventListener("input", function (e) { filters.search = e.target.value; saveJSON(KEYS.filters, filters); render(); });
+  $("updatesOnly").addEventListener("click", function () { filters.updatesOnly = !filters.updatesOnly; saveJSON(KEYS.filters, filters); render(); });
+  $("reset").addEventListener("click", function () {
+    filters.regions = []; filters.categories = []; filters.updatesOnly = false; filters.search = "";
+    $("search").value = "";
+    saveJSON(KEYS.filters, filters); render();
+  });
+  $("reload").addEventListener("click", function () { load(false); pullReader(); });
+
+  // ---------- start ----------
+  pruneReader(reader);
+  saveJSON(KEYS.reader, reader);
   drawDevicePrefs();
-  load();
+  drawJobs();
+  load(false, filters.view === "read" ? READ_KEEP_DAYS : prefs.days).then(function () {
+    pullReader();
+    if (jobs.some(function (j) { return !j.error; })) schedulePoll(1000);
+  });
+  setInterval(drawJobs, 30000);
 
   // Offline support and the Chrome "Install app" option.
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
-  }
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
   var installPrompt = null;
-  var installBtn = document.getElementById("install");
-  window.addEventListener("beforeinstallprompt", function (e) {
-    e.preventDefault();
-    installPrompt = e;
-    installBtn.hidden = false;
-  });
-  installBtn.addEventListener("click", function () {
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); installPrompt = e; $("install").hidden = false; });
+  $("install").addEventListener("click", function () {
     if (!installPrompt) return;
     installPrompt.prompt();
-    installPrompt.userChoice.finally(function () { installPrompt = null; installBtn.hidden = true; });
+    installPrompt.userChoice.finally(function () { installPrompt = null; $("install").hidden = true; });
   });
-  window.addEventListener("appinstalled", function () { installBtn.hidden = true; });
+  window.addEventListener("appinstalled", function () { $("install").hidden = true; });
 })();
 </script>
 </body>

@@ -8,9 +8,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest import mock
 
-from newsdigest import ai, cluster, collect, extract, main, render, settings
+from newsdigest import ai, cluster, collect, extract, factcheck, main, meaning, render, settings, weekly
 from newsdigest.filters import is_blocked, is_opinion_title, is_opinion_url
-from newsdigest.gate import should_send
 from newsdigest.models import Article, Item
 from newsdigest.textutil import clean_headline, similarity, tokens
 
@@ -41,27 +40,6 @@ def item(title, source="ABC News", hours_ago=2, category="perth", link=None):
         source=source, domain="abc.net.au", published=NOW - timedelta(hours=hours_ago),
         summary="", category=category, region="perth",
     )
-
-
-class GateTests(unittest.TestCase):
-    def test_runs_after_update_time_once_per_day(self):
-        c = cfg()
-        self.assertTrue(should_send(c, {}, NOW)[0])
-        self.assertFalse(should_send(c, {"last_sent_local_date": "2026-09-25"}, NOW)[0])
-
-    def test_too_early(self):
-        early = datetime(2026, 9, 24, 18, 30, tzinfo=UTC)  # 2:30am Perth
-        self.assertFalse(should_send(cfg(), {}, early)[0])
-
-    def test_skips_days_not_listed(self):
-        c = cfg()
-        c["schedule"]["update_days"] = ["sun"]
-        self.assertFalse(should_send(c, {}, NOW)[0])
-        self.assertTrue(should_send(c, {}, NOW, force=True)[0])
-
-    def test_late_github_run_still_sends(self):
-        late = datetime(2026, 9, 25, 1, 0, tzinfo=UTC)  # 9am Perth
-        self.assertTrue(should_send(cfg(), {"last_sent_local_date": "2026-09-24"}, late)[0])
 
 
 class TextTests(unittest.TestCase):
@@ -234,6 +212,89 @@ def fake_ai_reply(update_ids=()):
     return reply
 
 
+def fake_embed(titles):
+    """Headlines mentioning the Reserve Bank or RBA point the same way; others are unique."""
+    vectors = []
+    for n, t in enumerate(titles):
+        v = [0.0] * (len(titles) + 1)
+        if "rba" in t.lower() or "reserve bank" in t.lower():
+            v[-1] = 1.0
+        else:
+            v[n] = 1.0
+        vectors.append(v)
+    return vectors
+
+
+class MeaningTests(unittest.TestCase):
+    def test_merges_differently_worded_headlines(self):
+        c = cfg()
+        cats = settings.enabled_categories(c)
+        items = [
+            item("RBA lifts cash rate to 3.85 per cent", "ABC News", category="economy"),
+            item("Reserve Bank raises interest rates again", "WAtoday", category="economy"),
+            item("CSIRO discovers coral species off Ningaloo reef", "ABC News", category="science"),
+        ]
+        plain = cluster.build_stories(items, c, cats, NOW)
+        self.assertEqual(len(plain), 3)
+        merged = cluster.build_stories(items, c, cats, NOW, lambda g: meaning.merge_groups(g, 0.88, fake_embed))
+        self.assertEqual(len(merged), 2)
+        self.assertEqual(len(merged[0].items), 2)
+
+    def test_failure_falls_back_to_word_groups(self):
+        def broken(titles):
+            raise RuntimeError("quota")
+        groups = [[item("A story about one thing here")], [item("Another story about something else")]]
+        self.assertEqual(meaning.merge_groups(groups, 0.88, broken), groups)
+
+
+class OnDemandTests(unittest.TestCase):
+    """Fact check and week in review, with the network and AI replaced by fakes."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp())
+        data = self.tmp / "data"
+        (data / "digests").mkdir(parents=True)
+        story = {"id": "s1", "headline": "Rail line closed", "facts": "The line closes for 8 weeks.",
+                 "key_numbers": ["Closure: 8 weeks"], "why_it_matters": "Commuters use buses.",
+                 "sources": [{"name": "ABC News", "url": "https://abc.net.au/x"}], "processed": True,
+                 "importance": 4, "category_label": "Perth and WA", "region": "perth"}
+        (data / "digests/e1.json").write_text(json.dumps({"stories": [story]}))
+        (data / "index.json").write_text(json.dumps({"digests": [{"file": "digests/e1.json", "generated": (NOW - timedelta(days=1)).isoformat()}]}))
+        for p in [mock.patch.object(factcheck, "DOCS_DIR", self.tmp), mock.patch.object(weekly, "DOCS_DIR", self.tmp),
+                  mock.patch.object(extract, "resolve_links", lambda links: {l: l for l in links}),
+                  mock.patch.object(extract, "fetch_text", lambda url: "The line will close for eight weeks. " * 20),
+                  mock.patch.dict(os.environ, {"GEMINI_API_KEY": "test"})]:
+            p.start()
+            self.addCleanup(p.stop)
+
+    def test_fact_check_writes_result(self):
+        reply = {"verdict": "supported", "summary": "All claims match.", "claims": [
+            {"claim": "The line closes for 8 weeks.", "status": "supported", "evidence": "close for eight weeks", "source": "ABC News"},
+            {"claim": "Commuters use buses.", "status": "not_found", "evidence": "", "source": ""}]}
+        with mock.patch.object(ai, "CALLERS", {"gemini": lambda cfg, prompt, system=None: json.dumps(reply)}):
+            factcheck.run("digests/e1.json", "s1", "abc123", now=NOW)
+        out = json.loads((self.tmp / "data/factchecks/abc123.json").read_text())
+        self.assertEqual(out["verdict"], "partly_supported", "a claim not found cannot be fully supported")
+        self.assertEqual(len(out["claims"]), 2)
+        self.assertEqual(out["articles_checked"][0]["source"], "ABC News")
+        index = json.loads((self.tmp / "data/factchecks/index.json").read_text())
+        self.assertEqual(index["abc123"]["verdict"], "partly_supported")
+
+    def test_fact_check_rejects_unsafe_input(self):
+        with self.assertRaises(SystemExit):
+            factcheck.run("../../config.toml", "s1", "abc123")
+        with self.assertRaises(SystemExit):
+            factcheck.run("digests/e1.json", "s1", "../evil")
+
+    def test_week_in_review(self):
+        reply = {"sections": [{"topic": "Perth", "points": ["The rail line closes for 8 weeks."]}], "big_picture": "Transport disruption."}
+        with mock.patch.object(ai, "CALLERS", {"gemini": lambda cfg, prompt, system=None: json.dumps(reply)}):
+            review = weekly.run(now=NOW)
+        self.assertEqual(review["stories_used"], 1)
+        index = json.loads((self.tmp / "data/weekly/index.json").read_text())
+        self.assertEqual(len(index["reviews"]), 1)
+
+
 class PipelineTests(unittest.TestCase):
     """Runs the full line with the network replaced by fakes."""
 
@@ -248,6 +309,7 @@ class PipelineTests(unittest.TestCase):
             mock.patch.object(extract, "fetch_text", lambda url: "word " * 200),
             mock.patch.object(ai, "CALLERS", {"gemini": fake_ai_reply(), "groq": fake_ai_reply()}),
             mock.patch.object(ai.time, "sleep", lambda s: None),
+            mock.patch.object(meaning, "embed", fake_embed),
             mock.patch.dict(os.environ, {"GEMINI_API_KEY": "test", "GITHUB_REPOSITORY": "someone/NewsSummarizer"}),
         ]
         for p in patches:
@@ -362,11 +424,8 @@ class PipelineTests(unittest.TestCase):
 class SettingsTests(unittest.TestCase):
     def test_old_setting_names_still_work(self):
         path = Path(tempfile.mkdtemp()) / "config.toml"
-        path.write_text('[schedule]\nsend_time = "06:15"\nsend_days = ["sun"]\n[digest]\nweb_story_count = 12\n')
-        c = settings.load_config(path)
-        self.assertEqual(c["schedule"]["update_time"], "06:15")
-        self.assertEqual(c["schedule"]["update_days"], ["sun"])
-        self.assertEqual(c["digest"]["stories_per_run"], 12)
+        path.write_text('[digest]\nweb_story_count = 12\n')
+        self.assertEqual(settings.load_config(path)["digest"]["stories_per_run"], 12)
 
     def test_direct_feed_outlet_names(self):
         self.assertEqual(collect.outlet_name("abc.net.au", "Just In"), "ABC News")

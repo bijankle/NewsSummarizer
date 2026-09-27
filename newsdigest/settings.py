@@ -17,8 +17,6 @@ DAY_NAMES = ("mon", "tue", "wed", "thu", "fri", "sat", "sun")
 DEFAULTS = {
     "schedule": {
         "timezone": "Australia/Perth",
-        "update_time": "03:00",
-        "update_days": list(DAY_NAMES),
     },
     "digest": {
         "stories_per_run": 40,
@@ -33,6 +31,8 @@ DEFAULTS = {
         "articles_per_story": 2,
         "similarity_threshold": 0.3,
         "history_days": 30,
+        "smart_merge": True,
+        "merge_threshold": 0.88,
         "exclude_kinds": ["opinion", "sport", "entertainment", "lifestyle", "promotional"],
     },
     "ai": {
@@ -79,7 +79,6 @@ def load_config(path=CONFIG_PATH):
             merged["region"] = "international"
         categories[key] = merged
     cfg["categories"] = categories
-    cfg["schedule"]["update_days"] = [d.lower()[:3] for d in cfg["schedule"]["update_days"]]
     return cfg
 
 

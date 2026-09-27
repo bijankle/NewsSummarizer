@@ -139,11 +139,11 @@ def _switch(cfg, new_model, why):
     cfg["ai"]["gemini_model"] = new_model
 
 
-def call_gemini(cfg, prompt):
+def call_gemini(cfg, prompt, system=None):
     model = cfg["ai"]["gemini_model"]
     headers = {"x-goog-api-key": os.environ["GEMINI_API_KEY"].strip()}
     body = {
-        "systemInstruction": {"parts": [{"text": SYSTEM_PROMPT}]},
+        "systemInstruction": {"parts": [{"text": system or SYSTEM_PROMPT}]},
         "contents": [{"role": "user", "parts": [{"text": prompt}]}],
         "generationConfig": {"responseMimeType": "application/json", "temperature": 0.2},
     }
@@ -172,11 +172,11 @@ def call_gemini(cfg, prompt):
     return "".join(p.get("text", "") for p in parts if not p.get("thought"))
 
 
-def call_groq(cfg, prompt):
+def call_groq(cfg, prompt, system=None):
     headers = {"Authorization": f"Bearer {os.environ['GROQ_API_KEY'].strip()}"}
     body = {
         "model": cfg["ai"]["groq_model"],
-        "messages": [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}],
+        "messages": [{"role": "system", "content": system or SYSTEM_PROMPT}, {"role": "user", "content": prompt}],
         "response_format": {"type": "json_object"},
         "temperature": 0.2,
     }
@@ -259,6 +259,26 @@ def apply_result(story, result, categories):
                 for side in debate["sides"] if isinstance(side, dict)
             ],
         }
+
+
+def ask(cfg, prompt, system, minutes=5):
+    """One JSON request with provider fallback, for the on demand tools."""
+    global _deadline
+    providers = available_providers(cfg)
+    if not providers:
+        raise ProviderError("no AI key is configured")
+    _deadline = time.monotonic() + minutes * 60
+    errors = []
+    try:
+        for provider in providers:
+            try:
+                text = CALLERS[provider](cfg, prompt, system)
+                return json.loads(re.sub(r"^```(?:json)?\s*|\s*```$", "", text.strip()))
+            except (ProviderError, ValueError) as exc:
+                errors.append(f"{provider}: {str(exc)[:200]}")
+        raise ProviderError("; ".join(errors))
+    finally:
+        _deadline = float("inf")
 
 
 def summarise(stories, cfg, categories):
