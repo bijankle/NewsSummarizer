@@ -1,0 +1,73 @@
+{
+ "verdict": "supported",
+ "summary": "All claims in the summary are supported by the provided articles.",
+ "claims": [
+  {
+   "claim": "Construction is set to begin on Australia's largest wind farm in two years.",
+   "evidence": "Construction will soon begin on the nation's largest wind farm to be built in two years, but frustrated residents say they are bearing the brunt of Australia's push for net zero.",
+   "source": "ABC News",
+   "status": "supported"
+  },
+  {
+   "claim": "Copenhagen Infrastructure Partners acquired the Gawara Baya wind farm project from WindLab and announced that construction of 68 turbines and a 100-megawatt battery near Mount Fox in north Queensland will begin imminently.",
+   "evidence": "Danish investors Copenhagen Infrastructure Partners (CIP) acquired the project from WindLab earlier this month, announcing funding was ready and construction would begin \"imminently\".",
+   "source": "ABC News",
+   "status": "supported"
+  },
+  {
+   "claim": "The project is the first wind farm to reach construction under the federal government's Capacity Investment Scheme, which guarantees electricity prices to reduce investor risk.",
+   "evidence": "This project is the first wind farm to reach construction under the federal government's Capacity Investment Scheme and represents a breaking of a deadlock, according to Grattan Institute climate and energy program director Alison Reeve.",
+   "source": "ABC News",
+   "status": "supported"
+  },
+  {
+   "claim": "Local resident group Keep Mount Fox Wild opposes the development over environmental and biodiversity concerns, while project developers and local council representatives cite economic benefits and employment creation of about 500 construction jobs.",
+   "evidence": "Ms Armstrong said she was worried about the impact of the 140-metre turbines on the region's biodiversity, human and environmental health, run-off onto the Great Barrier Reef and what would happen to the turbines after their 35-year life cycle.",
+   "source": "ABC News",
+   "status": "supported"
+  },
+  {
+   "claim": "68 is the number of wind turbines in the Gawara Baya wind farm.",
+   "evidence": "The Gawara Baya wind farm includes 68 turbines and a 100-megawatt battery spread over 148 hectares near the 100,000-year-old dormant volcano Mount Fox in north Queensland.",
+   "source": "ABC News",
+   "status": "supported"
+  },
+  {
+   "claim": "100 megawatts is the capacity of the battery included in the wind farm project.",
+   "evidence": "The Gawara Baya wind farm includes 68 turbines and a 100-megawatt battery spread over 148 hectares near the 100,000-year-old dormant volcano Mount Fox in north Queensland.",
+   "source": "ABC News",
+   "status": "supported"
+  },
+  {
+   "claim": "148 hectares is the area covered near Mount Fox.",
+   "evidence": "The Gawara Baya wind farm includes 68 turbines and a 100-megawatt battery spread over 148 hectares near the 100,000-year-old dormant volcano Mount Fox in north Queensland.",
+   "source": "ABC News",
+   "status": "supported"
+  },
+  {
+   "claim": "84 is the approximate number of residents in Mount Fox.",
+   "evidence": "Mount Fox near Ingham has about 84 residents and neighbours the world heritage listed Wet Tropics.",
+   "source": "ABC News",
+   "status": "supported"
+  },
+  {
+   "claim": "The project advances the federal government's 2030 target of 82 per cent renewables while generating local employment and drawing opposition from regional residents.",
+   "evidence": "Under the scheme, which aims to help achieve the target of 82 per cent renewables by 2030, the government guarantees the price for electricity, subsidising the producer if electricity prices fall and sharing in profits if prices rise above a certain price.",
+   "source": "ABC News",
+   "status": "supported"
+  }
+ ],
+ "articles_checked": [
+  {
+   "source": "ABC News & Headlines – Australian Broadcasting Corporation",
+   "url": "https://www.abc.net.au/news/2026-09-27/mount-fox-residents-against-gawara-baya-wind-farm-project/107179828"
+  },
+  {
+   "source": "ABC News",
+   "url": "https://www.abc.net.au/news/2026-09-27/mount-fox-residents-against-gawara-baya-wind-farm-project/107179828"
+  }
+ ],
+ "key": "1jqwa0m",
+ "headline": "Construction to begin on Australia's largest wind farm in two years",
+ "checked": "2026-09-27T22:04+00:00"
+}
