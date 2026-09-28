@@ -1,0 +1,9 @@
+{
+ "verdict": "unavailable",
+ "summary": "The AI could not run the check: gemini: HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE",
+ "claims": [],
+ "articles_checked": [],
+ "key": "m12pv",
+ "headline": "Intergenerational Report projects higher superannuation balances and fewer pensioners by 2066",
+ "checked": "2026-09-28T12:51+00:00"
+}
