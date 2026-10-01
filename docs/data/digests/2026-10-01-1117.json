@@ -1,0 +1,2049 @@
+{
+ "generated": "2026-10-01T11:17+08:00",
+ "label": "Thursday 1 October 2026",
+ "settings_url": "https://github.com/bijankle/NewsSummarizer/edit/claude/google-news-summarizer-mv084j/config.toml",
+ "stories": [
+  {
+   "id": "s140",
+   "headline": "RBA lifts cash rate to 15-year high of 4.6 per cent",
+   "facts": "The Reserve Bank of Australia increased the cash rate by 0.25 percentage points to 4.6 per cent, reaching a 15-year high. Australia's annual headline inflation rate rose to 4 per cent for the 12 months to August 2026, driven by a 14.8 per cent spike in fuel prices. Economists note that larger average home loans and higher household debt levels compared to 2011 mean rate rises have a more severe impact on mortgage holders.",
+   "key_numbers": [
+    "Cash rate: 4.6 per cent following a 0.25 percentage point increase",
+    "Annual headline inflation: 4 per cent for the 12 months to August 2026",
+    "Average mortgage variable rate: between 6.24 and 6.62 per cent for owner-occupiers",
+    "Average first-home buyer loan size: $731,000 in 2026"
+   ],
+   "why_it_matters": "Higher interest rates increase monthly repayments for mortgage holders, with average owner-occupiers spending between $4,500 and $4,680 per month, while continuing rate pressures may also affect rental costs and small business margins.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 5,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": {
+    "question": "Are mortgage holders bearing an unfair share of the burden in the fight against inflation?",
+    "sides": [
+     {
+      "side": "Industry bodies and advocates",
+      "position": "Borrowers are being punished twice through high prices and high interest rates, while essential expenses cannot easily be reduced.",
+      "evidence": "Average mortgages have more than doubled since 2011 alongside higher living costs and increased loan sizes."
+     },
+     {
+      "side": "Economists and central bank officials",
+      "position": "Higher interest rates are necessary to curb excess demand and reduce the far worse long-term consequences of persistent inflation.",
+      "evidence": "Annual headline inflation rose to 4 per cent in August 2026, demonstrating that inflation remains above target."
+     }
+    ]
+   },
+   "sources": [
+    {
+     "name": "SBS News",
+     "url": "https://www.sbs.com.au/news/article/rates-were-this-high-15-years-ago-heres-why-it-hurts-more-now/7btbzc3zz"
+    },
+    {
+     "name": "switzer.com.au",
+     "url": "https://switzer.com.au/why-the-high-interest-rate-era-is-here-to-stay/"
+    },
+    {
+     "name": "The Daily Aus",
+     "url": "https://www.thedailyaus.com.au/podcast/why-are-interest-rates-at-a-15-year-high"
+    },
+    {
+     "name": "BusinessToday Malaysia",
+     "url": "https://www.businesstoday.com.my/2026/09/30/view-on-australias-15-year-high-interest-rates/"
+    },
+    {
+     "name": "proactiveinvestors.com.au",
+     "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOTGNnV3hETllOYm9FOVczNjBFaGZQOXhaOWNPbkgzUmZ4WUpCQzVCTElBRW1ENk1nSzRaQ3ZzQ29xUHBCbWg0anlfTEVrLXFFMUJDNGVqZGwzc2hKUHR5SUM5OF9uOGpuMmlHaEdBVDNXUWNlbTRRQ3ZQc2JOQ0RKLUxQWmZSZzVpSlZQQmpmTlp4aVFwRVpUZGRUcGFHZmN1dXFGYTE4c3QyS3JBTUZJeFNOaw?oc=5"
+    },
+    {
+     "name": "BeInCrypto",
+     "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE4wRE1GWk00MzFPSlM2SlZoUmhiT2FhVDA4UHMtaXVZMU9zSkMzelVYVGhfcG5PRDc3UF9YSzFoNlJOTy1aQS1tTGxaMjhDSjBDMGJQMUJubUFMNU52eE1NZ25CZUM3ZF9pb3pDYQ?oc=5"
+    }
+   ],
+   "published": "2026-09-27T15:01:00+00:00",
+   "latest_report": "2026-09-30T22:59:11+00:00",
+   "processed": true
+  },
+  {
+   "id": "s78",
+   "headline": "Major banks pass RBA rate rise in full as cash rate hits 4.60%",
+   "facts": "The Reserve Bank of Australia lifted the official cash rate by 25 basis points to 4.60%. Commonwealth Bank, Westpac, National Australia Bank and ANZ announced they will pass the full 0.25 percentage point increase onto variable home loan customers from 9 October. Commonwealth Bank also confirmed eligible variable-rate business loans will rise by 0.25 percentage points from the same date.",
+   "key_numbers": [
+    "Cash rate: 4.60%, up 25 basis points",
+    "Headline inflation: 4.0% in the year to August, up from 3.5% in July",
+    "Westpac's lowest variable rate: rises from 5.99% to 6.24% on 9 October",
+    "Trimmed mean inflation: 3.6% for August"
+   ],
+   "why_it_matters": "Mortgage holders will face higher monthly repayments starting in October, with business borrowers also experiencing increased financing costs as lenders pass on the RBA rate hike.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 5,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": {
+    "question": "Will the Reserve Bank of Australia raise the cash rate again in November 2026?",
+    "sides": [
+     {
+      "side": "Westpac and ANZ",
+      "position": "Predict a November rate hike",
+      "evidence": "Cite rising energy prices linked to the Middle East conflict and persistent inflationary pressures."
+     },
+     {
+      "side": "Commonwealth Bank and NAB",
+      "position": "Expect rates to hold in November",
+      "evidence": "Point to the RBA's stated strategy of preserving labour market gains and an incremental approach to policy adjustment."
+     }
+    ]
+   },
+   "sources": [
+    {
+     "name": "mpamag.com",
+     "url": "https://www.mpamag.com/au/mortgage-industry/market-updates/cba-westpac-nab-anz-pass-rba-rate-rise-in-full/591867"
+    },
+    {
+     "name": "Savings.com.au",
+     "url": "https://www.savings.com.au/news/how-the-big-four-banks-react-to-fourth-rba-rate-hike"
+    },
+    {
+     "name": "CommBank",
+     "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNT2RLaXE4eXBMSFIyUldEYWphUXM1Y2xwWUpvUVcwTUxZNG1UUzE1TkxZUDdLX1NKSGRiX3FwVk1NbEVfMjNuLUdEOW9GWlFaQkNSNWtOSEI5NWJZbTJZM1Vha2tUVnNKdW1oTjg4VnFnN2k1SmJ6MlRJS2pyZDdMbEc4UVdKbEZEc1JwTmpSU3R2bUxFX3VnUFI0akRNdnRETEwyNUJmMkE?oc=5"
+    },
+    {
+     "name": "Canstar",
+     "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9PZmdkbzVfQkh2ckNBbUNfb0x0VXBVRXN0VWM4R0d2X3RCM0lYYjhxaE5saWYzc21kVk5VakFqemRSYkRrZlZ6MW1UZHg4NkZzN0dhMzZEaWtSSmRWVHhpZjlMWUNzQU5TNU5WZjhhUlJNWmNGbGpDTA?oc=5"
+    },
+    {
+     "name": "7NEWS",
+     "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQamNmRFctRDhfNk1ITHQ2ODVEbDVXSjB4Ymxma2tQWjkwcmJ6c3BQMVdnNmM0dFpnU3F6OFJVS3FXQ0ljLUh5cVdna3ZWdW1sT2g0eEJMVGtfTFdFTDZ4blZZc05NaU1EajZiSk1pQ1UxVE85Wk14SFFjQy10VmJqbFlZdmgwMEFqVzhRd2x2N0gyaHkwTXAwbUVha0J2S0o0Z0d6NzZpOHptVmVwSWtlczA1eXRtTmpUckxjOXdR0gHDAUFVX3lxTE1taHRsZWZGLW1QakRUQmFMVkZOd0RiaFdZZlByUUV0ekd1SW9aSzFvejNqTHhIbjUyakNqclRuTUg2LW9ZcDNKTUlFQ1RucDRaenU4dGVzeVVwZldwSkpCZzgxLUtfemUzMUNHNDFUUU0wYjRQeVhMMlNPWVgyZE1ya0pPODlUY0lBSklfV2JRX1Y1V1I1Ti1VeTAxcjF1cVVlYkQ1ZEhaTHhRTEFEcnphR1NrSE0zVHB1YWVOajhIRTh5Zw?oc=5"
+    }
+   ],
+   "published": "2026-09-29T04:30:00+00:00",
+   "latest_report": "2026-10-01T01:07:30+00:00",
+   "processed": true
+  },
+  {
+   "id": "s468",
+   "headline": "Specialist crews remove 31-tonne whale carcass from City Beach",
+   "facts": "Specialist contractors using heavy machinery, an excavator and a truck began removing a 13-metre, 31-tonne humpback whale carcass from South City Beach on Wednesday. The Town of Cambridge estimated the removal and landfill disposal costs at between $60,000 and $100,000. The presence of the carcass drew large crowds and attracted several great white sharks close to shore, prompting a beach closure, exclusion zones and $250 fines for unauthorized access.",
+   "key_numbers": [
+    "Whale weight: 31 tonnes",
+    "Whale length: 13 metres",
+    "Removal cost estimate: $60,000 to $100,000",
+    "Council fine for breaching exclusion zone: $250"
+   ],
+   "why_it_matters": "City Beach remains closed to swimmers and visitors while heavy machinery operations and shark monitoring continue due to public safety risks.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "UA.NEWS",
+     "url": "https://ua.news/en/world/iz-pliazhu-siti-bich-u-perti-vivoziat-31-tonnu-tushu-gorbatogo-kita-abc-news-australia"
+    },
+    {
+     "name": "Brisbane Times",
+     "url": "https://www.brisbanetimes.com.au/national/western-australia/specialist-crews-begin-gruesome-task-of-removing-31-tonne-whale-carcass-from-city-beach-20260930-p611ot.html"
+    },
+    {
+     "name": "aapnews.aap.com.au",
+     "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQdVJTSXFpRFI4V2FrOUlGeGwtdDA3S2YwWmhMV2dkWkZNTmpydEEwTnZwekp2N2FHcHJzNFh2eF9KOHBZblVRczRWNXpETnlORERtUXk3VFJBUFp6Q3ZwYk9JeDlhcERPQTE5MlpBcWNjaTM1Q01lRFpfeFJrVXBpWmNMaVZaWDFiSG1sQXgwdw?oc=5"
+    }
+   ],
+   "published": "2026-09-29T09:17:26+00:00",
+   "latest_report": "2026-09-30T06:38:48+00:00",
+   "processed": true
+  },
+  {
+   "id": "s361",
+   "headline": "Kondinin Wind Farm Reaches Financial Close for 130MW Stage 1",
+   "facts": "Foresight Group reached financial close on the 130MW first stage of the Kondinin Wind Farm in Western Australia's Wheatbelt, securing A$430 million in debt financing to begin construction. Foresight acquired full ownership of the broader 370MW project after buying out Shell Energy's 50% stake. Stage 1 will use 21 Vestas turbines, is backed by a 7-year Power Purchase Agreement with Synergy and a 15-year Australian Government Capacity Investment Scheme agreement, and is designated as a Priority Project under the State Development Act.",
+   "key_numbers": [
+    "Debt financing secured: A$430 million",
+    "Capacity: 130MW for Stage 1 (370MW total project)",
+    "Turbines: 21 Vestas V162-6.2 MW turbines",
+    "Direct construction jobs: 145 jobs"
+   ],
+   "why_it_matters": "Construction will commence with completion expected to supply renewable electricity to the South West Interconnected System from late 2028, generating enough energy to power up to 70,000 homes while supporting regional jobs.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "perth",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Foresight Group",
+     "url": "https://foresight.group/news-insights/news/2026/kondinin-wind-farm-reaches-financial-close-as-130mw-stage-1-moves-into-construction/"
+    },
+    {
+     "name": "Power Technology",
+     "url": "https://www.power-technology.com/news/foresight-financing-kondinin-wind-farm/"
+    }
+   ],
+   "published": "2026-09-29T23:01:41+00:00",
+   "latest_report": "2026-09-30T12:54:45+00:00",
+   "processed": true
+  },
+  {
+   "id": "s745",
+   "headline": "Great white sharks circle Swanbourne beach after whale carcass washes ashore",
+   "facts": "Surf Life Saving WA reported a whale carcass washed ashore near Swanbourne in Perth on Monday morning. The Surf Life Saving helicopter spotted three four-metre great white sharks circling about 15 metres from the shore at approximately 2.45pm, alongside a hammerhead and two tiger sharks in nearby waters. City Beach was closed one kilometre north and south of the location as a precaution while authorities manage the carcass.",
+   "key_numbers": [
+    "Shark sightings: Three four-metre great white sharks circling 15 metres from shore",
+    "Beach closure zone: One kilometre north and south of City Beach"
+   ],
+   "why_it_matters": "Beachgoers and swimmers face heightened shark risks along Perth's coastline due to the whale carcass acting as an attractant, prompting municipal beach closures.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/national/western-australia/sharks-circle-as-whale-carcass-washes-up-on-city-beach-20260928-p6112u.html"
+    },
+    {
+     "name": "SMH.com.au",
+     "url": "https://www.smh.com.au/national/western-australia/sharks-circle-as-whale-carcass-washes-up-on-city-beach-20260928-p6112u.html"
+    },
+    {
+     "name": "The Guardian",
+     "url": "https://www.theguardian.com/environment/video/2026/sep/29/whale-carcass-washes-up-popular-perth-beach-onlookers-western-australia-video"
+    }
+   ],
+   "published": "2026-09-28T03:02:12+00:00",
+   "latest_report": "2026-09-29T09:12:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s224",
+   "headline": "Whale Carcass at City Beach Prompts Closures and Shark Sightings",
+   "facts": "A whale carcass washed up at City Beach on Monday, drawing several sharks including two great whites measuring 5 metres and 4 metres just 10 metres from the shore. The Town of Cambridge closed local beaches for three days and prepared for a removal operation estimated to cost between 40,000 and 60,000 Australian dollars. Fisheries Minister Jackie Jarvis stated that towing the carcass out to sea was avoided due to the risk of it breaking up and washing back ashore.",
+   "key_numbers": [
+    "Shark sizes: 5 metres and 4 metres for the two observed great whites",
+    "Removal cost estimate: 40,000 to 60,000 Australian dollars",
+    "Historical removal cost: 175,000 Australian dollars for a whale at Scarborough Beach in 2014"
+   ],
+   "why_it_matters": "Beachgoers face ongoing closures across the Town of Cambridge until the carcass is removed and water conditions are declared safe, while local authorities manage the removal costs.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Nature World News",
+     "url": "https://www.natureworldnews.com/articles/73406/20260930/crews-move-haul-whale-carcass-off-perths-city-beach-after-sharks-circled-shoreline.htm"
+    },
+    {
+     "name": "7NEWS",
+     "url": "https://7news.com.au/news/whale-carcass-forces-city-beach-closure-as-sharks-circle-c-22937244"
+    }
+   ],
+   "published": "2026-09-28T04:49:23+00:00",
+   "latest_report": "2026-09-30T19:00:07+00:00",
+   "processed": true
+  },
+  {
+   "id": "s480",
+   "headline": "WA Government considers Bullsbrook quarantine centre for prison use",
+   "facts": "Western Australia's Corrective Services Commissioner Brad Royce and Corrective Services Minister Tony Buti stated on Wednesday that the $400 million Commonwealth-owned Bullsbrook quarantine centre remains under consideration for conversion into a prison if it becomes available. A feasibility study began in June, driven by overcrowding and a prison population strain that led to a \"show cause\" notice for Hakea, Casuarina and Melaleuca prisons. Simultaneously, the state announced a $100 million court security arrangement employing 127 full-time staff under the Sheriff's Office to free up 45,000 police hours.",
+   "key_numbers": [
+    "Facility value: $400 million",
+    "Bed expansion: 480 beds at Acacia Prison by 2029",
+    "Court security funding: $100 million",
+    "New court security staff: 127 full-time staff"
+   ],
+   "why_it_matters": "The proposal to convert the quarantine facility faces local opposition, including a parliamentary petition with 165 signatures from residents, while the broader prison system deals with overcrowding and triple-bunking.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": {
+    "question": "Should the Commonwealth-owned Bullsbrook quarantine centre be converted into a prison to address Western Australia's prison overcrowding?",
+    "sides": [
+     {
+      "side": "WA Government",
+      "position": "The state government is keeping the option open and conducting feasibility assessments to secure additional space amid severe prison population pressures.",
+      "evidence": "Corrective Services Commissioner Brad Royce stated he is looking for space and would be interested if the site becomes available, while Minister Tony Buti said nothing is off the cards."
+     },
+     {
+      "side": "Opposition and Local Residents",
+      "position": "The government should not retrofit a facility never built to be a prison and should instead invest in properly planned, long-term infrastructure, with local residents opposing the site's proximity.",
+      "evidence": "Shadow corrective services minister Adam Hort argued the plan stems from a failure to plan ahead and wastes money that could fund long-term expansion, alongside a parliamentary petition of 165 local signatures opposing the move."
+     }
+    ]
+   },
+   "sources": [
+    {
+     "name": "SMH.com.au",
+     "url": "https://www.smh.com.au/national/western-australia/nothing-s-off-the-cards-prison-boss-still-has-eyes-on-bullsbrook-quarantine-centre-20260930-p611r8.html"
+    },
+    {
+     "name": "Brisbane Times",
+     "url": "https://www.brisbanetimes.com.au/national/western-australia/nothing-s-off-the-cards-prison-boss-still-has-eyes-on-bullsbrook-quarantine-centre-20260930-p611r8.html"
+    }
+   ],
+   "published": "2026-09-30T06:08:03+00:00",
+   "latest_report": "2026-09-30T06:08:03+00:00",
+   "processed": true
+  },
+  {
+   "id": "s111",
+   "headline": "JCDecaux Launches Nurture for Country Campaign with Chalkwest",
+   "facts": "JCDecaux launched its Nurture for Country program with its first partner, Chalkwest, an Aboriginal-owned vehicle rental provider in Western Australia. The campaign aims to elevate First Nations businesses through Out-of-Home advertising, starting with a phase delivered in collaboration with Perth Airport before rolling out across the state. Chalkwest is led by Managing Director Zak Kirkup and operates a fleet of more than 1,300 vehicles across 12 towns and seven airports.",
+   "key_numbers": [
+    "Fleet size: More than 1,300 vehicles across Chalkwest's network",
+    "Operating footprint: 12 towns and 7 airports throughout Western Australia",
+    "Airport passenger reach: More than 18 million passengers pass through Perth Airport annually"
+   ],
+   "why_it_matters": "Chalkwest gains increased visibility across JCDecaux's digital and transit advertising network to support business growth and community initiatives, reaching millions of passengers at Perth Airport.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "perth",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "wa.campaignbrief.com",
+     "url": "https://wa.campaignbrief.com/jcdecaux-launches-nurture-for-country-with-first-partner-chalkwest/"
+    },
+    {
+     "name": "mi-3.com.au",
+     "url": "https://www.mi-3.com.au/01-10-2026/jcdecaux-launches-first-nurture-country-campaign-aboriginal-owned-chalkwest"
+    }
+   ],
+   "published": "2026-09-30T23:45:23+00:00",
+   "latest_report": "2026-09-30T23:57:58+00:00",
+   "processed": true
+  },
+  {
+   "id": "s103",
+   "headline": "Australia bans card payment surcharges starting October",
+   "facts": "New payment scheme rules following an RBA review take effect to end payment surcharges for EFTPOS, Visa, Mastercard, American Express, UnionPay, and PayPal. Payment networks have integrated bans into merchant contracts, and terminal software will be updated automatically to disable surcharge features. Standard weekend hospitality surcharges, public holiday fees, and ticketing booking fees remain legal if applied independently of payment method, while RBA consumer credit card interchange fee caps drop from 0.80 per cent to 0.30 per cent.",
+   "key_numbers": [
+    "16 per cent of Australian businesses historically surcharged",
+    "0.80 per cent to 0.30 per cent cap reduction on consumer credit cards"
+   ],
+   "why_it_matters": "Consumers will pay the advertised sticker price without checkout surcharges, while merchants face restructured processing fees that may influence retail pricing.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 5,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Tech AU",
+     "url": "https://techau.com.au/australia-bans-card-surcharge-from-tomorrow-but-you-will-end-up-paying-more-anyway/"
+    },
+    {
+     "name": "The National Tribune",
+     "url": "https://www.nationaltribune.com.au/credit-and-debit-card-surcharges-end-today/"
+    }
+   ],
+   "published": "2026-09-30T10:36:51+00:00",
+   "latest_report": "2026-10-01T00:18:51+00:00",
+   "processed": true
+  },
+  {
+   "id": "s455",
+   "headline": "August inflation jumps to 4 per cent as rate hike fears grow",
+   "facts": "The Australian Bureau of Statistics reported headline inflation jumped to 4.0 per cent in the year to August, up from 3.5 per cent in July. Automotive fuel prices surged 15 per cent following Middle East conflict and the end of fuel excise relief, while new dwelling prices rose 5.4 per cent over 12 months. Underlying trimmed mean inflation remained steady at 3.6 per cent.",
+   "key_numbers": [
+    "4.0 per cent annual headline inflation",
+    "3.5 per cent previous inflation rate",
+    "15 per cent fuel price surge",
+    "3.6 per cent underlying inflation"
+   ],
+   "why_it_matters": "Higher inflation figures increase the probability of the Reserve Bank of Australia raising interest rates further before the end of the year.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 5,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "The Guardian",
+     "url": "https://www.theguardian.com/australia-news/2026/sep/30/australia-inflation-rise-stokes-fears-fifth-interest-rate-hike-before-christmas"
+    },
+    {
+     "name": "Smart Property Investment",
+     "url": "https://www.smartpropertyinvestment.com.au/finance/28188-5th-rate-hike-back-on-the-table-as-inflation-surges"
+    }
+   ],
+   "published": "2026-09-29T20:50:25+00:00",
+   "latest_report": "2026-09-30T07:10:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s466",
+   "headline": "Reserve Bank of Australia raises cash rate to 4.60 per cent",
+   "facts": "The Reserve Bank of Australia's Monetary Policy Board voted unanimously to raise the official cash rate target by 25 basis points to 4.60 per cent, taking effect on September 30, 2026. The RBA cited headline inflation climbing to 4.0 per cent in August and persistent capacity constraints as drivers for the fourth rate hike of the year. Underlying trimmed mean inflation remained at 3.6 per cent, and the unemployment rate stood at 4.6 per cent.",
+   "key_numbers": [
+    "4.60 per cent cash rate",
+    "25 basis points increase",
+    "4.0 per cent August headline inflation",
+    "4.6 per cent unemployment rate"
+   ],
+   "why_it_matters": "Mortgage holders face immediate increases in minimum monthly repayments as borrowing costs reach a 15-year high.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 5,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "streamlinefeed.co.ke",
+     "url": "https://streamlinefeed.co.ke/news/reserve-bank-of-australia-raises-cash-rate-to-4-60-percent-as-august-inflation-rebounds-to-4-0-percent"
+    },
+    {
+     "name": "Seoul Economic Daily",
+     "url": "https://en.sedaily.com/international/2026/09/29/australia-raises-key-rate-to-460-percent-highest-in-15-years"
+    }
+   ],
+   "published": "2026-09-29T11:17:44+00:00",
+   "latest_report": "2026-09-30T06:39:26+00:00",
+   "processed": true
+  },
+  {
+   "id": "s746",
+   "headline": "WA Government provides up to $4 million to restart Cardup brickworks",
+   "facts": "The Western Australian Government is providing up to $4 million to support the recommissioning of the mothballed Austral brickworks in Cardup. The facility is expected to produce approximately 17 million Maxibricks and increase state brick production by 10 to 15 per cent once operational. The funding package includes a $3 million upfront contribution for maintenance, a $500,000 incentive to resume operations by March 2027, and a $500,000 incentive for delivering 17 million bricks within 12 months.",
+   "key_numbers": [
+    "Funding amount: up to $4 million provided by the State Government",
+    "Production increase: 10 to 15 per cent boost to Western Australia's brick supply",
+    "Output target: 17 million Maxibricks",
+    "Housing commencements: over 24,200 homes since April 2023"
+   ],
+   "why_it_matters": "The restart of the Cardup facility aims to ease building material shortages and support residential construction activity across Western Australia.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Mirage News",
+     "url": "https://www.miragenews.com/wa-government-backs-cardup-brickworks-reopening-1750993/"
+    },
+    {
+     "name": "The West Australian",
+     "url": "https://thewest.com.au/business/herd-on-the-terrace/herd-on-the-terrace-bullock-the-broken-record-on-impact-of-rba-interest-rate-hikes-c-22940865"
+    }
+   ],
+   "published": "2026-09-29T03:19:00+00:00",
+   "latest_report": "2026-09-29T09:02:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s945",
+   "headline": "News Australia and CommBank launch national housing affordability campaign",
+   "facts": "News Australia and CommBank launched a national campaign named 'The Home Front' on Monday across news.com.au and State & Community mastheads. The campaign is informed by the National Housing Affordability Project research conducted in July by The Growth Distillery and SEC Newgate Research surveying 2,048 Australians aged 18 and over. The survey found that 53 per cent of non-homeowners want to buy a first home but only 14 per cent believe it will happen soon, 51 per cent of aspiring first-home buyers have surrendered hope, and 68 per cent of renters believe they will rent for life.",
+   "key_numbers": [
+    "Survey sample size: 2,048 Australians aged 18+",
+    "Non-homeowners wanting to buy: 53%",
+    "Non-homeowners expecting to buy soon: 14%",
+    "Aspiring first-home buyers who gave up hope: 51%"
+   ],
+   "why_it_matters": "The multi-platform campaign examines economic pressures like negative gearing, capital gains tax, interest rates, stamp duty and land tax, while exploring alternative solutions such as modular housing and downsizing.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Mumbrella",
+     "url": "https://mumbrella.com.au/news-australia-and-commbank-launch-housing-affordability-campaign-938915"
+    },
+    {
+     "name": "Mediaweek",
+     "url": "https://www.mediaweek.com.au/news-australia-commbank-launch-the-home-front-housing-campaign"
+    },
+    {
+     "name": "bandt.com.au",
+     "url": "https://www.bandt.com.au/news-australia-commbank-launch-national-housing-affordability-campaign/"
+    },
+    {
+     "name": "mi-3.com.au",
+     "url": "https://www.mi-3.com.au/28-09-2026/news-australia-and-commbank-co-launch-home-front-campaign-housing-affordability"
+    },
+    {
+     "name": "adnews.com.au",
+     "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOU1pLVEk5YThqalFTVTBxVnR2TUtDMW1zcENiV2lVQVFsb2c2Rk1XcXVaR1NEeEpFSjVhdkJUWUZUVTJLbGhtRjRTSm1kYmlTeVRMdzVMQ3E2bDBib0plbEpPRi1FRWtWNEFXQVNQSlZ0Z25hN2FNZlc3ZGo2RVd0QUN5NzhFbFRQUTVyd0F1bzNhdjNGeTFWTXMtQzVDWWJlbmR1cFFIWFk?oc=5"
+    }
+   ],
+   "published": "2026-09-27T22:42:13+00:00",
+   "latest_report": "2026-09-28T03:44:55+00:00",
+   "processed": true
+  },
+  {
+   "id": "s858",
+   "headline": "Greens leader Larissa Waters steps down due to health reasons",
+   "facts": "Australian Greens Leader Larissa Waters announced she is stepping down from the party leadership due to a downturn in her pre-existing kidney disease. Senator Waters said the demands of leadership and travel are incompatible with her recovery, though her prognosis is positive. She will remain in parliament as a Senator for Queensland and take a period of medical leave. A party room meeting will be held later this week to elect a new leader.",
+   "key_numbers": [
+    "19 months: length of time Senator Waters served as party leader",
+    "2010: year Senator Waters was first elected as Senator for Queensland"
+   ],
+   "why_it_matters": "The resignation triggers a leadership race within the Greens party ahead of the next federal election, with a new leader to be selected by the party room later this week.",
+   "category": "au_politics",
+   "category_label": "Australian Politics",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Crikey",
+     "url": "https://www.crikey.com.au/2026/09/29/greens-seek-new-leader-after-larissa-waters-steps-down-jim-chalmers-medicare-hack-ai-anthropic-inflation-interest-rates/"
+    },
+    {
+     "name": "Yahoo News Australia",
+     "url": "https://au.news.yahoo.com/greens-leader-makes-shock-announcement-100706847.html"
+    },
+    {
+     "name": "Politico",
+     "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPWmZOcFVUelhSb2NIMkVqREliQVBSZWxfUVEyTFlwVHFpcHo1OE84T3hXemlrZ0NzbHd3a2JFWU4tclJVazNncmhXaHhHcHdrN3RwT0I2NjBCUldMOUpkTm1XLUN6S2VISmFCc0VFUmdTa0pkY3B5eGtDYUtnT29udjZqTVdrZFoySEV2d256M2J4VF9Lb1NTZnpUTW5zOEpQWHUyYkgtc0wwUE94dDdCaUZtYkxDMGJiWDM4VS13b0pLWlV3R0pYWmlkYm0?oc=5"
+    },
+    {
+     "name": "The Conversation",
+     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPam11blBaMnRrOUVXNWxaaFg0c0lmMC1qZVBlbDN2Zjd4SEFRQlZJS2V2NlNYZm9Bcmx0bjJWdEhWdXZ5MFNxN0Uzc1FoVWVTTm0zYzY3NU9IUjk1NDNRUGh1S2RBdXAxZkNZN1BpWk9yeEZrZERmSUZxbFZSLThXNGdzaVZaZ2lYTTVwcWxsekxxX2QyVkt4b3h1dUNOZkdQ?oc=5"
+    }
+   ],
+   "published": "2026-09-28T10:46:00+00:00",
+   "latest_report": "2026-09-28T21:15:28+00:00",
+   "processed": true
+  },
+  {
+   "id": "s547",
+   "headline": "Australian household spending unchanged in August as transport offsets falls",
+   "facts": "Australian household spending was unchanged in seasonally adjusted terms in August, following increases of 1.1 per cent in July and 0.9 per cent in June, according to Australian Bureau of Statistics data. ABS head of business statistics Tom Lay reported that recreation and culture spending saw the largest fall at 1.4 per cent, alongside declines in clothing and footwear, recreational goods, food, health, and furniture. These falls were offset by a 2.3 per cent increase in transport spending driven by an 8.1 per cent rise in fuel spending following the full restoration of fuel excise duty on August 3.",
+   "key_numbers": [
+    "1.4 per cent: fall in recreation and culture spending in August",
+    "2.3 per cent: rise in transport spending in August",
+    "8.1 per cent: rise in fuel spending in August"
+   ],
+   "why_it_matters": "The stagnation in household spending indicates a cooling in consumer demand across most retail sectors, with higher fuel costs shifting household expenditure towards transport.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Ragtrader.com.au",
+     "url": "https://www.ragtrader.com.au/news/household-spending-plateaus-in-august-abs-reports"
+    },
+    {
+     "name": "Mirage News",
+     "url": "https://www.miragenews.com/household-spending-unchanged-in-august-australia-1750988/"
+    },
+    {
+     "name": "grafa.com",
+     "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQUjlYNVZvXzRsV0MzS2Zfbk95aUgwQUc0V1c5dTJQVDQ5NGJmektZVS1rMVNvT0pzUnpxSE5WUXpENGNqTUN1WDZ2cXVPV2lSTENNcEZfS3FQT2s0bGhVeVNBSWpWU2NkajEzRWFTN3pVcjdjOTBmcUZ0Z0I3MzNpVW81Rk9lR3lLQ2JN?oc=5"
+    }
+   ],
+   "published": "2026-09-29T03:16:48+00:00",
+   "latest_report": "2026-09-30T03:01:35+00:00",
+   "processed": true
+  },
+  {
+   "id": "s10",
+   "headline": "Victorian doctors stage mass walkout over pay and working conditions",
+   "facts": "Thousands of doctors from major Victorian hospitals will walk off the job on Thursday afternoon for a four-hour strike. The action follows over 14 months of negotiations with the Victorian government. Doctors are calling for a 30 per cent pay rise over four years, a 12.5-hour shift cap, paid overtime, and three consecutive days off per fortnight.",
+   "key_numbers": [
+    "Shift length cap demanded: 12.5 hours",
+    "Pay rise demanded: 30% over four years",
+    "Negotiation duration: More than 14 months across more than 60 meetings"
+   ],
+   "why_it_matters": "Patients face delayed non-critical and elective surgeries across Victorian hospitals as doctors strike over fatigue and safety concerns.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/politics/victoria/system-is-in-crisis-thousands-of-doctors-to-walk-off-the-job-over-safety-fears-20261001-p611yz.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    },
+    {
+     "name": "News.com.au",
+     "url": "https://www.news.com.au/lifestyle/health/victorian-doctors-strike-over-unsustainable-working-hours/news-story/7886f0501e949e25ff2b7bdd66f9978b"
+    }
+   ],
+   "published": "2026-09-30T23:18:18+00:00",
+   "latest_report": "2026-10-01T02:56:08+00:00",
+   "processed": true
+  },
+  {
+   "id": "s46",
+   "headline": "Terra Metals Confirms High-Grade Reef Discovery in Southwest",
+   "facts": "Terra Metals announced the discovery of what it describes as the Southwest’s largest continuous high-grade reef at its Western Australia project. Following the confirmation, company shares fell by 3%. Detailed figures and operational data were not available in the provided text.",
+   "key_numbers": [
+    "Share price change: Down 3% following the announcement"
+   ],
+   "why_it_matters": "Investors face a minor drop in share value following the announcement, while the company advances its exploration project in Western Australia.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "perth",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Mining.com.au",
+     "url": "https://mining.com.au/terra-metals-discovers-southwests-largest-continuous-high-grade-reef/"
+    },
+    {
+     "name": "marketscreener.com",
+     "url": "https://www.marketscreener.com/news/terra-metals-confirms-largest-continuous-high-grade-reef-at-western-australia-project-shares-down-3-ce785ad3da8cff21"
+    }
+   ],
+   "published": "2026-10-01T00:47:18+00:00",
+   "latest_report": "2026-10-01T02:03:20+00:00",
+   "processed": true
+  },
+  {
+   "id": "s23",
+   "headline": "RBA says home price plunge poses no major stability risk",
+   "facts": "The Reserve Bank of Australia stated in its half-yearly Financial Stability Review that less than one per cent of borrowers are estimated to be facing negative equity. RBA modelling suggests that housing prices could fall by 20 per cent from current levels and only about five per cent of mortgages would enter negative equity. The report follows the RBA lifting interest rates by 25 basis points to 4.6 per cent on Tuesday, while headline inflation rose to 4.0 per cent.",
+   "key_numbers": [
+    "1 per cent: estimated borrowers facing negative equity",
+    "20 per cent: potential housing price fall examined in RBA modelling",
+    "25 basis points: interest rate hike on Tuesday",
+    "4.6 per cent: new interest rate level"
+   ],
+   "why_it_matters": "Mortgage holders face higher borrowing costs following the RBA's fourth rate rise of 2026, but the central bank assesses that household and business financial sectors remain resilient overall with low arrears rates.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "The Canberra Times",
+     "url": "https://www.canberratimes.com.au/story/9360894/contained-home-price-plunge-no-big-stability-risk/"
+    },
+    {
+     "name": "aapnews.aap.com.au",
+     "url": "https://www.aapnews.com.au/news/contained-home-price-plunge-no-big-stability-risk"
+    }
+   ],
+   "published": "2026-10-01T02:33:50+00:00",
+   "latest_report": "2026-10-01T02:38:08+00:00",
+   "processed": true
+  },
+  {
+   "id": "s53",
+   "headline": "Ampol buys Evie Networks for $225 million",
+   "facts": "Fuel giant Ampol agreed to acquire 100 per cent of Evie Networks for $225 million, adding more than 1,000 charging bays to its existing network. The combined platform will feature 1,425 charging bays across more than 400 sites, with the transaction expected to complete in the first half of 2027 subject to ACCC clearance. Ampol reported that charging sessions and energy volume on its AmpCharge network more than doubled in the first half of 2026.",
+   "key_numbers": [
+    "$225 million purchase price",
+    "1,000 charging bays added",
+    "1,425 combined charging bays",
+    "400 sites"
+   ],
+   "why_it_matters": "The acquisition expands Ampol's public electric vehicle charging infrastructure as national electric vehicle sales rise to represent over 25 per cent of new car sales.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "The Age",
+     "url": "https://www.theage.com.au/business/companies/ampol-buys-huge-australian-charging-network-in-225m-deal-as-evs-surge-20261001-p611ye.html"
+    },
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/business/companies/ampol-buys-huge-australian-charging-network-in-225m-deal-as-evs-surge-20261001-p611ye.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-10-01T01:45:57+00:00",
+   "latest_report": "2026-10-01T01:45:57+00:00",
+   "processed": true
+  },
+  {
+   "id": "s411",
+   "headline": "National dwelling approvals drop 6.1 per cent in August",
+   "facts": "The Australian Bureau of Statistics reported that total dwelling approvals fell 6.1 per cent in August to 16,953. Private sector house approvals rose 3.7 per cent to 10,885 dwellings, marking eight consecutive months above 10,000. Private sector dwellings excluding houses fell 21.2 per cent to 5,674 dwellings, driven by declines in apartment and townhouse approvals.",
+   "key_numbers": [
+    "16,953 total dwellings approved in August",
+    "6.1 per cent fall in total dwellings",
+    "10,885 private sector houses approved",
+    "21.2 per cent fall in non-house dwellings"
+   ],
+   "why_it_matters": "The decline in apartment and non-house approvals threatens the federal government's target of building 1.2 million new homes by June 2029.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Australian Conveyancer",
+     "url": "https://www.australianconveyancer.com.au/article/home-building-approvals-drop-challenges-national-2029-target/"
+    },
+    {
+     "name": "realestate.com.au",
+     "url": "https://www.realestate.com.au/news/home-approvals-drop-apartment-plunge-threatens-albanese-target/"
+    }
+   ],
+   "published": "2026-09-30T04:21:57+00:00",
+   "latest_report": "2026-09-30T10:02:45+00:00",
+   "processed": true
+  },
+  {
+   "id": "s531",
+   "headline": "Australian Consumer Price Index Rises 4.0 Percent in Year to August 2026",
+   "facts": "The Australian Bureau of Statistics reported that the Consumer Price Index rose 4.0 per cent in the 12 months to August 2026, up from 3.5 per cent in July. Housing was the largest contributor to annual inflation, increasing by 5.7 per cent due to higher costs for new dwellings and electricity. Transport was the second largest contributor, rising by 5.6 per cent driven by automotive fuel prices, which jumped 14.8 per cent in August.",
+   "key_numbers": [
+    "Consumer Price Index annual rise: 4.0% in the 12 months to August 2026",
+    "Housing annual inflation: 5.7% in August 2026",
+    "Transport annual inflation: 5.6% in August 2026",
+    "Trimmed mean annual inflation: 3.6% in August 2026"
+   ],
+   "why_it_matters": "Higher inflation erodes household purchasing power across Australia and maintains pressure on the Reserve Bank regarding interest rates.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Mirage News",
+     "url": "https://www.miragenews.com/cpi-rose-4-0-in-year-to-august-2026-australia-1752319/"
+    },
+    {
+     "name": "IndexBox",
+     "url": "https://www.indexbox.io/blog/australian-inflation-accelerates-to-40-in-august-2026/"
+    }
+   ],
+   "published": "2026-09-30T01:38:00+00:00",
+   "latest_report": "2026-09-30T04:00:59+00:00",
+   "processed": true
+  },
+  {
+   "id": "s234",
+   "headline": "Australian Greens elect David Shoebridge as new leader",
+   "facts": "The Australian Greens party room elected David Shoebridge as its new leader in an 11-member ballot in Sydney, following the resignation of Larissa Waters due to ill health. Senator Shoebridge defeated Mehreen Faruqi seven votes to four after preferences, with Steph Hodgins-May elected as deputy leader. Senator Shoebridge stated that the party aims to replace the Labor Party and focus on the cost of living and corporate opposition.",
+   "key_numbers": [
+    "Leadership ballot: 7 votes to 4 won by David Shoebridge over Mehreen Faruqi",
+    "Deputy leadership ballot: 6 votes to 5 won by Steph Hodgins-May over Vanessa Bleyer"
+   ],
+   "why_it_matters": "Changes in leadership shift the parliamentary strategy and policy focus of the federal Greens party as they position themselves against both major parties.",
+   "category": "au_politics",
+   "category_label": "Australian Politics",
+   "region": "australia",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "UA.NEWS",
+     "url": "https://ua.news/en/world/avstraliiski-zeleni-obrali-devida-shubridzha-novim-liderom-abc-news-australia"
+    },
+    {
+     "name": "ABC News",
+     "url": "https://www.abc.net.au/news/2026-09-30/federal-politics-greens-announce-new-leader-david-shoebridge/107211108"
+    },
+    {
+     "name": "The Guardian",
+     "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxObVp0VEtFOTgwSXYwUEs5cDlaMW9OSkhlZFhjNkxBbXBLajRDYll2SkZIM2MzSFEyd2lyMWRpMEM1dFBEWFBJbEEyUDFLSHJXNVNxbU1VVzk4N2JHMzFNdkVzcHdqT3dCRWJybEFaWjA5aEx5c2YwMFNmM0FmVEVCXzVDUDZLdWtMSVhDeVdFV0F2dHplSE5USmNRWnRaVEJaU0pza0tXRDFUcGJoM29xcDNJaFVGdTcxVWJDVEI2NUtHQUt5T293ZlZB?oc=5"
+    }
+   ],
+   "published": "2026-09-29T19:22:38+00:00",
+   "latest_report": "2026-09-30T18:59:21+00:00",
+   "processed": true
+  },
+  {
+   "id": "s641",
+   "headline": "Australian House Prices and Debt Surge Compared to Past High Interest Rates",
+   "facts": "The Reserve Bank increased the cash rate to 4.6 per cent, marking a level not seen since October 2011 when the rate sat at 4.75 per cent. Cotality data shows that median house values have more than doubled since 2011 while wages have increased by about 49 per cent. The national dwelling value to income ratio has risen from 6.5 times to 8.7 times, and household debt has grown from 161 per cent to 178 per cent of disposable incomes.",
+   "key_numbers": [
+    "Cash rate: 4.6%",
+    "Sydney median house value in October 2011: $598,888",
+    "Melbourne median house value in October 2011: $472,705",
+    "Perth median house value in October 2011: $460,361"
+   ],
+   "why_it_matters": "Higher mortgage repayments and elevated debt levels relative to incomes increase financial stress for Australian households as they service larger mortgages under higher interest rates.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 5,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/property/news/how-far-house-prices-have-risen-since-the-last-time-rates-were-this-high-20260930-p60zx8.html"
+    },
+    {
+     "name": "SMH.com.au",
+     "url": "https://www.smh.com.au/property/news/how-far-house-prices-have-risen-since-the-last-time-rates-were-this-high-20260930-p60zx8.html"
+    }
+   ],
+   "published": "2026-09-29T19:00:00+00:00",
+   "latest_report": "2026-09-29T19:00:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s422",
+   "headline": "David Shoebridge Elected Leader of the Australian Greens",
+   "facts": "Senator David Shoebridge won a contested vote to become the new leader of the Australian Greens, running on a ticket with deputy Stephanie Hodgins-May. Shoebridge defeated senators Sarah Hanson-Young and Mehreen Faruqi for the position. In his first speech, Shoebridge stated his goal to build a mass movement to replace the federal Labor Party and criticised the government over economic inequality.",
+   "key_numbers": [
+    "Age of David Shoebridge: 55",
+    "Age of Stephanie Hodgins-May: 41",
+    "Greens vote share between recent elections: 12%",
+    "Shoebridge political career duration: 16 years"
+   ],
+   "why_it_matters": "The leadership change affects how the Greens negotiate key legislation with the federal government and shapes the minor party's political strategy heading toward future elections.",
+   "category": "au_politics",
+   "category_label": "Australian Politics",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "SMH.com.au",
+     "url": "https://www.smh.com.au/politics/federal/david-shoebridge-is-one-of-parliament-s-best-operators-his-new-task-as-greens-leader-is-far-broader-20260930-p611qv.html"
+    },
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/politics/federal/david-shoebridge-is-one-of-parliament-s-best-operators-his-new-task-as-greens-leader-is-far-broader-20260930-p611qv.html"
+    }
+   ],
+   "published": "2026-09-30T09:09:06+00:00",
+   "latest_report": "2026-09-30T09:09:06+00:00",
+   "processed": true
+  },
+  {
+   "id": "s11",
+   "headline": "WA Government invests over $2 million in Mid West racing infrastructure",
+   "facts": "The Western Australian Government is investing more than $2 million into Geraldton Turf Club and Dongara Irwin Race Club. Geraldton Turf Club completed a $1.163 million irrigation system project and received $40,000 for rubber flooring in horse stalls, with further upgrades underway. Dongara Irwin Race Club is utilizing a $92,000 funding package for water system improvements and horse stall roofing.",
+   "key_numbers": [
+    "Total government investment: More than $2 million",
+    "Geraldton Turf Club irrigation project: $1.163 million",
+    "Dongara Irwin Race Club package: $92,000",
+    "Regional racing economic contribution: $37.6 million annually to the State economy"
+   ],
+   "why_it_matters": "Regional racing clubs in Western Australia receive upgraded infrastructure to support animal welfare, safety, and continued economic contributions to the state.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Western Australian Government",
+     "url": "https://www.wa.gov.au/government/announcements/wa-government-investing-mid-west-racing-infrastructure"
+    },
+    {
+     "name": "The National Tribune",
+     "url": "https://www.nationaltribune.com.au/cook-labor-government-investing-in-mid-west-racing-infrastructure/"
+    }
+   ],
+   "published": "2026-10-01T02:30:51+00:00",
+   "latest_report": "2026-10-01T02:54:15+00:00",
+   "processed": true
+  },
+  {
+   "id": "s30",
+   "headline": "Mining couple stages gender reveal using Kalgoorlie Super Pit blast",
+   "facts": "Kalgoorlie Super Pit workers Lance and Kristy Richards used the mine's daily explosives blast mixed with pink powder for a gender reveal. The couple conceived after an 11-year IVF journey and are expecting a baby girl in January. Northern Star Resources human resources manager Nicole Musgrave approved the special request.",
+   "key_numbers": [
+    "IVF journey duration: 11 years",
+    "Super Pit workforce: 1,800 total employees, approximately 35% female",
+    "Mine dimensions: 4km long and 1.6km at widest point"
+   ],
+   "why_it_matters": "The event highlights employee milestones at one of Australia's largest gold mines and brings public attention to the challenges of the IVF process.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "ABC News",
+     "url": "https://www.abc.net.au/news/2026-09-30/gender-reveal-explosive-blast-kalgoorlie-super-pit/107211366"
+    },
+    {
+     "name": "PerthNow",
+     "url": "https://www.perthnow.com.au/lifestyle/super-pit-workers-celebrate-ivf-success-with-spectacular-gender-reveal-blast-c-22952650"
+    }
+   ],
+   "published": "2026-09-30T09:42:00+00:00",
+   "latest_report": "2026-10-01T02:24:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s225",
+   "headline": "Former Obstetrician Restores Western Australian Wheatbelt Property to Bushland",
+   "facts": "Dr Susan Downes, a 76-year-old former GP obstetrician, has spent 11 years restoring a 200-hectare rural property north of York in Western Australia's wheatbelt. Aided by volunteers, she has planted approximately 45,000 trees across five planting seasons with a survival rate exceeding 40%. The property includes Mount Mackie, a site historically significant from Ensign Robert Dale's 1830 expedition and valued by local Indigenous communities.",
+   "key_numbers": [
+    "Property size: 200 hectares",
+    "Trees planted: Approximately 45,000 over five planting seasons",
+    "Tree survival rate: More than 40 per cent",
+    "Volunteer list: About 80 individuals on the Friends of Mount Mackie list"
+   ],
+   "why_it_matters": "The revegetation project converts degraded agricultural land back into native York gum and wandoo bushland, providing a conservation model in a region where over 90 per cent of the wheatbelt has been cleared.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "SMH.com.au",
+     "url": "https://www.smh.com.au/national/susan-bought-a-rural-property-as-a-vague-retirement-plan-now-she-s-using-it-to-reverse-history-20261001-p60z4i.html"
+    },
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/national/susan-bought-a-rural-property-as-a-vague-retirement-plan-now-she-s-using-it-to-reverse-history-20261001-p60z4i.html"
+    }
+   ],
+   "published": "2026-09-30T19:00:00+00:00",
+   "latest_report": "2026-09-30T19:00:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s874",
+   "headline": "WA opposition criticises government over use of school transportable classrooms",
+   "facts": "The WA opposition accused the state government of poor planning after a new parliamentary document revealed that over 4,000 transportable classrooms are currently in use across Western Australian schools, representing nearly one in six classrooms. Opposition education spokesman Liam Staltari stated that newer schools opened since 2017 are heavily reliant on demountables, with more than half of all classrooms at Wellard Primary School, Oakwood Primary School and Aspiri Primary School being transportable. Education Minister Sabine Winton defended the use of transportables as a cost-effective way to rapidly increase capacity, and stated that 11 new primary schools and two new high schools will be built between now and 2030 to address demand and remove transportables.",
+   "key_numbers": [
+    "4,000 transportables: placed across WA schools",
+    "30 new primary schools and 8 secondary schools: opened since 2017",
+    "240 students: capacity of a new permanent addition funded for Riva Primary School"
+   ],
+   "why_it_matters": "Schools relying on transportable classrooms face constrained green space and ovals, while students and teachers use temporary buildings. Planned construction projects and budget allocations aim to deliver permanent facilities in fast-growing suburbs by 2030.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/national/western-australia/a-decade-of-poor-planning-the-new-wa-schools-with-the-most-demountables-20260929-p6103h.html"
+    },
+    {
+     "name": "SMH.com.au",
+     "url": "https://www.smh.com.au/national/western-australia/a-decade-of-poor-planning-the-new-wa-schools-with-the-most-demountables-20260929-p6103h.html"
+    }
+   ],
+   "published": "2026-09-28T17:00:00+00:00",
+   "latest_report": "2026-09-28T17:00:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s525",
+   "headline": "Analysis Shows Australian Politicians Lead in AI Speech Usage",
+   "facts": "An analysis by The Economist found that Australian politicians lead the English-speaking world in using artificial intelligence to write or assist with speeches. A random sample of parliamentary speeches between September 2025 and 2026 showed that more than 20 per cent of House of Representatives speeches and just under 15 per cent of Senate speeches were flagged by the Pangram AI content detector. Speaker Milton Dick stated there are no parliamentary rules governing the use of AI in speeches, though members remain responsible for their statements.",
+   "key_numbers": [
+    "House of Representatives AI-flagged speeches: more than 20%",
+    "Senate AI-flagged speeches: just under 15%",
+    "Senior staffer base salary for speechwriters: $140,000"
+   ],
+   "why_it_matters": "The high volume of AI-assisted political speech has sparked debate among MPs, speechwriters, and independent figures regarding transparency, constituent trust, and the loss of authentic human perspective in parliament.",
+   "category": "au_politics",
+   "category_label": "Australian Politics",
+   "region": "australia",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Brisbane Times",
+     "url": "https://www.brisbanetimes.com.au/politics/federal/bludgeoned-with-platitudes-australian-politicians-lead-the-english-speaking-world-in-ai-speeches-20260930-p611bm.html"
+    },
+    {
+     "name": "SMH.com.au",
+     "url": "https://www.smh.com.au/politics/federal/bludgeoned-with-platitudes-australian-politicians-lead-the-english-speaking-world-in-ai-speeches-20260930-p611bm.html"
+    }
+   ],
+   "published": "2026-09-30T01:45:00+00:00",
+   "latest_report": "2026-09-30T04:08:06+00:00",
+   "processed": true
+  },
+  {
+   "id": "s3",
+   "headline": "Special WA Police powers take effect for Land Forces conference",
+   "facts": "The Cook Labor Government's Land Forces (Special Powers) Act 2026 is in full effect from 1 to 10 October 2026. The legislation gives WA Police additional powers within designated security areas around the Perth Convention and Exhibition Centre, where the Land Forces 2026 event runs from 6 to 8 October. Police Minister Reece Whitby stated the powers include establishing checkpoints, cordons, and roadblocks, searching people, bags, and vehicles, and issuing lawful directions, last used during the 2011 Commonwealth Heads of Government Meeting.",
+   "key_numbers": [
+    "10 October 2026: Expiry date for special police powers",
+    "6-8 October: Dates for the Land Forces 2026 event",
+    "10 days: Duration of the temporary police powers"
+   ],
+   "why_it_matters": "Attendees, workers, and the wider community in Perth are affected by increased police presence, checkpoints, and potential delays around the Perth Convention and Exhibition Centre during the event period.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Mirage News",
+     "url": "https://www.miragenews.com/special-wa-police-powers-take-effect-for-land-1753282/"
+    }
+   ],
+   "published": "2026-10-01T03:10:00+00:00",
+   "latest_report": "2026-10-01T03:10:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s16",
+   "headline": "Western Australia government provides $4 million bailout to restart Cardup brickworks",
+   "facts": "The Western Australia government announced a support package of up to $4 million on September 29 to recommission the mothballed Austral brickworks at Cardup in south-eastern Perth. The package includes a $3 million upfront payment, a $500,000 incentive payment to resume production by March 2027, and $500,000 to deliver 17 million maxibricks within 12 months of opening. Housing Industry Association WA executive director Michael McGowan stated the support will boost state brick production by 10 to 15 per cent and support a broad cross-section of construction projects.",
+   "key_numbers": [
+    "$4 million government assistance package",
+    "10 to 15 per cent increase in state brick production",
+    "17 million maxibricks to be delivered within 12 months",
+    "24,200 homes in housing starts since April 2023"
+   ],
+   "why_it_matters": "The funding aims to ease supply rationing by the state's main brick producer and support the construction of schools, hospitals, commercial developments and residential housing across Western Australia.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "The Urban Developer",
+     "url": "https://www.theurbandeveloper.com/articles/wa-austral-cardup-brickworks-bailout-government-support-package-rationing"
+    }
+   ],
+   "published": "2026-10-01T02:47:42+00:00",
+   "latest_report": "2026-10-01T02:47:42+00:00",
+   "processed": true
+  },
+  {
+   "id": "s863",
+   "headline": "Mosman Park woman charged with attempted murder of husband",
+   "facts": "Gay Bernadette Branchi, 88, was arrested and charged with attempted murder over allegations she tried to kill her husband, former Automotive Holdings Group chairman Robert Branchi. The accused was taken into custody from The Queenslea residential aged care home in Claremont where the couple shared a room. Following an initial court appearance via audio link and magistrate concerns regarding cognitive mental capacity and vulnerability, Mrs Branchi was granted bail.",
+   "key_numbers": [
+    "Aged care deposit: reportedly exceeding $1.6 million at The Queenslea",
+    "Mosman Park home purchase price: $1.5 million in 1995",
+    "Shareholding history: more than 17 million shares held by Robert Branchi in 2007"
+   ],
+   "why_it_matters": "The legal proceedings progress through the courts following a bail review for the elderly resident of a Claremont aged care facility.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "SMH.com.au",
+     "url": "https://www.smh.com.au/national/western-australia/mosman-park-millionaire-s-88-year-old-wife-charged-with-attempted-murder-20260929-p610pp.html"
+    },
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/national/western-australia/mosman-park-millionaire-s-88-year-old-wife-charged-with-attempted-murder-20260929-p610pp.html"
+    }
+   ],
+   "published": "2026-09-28T19:00:00+00:00",
+   "latest_report": "2026-09-28T19:00:00+00:00",
+   "processed": true
+  },
+  {
+   "id": "s461",
+   "headline": "Man arrested after shots fired and pedestrian targeted in Rokeby",
+   "facts": "Tasmania Police took a man into custody and set up crime scenes at Burtonia Street in Rokeby and Holmfield Avenue in Clarendon Vale following a reported shooting on Wednesday at around 11:30am. Police stated a vehicle pulled up beside a walking pedestrian, and a single shot was fired in their direction before the vehicle left. No injuries were reported, the firearm and suspect vehicle were located, and Bellerive officers, the Special Operations Group and South East CIB are involved in the investigation.",
+   "key_numbers": [
+    "Incident time: 11:30am Wednesday"
+   ],
+   "why_it_matters": "Residents in Rokeby and Clarendon Vale experienced police cordons and an armed response following the incident, with authorities seeking dashcam and CCTV footage.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Pulse Tasmania",
+     "url": "https://pulsetasmania.com.au/news/man-arrested-after-shot-allegedly-fired-at-pedestrian-in-rokeby/"
+    },
+    {
+     "name": "News.com.au",
+     "url": "https://www.news.com.au/national/western-australia/lockdown-as-shots-fired-in-serious-incident-outside-wa-city/news-story/7114ac31f75626446b726adbbb6d5f12"
+    }
+   ],
+   "published": "2026-09-30T03:50:06+00:00",
+   "latest_report": "2026-09-30T06:48:23+00:00",
+   "processed": true
+  },
+  {
+   "id": "s9",
+   "headline": "Dead humpback whale removed from Perth's City Beach",
+   "facts": "A 72-tonne crane hired by the Town of Cambridge began lifting a 13-metre long, decomposing humpback whale carcass at about 10am at Perth's City Beach. The whale washed up on Monday and initially weighed 31 tonnes before being wrapped in a net and dragged 1.5 kilometres along the shore. Town of Cambridge Mayor Gary Mack stated the plan was to bury the whale in landfill and that the council planned to pay for the removal, while not ruling out asking the state government to foot the bill.",
+   "key_numbers": [
+    "72-tonne crane used for the lift",
+    "13-metre long decomposing carcass",
+    "1.5 kilometres distance dragged along the shore",
+    "$100,000 operation cost"
+   ],
+   "why_it_matters": "The removal operation cost $100,000 and required local road and beach management, while the presence of the carcass drew large crowds and tagged white sharks to the area.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "perth",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "ABC News",
+     "url": "https://www.abc.net.au/news/2026-10-01/humpback-whale-carcass-at-city-beach-heading-to-landfill/107215324"
+    }
+   ],
+   "published": "2026-09-28T02:03:05+00:00",
+   "latest_report": "2026-10-01T02:59:23+00:00",
+   "processed": true
+  },
+  {
+   "id": "s15",
+   "headline": "Edith Cowan University joins Additive Manufacturing Cooperative Research Centre",
+   "facts": "Edith Cowan University (ECU) has joined the Additive Manufacturing Cooperative Research Centre (AMCRC) as its newest research partner. The addition expands the AMCRC's research network to 12 universities and CSIRO. ECU will contribute to collaborative research programs, project development and workforce initiatives focused on additive manufacturing.",
+   "key_numbers": [
+    "12 universities and CSIRO in the network"
+   ],
+   "why_it_matters": "The partnership connects ECU directly with manufacturers to develop and commercialise solutions intended to improve productivity and support Western Australia's resources, defence and mining sectors.",
+   "category": "science",
+   "category_label": "Science",
+   "region": "perth",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Australian Manufacturing",
+     "url": "https://www.australianmanufacturing.com.au/amcrc-adds-ecu-to-strengthen-additive-manufacturing-capability/"
+    }
+   ],
+   "published": "2026-10-01T02:47:45+00:00",
+   "latest_report": "2026-10-01T02:47:45+00:00",
+   "processed": true
+  },
+  {
+   "id": "s47",
+   "headline": "US Court of International Trade hears challenge to Donald Trump's latest tariffs",
+   "facts": "The US Court of International Trade heard arguments on Wednesday in a legal challenge brought by importers and 25 Democrat-led states against the Trump administration's 10 to 12.5 per cent tariffs imposed in late July on about 60 economies and 86 countries. The tariffs were implemented under Section 301 of the US Trade Act on the grounds that foreign failures to prevent imports of goods made with forced labour burdened US commerce. The challengers argued the tariffs are a pretext to recreate a global tariff regime previously ruled illegal by the courts and that the administration failed to follow required country-specific investigative processes.",
+   "key_numbers": [
+    "10 to 12.5 per cent: tariff rates imposed on about 60 economies and 86 countries",
+    "12.5 per cent: tariff rate applied to Australian exports to the US",
+    "25: Democrat-led states participating in the legal challenge"
+   ],
+   "why_it_matters": "A ruling against the administration would invalidate the latest global tariff measures, potentially forcing the US government to refund billions of dollars and stripping the executive of its primary mechanism for blanket trade penalties.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "international",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "The Age",
+     "url": "https://www.theage.com.au/business/the-economy/trump-s-war-on-the-world-faces-a-lethal-blow-20261001-p611xx.html"
+    },
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/business/the-economy/trump-s-war-on-the-world-faces-a-lethal-blow-20261001-p611xx.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-10-01T02:02:07+00:00",
+   "latest_report": "2026-10-01T02:02:07+00:00",
+   "processed": true
+  },
+  {
+   "id": "s17",
+   "headline": "Sydney Metro to keep six platform doors closed on final M1 line section",
+   "facts": "Sydney Metro has assured safety regulators it will keep six train and platform screen doors closed at stations along the final section of the $30 billion M1 metro line. Three screen doors will remain closed at Dulwich Hill station, and one each at Canterbury, Campsie and Marrickville, located at curved platforms where the distance between trains and platforms is widest. Transport Minister John Graham stated that 170 mechanical gap fillers have been installed across eight stations to ensure safe boarding.",
+   "key_numbers": [
+    "$30 billion cost of M1 metro line",
+    "6 screen doors to remain closed",
+    "170 mechanical gap fillers installed",
+    "8 stations affected by curved platforms"
+   ],
+   "why_it_matters": "Commuters awaiting the opening of the final 13-kilometre section between Sydenham and Bankstown face continued delays while the national rail regulator completes its safety review.",
+   "category": "engineering",
+   "category_label": "Engineering",
+   "region": "australia",
+   "importance": 4,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "WAtoday",
+     "url": "https://www.watoday.com.au/national/nsw/why-some-train-doors-will-not-open-when-final-section-of-sydney-s-metro-line-starts-20261001-p60zrw.html?ref=rss&utm_medium=rss&utm_source=rss_feed"
+    }
+   ],
+   "published": "2026-10-01T02:46:34+00:00",
+   "latest_report": "2026-10-01T02:46:34+00:00",
+   "processed": true
+  },
+  {
+   "id": "s7",
+   "headline": "Australian rare earth miners enter 1 billion dollar tie-up",
+   "facts": "Michael West Media reported on an Australian rare earth miners tie-up valued at 1 billion dollars. No article text was available.",
+   "key_numbers": [
+    "1 billion dollars: Value of the reported tie-up"
+   ],
+   "why_it_matters": "Details were not available.",
+   "category": "economy",
+   "category_label": "Economy and Society",
+   "region": "australia",
+   "importance": 3,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "Michael West Media",
+     "url": "https://michaelwest.com.au/australian-rare-earth-miners-in-1-billion-tie-up/"
+    }
+   ],
+   "published": "2026-10-01T03:01:52+00:00",
+   "latest_report": "2026-10-01T03:01:52+00:00",
+   "processed": true
+  },
+  {
+   "id": "s372",
+   "headline": "Mammoth effort to move 31t whale carcass",
+   "facts": "A 31-tonne whale carcass required a major operation to move. Details of the location, timing and equipment used were not available in the headlines.",
+   "key_numbers": [
+    "Carcass weight: 31 tonnes"
+   ],
+   "why_it_matters": "Removal operations for large marine mammal carcasses typically involve road closures, heavy machinery and public health management.",
+   "category": "perth",
+   "category_label": "Perth and WA",
+   "region": "australia",
+   "importance": 1,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "The Weekly Times",
+     "url": "https://www.weeklytimesnow.com.au/news/breaking-news/heavy-machinery-moves-in-during-complex-operation-to-remove-31tonne-whale-carcass-from-perths-city-beach/news-story/089041b330ff6f6a03cb62b68eed5f1c"
+    },
+    {
+     "name": "News.com.au",
+     "url": "https://www.news.com.au/technology/science/animals/heavy-machinery-moves-in-during-complex-operation-to-remove-31tonne-whale-carcass-from-perths-city-beach/news-story/089041b330ff6f6a03cb62b68eed5f1c"
+    }
+   ],
+   "published": "2026-09-30T07:51:24+00:00",
+   "latest_report": "2026-09-30T12:10:44+00:00",
+   "processed": true
+  },
+  {
+   "id": "s1",
+   "headline": "ABS Grants Approval in Principle to Hanwha Ocean Floating Data Center",
+   "facts": "ABS has issued approval in principle to Hanwha Ocean for the concept design of a 60 megawatt floating data center. The concept design combines shipbuilding and offshore engineering expertise to address land, power, and cooling constraints of conventional facilities. The approval remains at the concept stage, with no construction order, deployment location, or project timeline disclosed.",
+   "key_numbers": [
+    "Capacity: 60 megawatts for the Hanwha Ocean floating data center concept",
+    "Capacity range: 50 to 200 megawatts for conceptual floating data centers approved by ABS over the past year"
+   ],
+   "why_it_matters": "Developers can use the certified offshore design as a baseline to address power and cooling bottlenecks associated with land-based digital infrastructure.",
+   "category": "technology",
+   "category_label": "Technology",
+   "region": "international",
+   "importance": 2,
+   "is_update": false,
+   "update_summary": "",
+   "previous": null,
+   "debate": null,
+   "sources": [
+    {
+     "name": "DredgeWire",
+     "url": "https://dredgewire.com/abs-grants-approval-in-principle-to-hanwha-oceans-60-mw-floating-data-center/"
+    },
+    {
+     "name": "container-news.com",
+     "url": "https://container-news.com/hanwha-ocean-secures-abs-approval-for-60-mw-floating-data-center/"
+    },
+    {
+     "name": "Sea News",
+     "url": "https://seanews.co.uk/offshore/hanwha-ocean-floating-data-center-gets-abs-approval"
+    }
+   ],
+   "published": "2026-09-30T06:00:42+00:00",
+   "latest_report": "2026-10-01T03:14:55+00:00",
+   "processed": true
+  }
+ ],
+ "notice": "",
+ "diagnostics": {
+  "lookback_hours": 106,
+  "funnel": [
+   [
+    "Headlines collected from 29 of 29 feeds",
+    1543
+   ],
+   [
+    "Headlines left after screening (removed 18 excluded word, 3 opinion by headline, 123 too old, 9 headline too short, 90 duplicate feed entry, 84 blocked outlet, 3 already sent)",
+    1213
+   ],
+   [
+    "Distinct events after grouping headlines",
+    1014
+   ],
+   [
+    "Top events picked for full processing",
+    50
+   ],
+   [
+    "Events with full article text downloaded (others use headlines only)",
+    45
+   ],
+   [
+    "Stories left after the AI check",
+    42
+   ],
+   [
+    "Stories published to the web page",
+    40
+   ]
+  ],
+  "feed_failures": [],
+  "ai_notes": [
+   "Meaning based merging skipped (429 Client Error: Too Many Requests for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-2-); used word matching only.",
+   "Gemini model gemini-3.8-flash is overloaded, switched to gemini-3.5-flash-lite for the rest of this run.",
+   "Request 1: done by gemini (5 stories)",
+   "Request 2: done by gemini (5 stories)",
+   "Request 3: done by gemini (5 stories)",
+   "Request 4: done by gemini (5 stories)",
+   "Request 5: done by gemini (5 stories)",
+   "Request 6: done by gemini (5 stories)",
+   "Request 7: done by gemini (5 stories)",
+   "Request 8: done by gemini (5 stories)",
+   "Request 9: done by gemini (5 stories)",
+   "Request 10: done by gemini (5 stories)"
+  ],
+  "dropped": [
+   {
+    "headline": "Trip to buy milk nabs WA retiree legenDAIRY Lotto win",
+    "source": "PerthNow",
+    "reason": "excluded word \"Lotto\""
+   },
+   {
+    "headline": "WATCH: Shocking video shows Perth teen dancing on dead whale",
+    "source": "PerthNow",
+    "reason": "opinion by headline"
+   },
+   {
+    "headline": "Watch: 16-Foot Great White Shark Swims Just Offshore as Crowd Watches in Australia",
+    "source": "SURFER Magazine",
+    "reason": "opinion by headline"
+   },
+   {
+    "headline": "Retiring Dockers star makes $580k on house as he leaves WA",
+    "source": "PerthNow",
+    "reason": "excluded word \"Dockers\""
+   },
+   {
+    "headline": "All the big WA Premier Cricket moves for ‘26/27 season",
+    "source": "The West Australian",
+    "reason": "excluded word \"cricket\""
+   },
+   {
+    "headline": "'Forever proud' fans greet devastated Dockers on team's return to Perth - ABC News & Headlines – Australian Broadcasting Corporation",
+    "source": "ABC News",
+    "reason": "excluded word \"Dockers\""
+   },
+   {
+    "headline": "Thriving Kids",
+    "source": "Western Australian Government",
+    "reason": "headline too short"
+   },
+   {
+    "headline": "Awards and achievements",
+    "source": "The University of Western Australia | UWA",
+    "reason": "headline too short"
+   },
+   {
+    "headline": "Australian Under-19s Cricket Championship, 2008/09 Cricket Team Records & Stats",
+    "source": "Cricinfo",
+    "reason": "excluded word \"cricket\""
+   },
+   {
+    "headline": "Sheffield Shield, 1989/90 - Western Australia Cricket Team Records & Stats",
+    "source": "Cricinfo",
+    "reason": "excluded word \"cricket\""
+   },
+   {
+    "headline": "Sheffield Shield, 1988/89 - Western Australia Cricket Team Records & Stats",
+    "source": "Cricinfo",
+    "reason": "excluded word \"cricket\""
+   },
+   {
+    "headline": "Sheffield Shield, 1948/49 - Western Australia Cricket Team Records & Stats",
+    "source": "Cricinfo",
+    "reason": "excluded word \"cricket\""
+   },
+   {
+    "headline": "Replay: Western Australia v Victoria Metro 1 (M65s) - 2026 AFL Masters National Carnival Day 2 Harker",
+    "source": "Adelaide Now",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Sheffield Shield, 1969/70 - Western Australia Cricket Team Records & Stats",
+    "source": "Cricinfo",
+    "reason": "excluded word \"cricket\""
+   },
+   {
+    "headline": "Australian Under-19s Cricket Championship, 2007/08 Cricket Team Records & Stats",
+    "source": "Cricinfo",
+    "reason": "excluded word \"cricket\""
+   },
+   {
+    "headline": "Sheffield Shield, 1968/69 - Western Australia Cricket Team Records & Stats",
+    "source": "Cricinfo",
+    "reason": "excluded word \"cricket\""
+   },
+   {
+    "headline": "Trip to buy milk nabs WA retiree legenDAIRY Lotto win",
+    "source": "PerthNow",
+    "reason": "excluded word \"Lotto\""
+   },
+   {
+    "headline": "Replay: Western Australia v Victoria Metro (M45s D1) - 2026 AFL Masters National Carnival Day 2 - Feighan 1",
+    "source": "Adelaide Now",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Fast bowler Brody Couch recommits to Perth Scorchers as Joel Curtis earns new contract",
+    "source": "The West Australian",
+    "reason": "excluded word \"Scorchers\""
+   },
+   {
+    "headline": "Big super fires up bid for Rio Tinto’s power infrastructure",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Replay: Western Australia v New South Wales (M35s/40s D1) - 2026 AFL Masters National Carnival Day 2 Pasterfield",
+    "source": "The Daily Telegraph",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Federal minister to confront WA child protection crisis in person",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Thriving Kids",
+    "source": "Western Australian Government",
+    "reason": "headline too short"
+   },
+   {
+    "headline": "‘Biggest scandal’: Outgoing chief slams WA over child safety crisis",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Is it a buyer’s market?",
+    "source": "REIWA",
+    "reason": "headline too short"
+   },
+   {
+    "headline": "Men's Rugby World Cup 2027 confirms 29 Outdoor Training Venues across seven Host Cities",
+    "source": "Australasian Leisure Management Magazine",
+    "reason": "excluded word \"rugby\""
+   },
+   {
+    "headline": "Westview seeks partners for $1b steel plant amid construction boom",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "В МИПК и ПК БНТУ – шестнадцатый выпуск горных инженеров – БНТУ / BNTU",
+    "source": "bntu.by",
+    "reason": "headline too short"
+   },
+   {
+    "headline": "AGL demands power penalty for poles and wires that don’t stack up",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Exasperated by Delays, Congress Aims to Speed Up Energy Permits",
+    "source": "The New York Times",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "NSW faces power price crisis as green energy costs soar",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Lifelike giraffe creation takes the cake at Melbourne Royal Show",
+    "source": "Herald Sun",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "How many US states have names beginning with V?",
+    "source": "The Courier Mail",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Live: ASX opens sharply lower, bond yields surge - ABC News & Headlines – Australian Broadcasting Corporation",
+    "source": "ABC News",
+    "reason": "opinion by headline"
+   },
+   {
+    "headline": "Property values set to plunge 15 per cent",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "‘Incompetent’: SA franchise icon lashes out at Treasurer",
+    "source": "Adelaide Now",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Macquarie-backed Bingo in ‘distressed’ debt restructuring",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Miners, banks and supermarkets ‘pay very large amounts of tax’",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Metrics’ audit crisis deepens as KPMG holds fire again",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Telstra’s fibre chief expects speed bumps in $150b data centre rollout",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "What a 200-property landlord reveals about the housing market",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "The gulf between Firmus believers and naysayers keeps getting bigger",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Debt recycling is used by rich to get richer. Does it still stack up?",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Why jobs rules chaos makes employing someone a nightmare",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "A $52 Million Point Piper Home Shows Housing Slump Hitting Sydney's Elite",
+    "source": "Bloomberg.com",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Ex-RBA boss’s blistering attack as inflation pumps up fresh rate hike threat",
+    "source": "The Courier Mail",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "‘Double whammy’: Rate and fuel costs to jump",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "House price falls leaves negative equity: RBA",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Bullock rebuffs Chalmers’ inflation defence as RBA delivers 15-year rate high",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Plenty of blame to go around for RBA rates hitting 15-year high",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Inflation jump keeps pressure on RBA to raise rates",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Households face fresh mortgage pain, and more ahead",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Homegrown harm as rates hit a 15-year high on ‘domestic pressures’",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "RBA mulls bond blow ups, AI boom and private credit crunch",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Just one advanced country will have higher rates if RBA raises",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Why cooling inflation may halt more RBA rate hikes",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Surcharge ban won’t end scrutiny on payment costs, RBA warns",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Australia raises interest rate to highest level in 15 years",
+    "source": "Financial Times",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "‘Double whammy’: Rate and fuel costs to jump",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "‘Tough’: Key group smashed by RBA hikes",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Bullock fails to clear the market’s high bar on further rate rises",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "FULL LIST: Top Vic suburbs among 1000 Aussie postcodes facing mortgage stress",
+    "source": "Herald Sun",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "RBA Interest Rates: Labor Must Own Its Role in Sticky Inflation (",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Letters: Rate rise punishes battlers and young mortgage holders",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Rates survival guide: Seven ways to cancel out the RBA hit",
+    "source": "The Courier Mail",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Why housing is keeping the Reserve Bank up at night",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "RBA must finally do whatever it takes as the Reserve Bank of Australia struggles to tame persistent inflation",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "The Bullockhawk deconstructed",
+    "source": "macrobusiness.com.au",
+    "reason": "headline too short"
+   },
+   {
+    "headline": "RBA needs to stop smoking hopeium and do its job",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Chalmers breaks with Bullock on 5pc unemployment",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "‘Gaslighting’: Treasurer accused of misleading Aussies as rate hike hits",
+    "source": "The Courier Mail",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Australia recession risk is more like 50-50 on HSBC’s estimate",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "‘90 per cent chance’: Aussie mortgages set for a brutal $5k hit",
+    "source": "Adelaide Now",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Sydney vs the world: How our housing pain stacks up globally",
+    "source": "The Daily Telegraph",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "It’s hell on Labor’s home front as target looks 262,000 short",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "‘Frustrating’: Why most Aussies have given up on the Great Australian Dream",
+    "source": "Herald Sun",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Burden of higher interest rates reverses house price relief",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Unions, red tape, tax chaos: Why Queensland can’t build its way out",
+    "source": "The Courier Mail",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "‘Just hearing excuses’: Adelaide’s cost-of-living crisis slammed",
+    "source": "Adelaide Now",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Governments can’t spend their way to higher birth rate",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Government is providing cost of living relief in an 'ongoing and permanent way': Jim Chalmers",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Just one advanced country will have higher rates if RBA raises",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "RBA needs to stop smoking hopeium and do its job",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "‘More frugal’: Rate pain set to reach highest level since GFC",
+    "source": "The Daily Telegraph",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Inside an Aboriginal family torn apart by child removal in the Pilbara",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Police rush to stabbing reports hours after another serious attack",
+    "source": "Adelaide Now",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "What a 200-property landlord reveals about the housing market",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Peak-hour chaos as thieves flee flipped car on Bolte Bridge",
+    "source": "Herald Sun",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "A-lister footy couple’s joy amid year of heartbreaking loss",
+    "source": "Adelaide Now",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "James Campbell: One Nation at centre of major party fight as poll throws up uncertainty",
+    "source": "Herald Sun",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Students accuse university of ‘intifada’ crackdown",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "‘A threat to federation stability’: Canberra shifts $22bn burden on to Queensland",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Gap year gone: Huge uni change could scrap deferrals and slash offers",
+    "source": "Adelaide Now",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Power relief for businesses as cause of city blackout revealed",
+    "source": "Adelaide Now",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "ABC finance guru makes huge career call",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "PM unveils third smelter bailout this year with $200m for Bells Bay",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Victorians fear the state is heading in the wrong direction. This is the No.1 issue they say will sway their vote",
+    "source": "Herald Sun",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "It’s hell on Labor’s home front as target looks 262,000 short",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "$150 dinners ‘a joke’: Melbourne couple’s mortgage reality",
+    "source": "Herald Sun",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Studies in contrast",
+    "source": "insidestory.org.au",
+    "reason": "headline too short"
+   },
+   {
+    "headline": "Hanson now the preferred PM for Queensland voters",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Canberra, not the courts, the place to reform ‘bad’ law",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Hanson-Young and Faruqi set for secretive Greens leadership showdown",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "‘Rigged’: Business blasts pro-union IR rules",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Waters resigns as leader of Greens due to ill health",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Pittwater Online News",
+    "source": "Pittwater Online News",
+    "reason": "headline too short"
+   },
+   {
+    "headline": "Hanson now the preferred PM for Queensland voters",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "WA energy minister heads for Japan to quell gas reserve anxiety",
+    "source": "AFR",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Morrison warns on Closing the Gap danger to children",
+    "source": "The Australian",
+    "reason": "blocked outlet"
+   },
+   {
+    "headline": "Romania Politics",
+    "source": "dailyrecordnews.com",
+    "reason": "headline too short"
+   },
+   {
+    "headline": "A sixth premiership and Immortality awaits. What’s left for Tamika Upton?",
+    "source": "WAtoday",
+    "reason": "excluded word \"premiership\""
+   },
+   {
+    "headline": "The ‘Roosters family’ guy with the NRL’s most confusing banner",
+    "source": "WAtoday",
+    "reason": "excluded word \"NRL\""
+   },
+   {
+    "headline": "Parra's last premiership 40 years on",
+    "source": "WAtoday",
+    "reason": "excluded word \"premiership\""
+   },
+   {
+    "headline": "Five things to know ahead of the NRL and NRLW grand finals",
+    "source": "ABC News",
+    "reason": "excluded word \"NRL\""
+   },
+   {
+    "headline": "Big four banks raise interest rates following RBA decision",
+    "source": "Australian Broker",
+    "reason": "already published on 2026-09-26, no new facts"
+   },
+   {
+    "headline": "Backroads Gravel secures 2027 AusCycling National Championships for WA",
+    "source": "Ministry of Sport",
+    "reason": "sport (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "Twilight Food Market returns to Forrest Place for Friday nights",
+    "source": "PerthNow",
+    "reason": "lifestyle (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "Western Australia women's cricket team previews 2026-27 WNCL campaign",
+    "source": "Cricket WA",
+    "reason": "sport (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "Paramedics reality TV series features Western Australia for first time",
+    "source": "wa.campaignbrief.com",
+    "reason": "entertainment (excluded kind, AI judgement)"
+   },
+   {
+    "headline": "Home ownership dream slipping out of reach in the Territory",
+    "source": "NT News",
+    "reason": "opinion or not news (AI judgement)"
+   },
+   {
+    "headline": "Illustrations by artist Matt Golding",
+    "source": "WAtoday",
+    "reason": "opinion or not news (AI judgement)"
+   },
+   {
+    "headline": "Reviews of theatrical productions The Turn of the Screw, Koreaboo and Lady Blackbird",
+    "source": "WAtoday",
+    "reason": "opinion or not news (AI judgement)"
+   },
+   {
+    "headline": "Nigerian Senate President Calls for Stronger Parliamentary Ties With Australia",
+    "source": "Nigerian NewsDirect",
+    "reason": "ranked below the top 40"
+   },
+   {
+    "headline": "Survey finds Washington residents support millionaire's tax when shown ballot language",
+    "source": "The Spokesman-Review",
+    "reason": "ranked below the top 40"
+   }
+  ]
+ }
+}
