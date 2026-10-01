@@ -131,6 +131,14 @@ details.diag p { margin: 4px 0; overflow-wrap: anywhere; }
 .toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 10px 14px; border-radius: 8px; font-size: 14px; display: flex; gap: 14px; align-items: center; box-shadow: 0 4px 16px rgba(0,0,0,.25); max-width: calc(100% - 32px); z-index: 5; }
 .toast button { background: none; border: 0; color: #6aa9ec; font-weight: 700; font-size: 14px; cursor: pointer; padding: 0; }
 @media (prefers-color-scheme: dark) { .toast button { color: #0b5cad; } }
+.viewbar { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; }
+.viewbar h2 { font: 700 18px system-ui, -apple-system, "Segoe UI", Arial, sans-serif; letter-spacing: .04em; text-transform: uppercase; margin: 0; }
+.back { border: 1px solid var(--rule); background: var(--tag); color: var(--ink); border-radius: 6px; padding: 6px 12px; font-size: 14px; cursor: pointer; }
+.page { border: 0; padding: 0; margin: 0; }
+.sizer { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; }
+.sizer button { border: 0; background: var(--tag); color: var(--ink); padding: 4px 10px; font-size: 13px; cursor: pointer; }
+.sizer button + button { border-left: 1px solid var(--rule); }
+.sizer button:disabled { opacity: .4; cursor: default; }
 footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
 @media (max-width: 520px) {
   .row .label, .panel .field > span:first-child { width: 100%; }
@@ -145,18 +153,22 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
   <header>
     <div class="top">
       <h1>News Digest</h1>
-      <button class="btn" id="updateBtn">Update news</button>
-      <button class="chip" id="weekBtn" aria-pressed="false">Week in review</button>
-      <button class="chip" id="settingsBtn" aria-pressed="false">Settings</button>
-      <button class="chip" id="install" hidden>Install app</button>
+      <span class="newsonly top">
+        <button class="btn" id="updateBtn">Update news</button>
+        <button class="chip" id="weekBtn">Week in review</button>
+        <button class="chip" id="settingsBtn">Settings</button>
+        <span class="sizer" role="group" aria-label="Text size"><button id="smaller" title="Smaller text">A&minus;</button><button id="bigger" title="Larger text">A+</button></span>
+        <button class="chip" id="install" hidden>Install app</button>
+      </span>
     </div>
-    <p class="meta" id="meta">Loading...</p>
+    <p class="meta newsonly" id="meta">Loading...</p>
     <div id="jobs"></div>
   </header>
 
   <!-- Week in review -->
-  <section class="panel week" id="weekPanel" hidden>
-    <h3 id="weekTitle">Week in review</h3>
+  <section class="panel page week" id="weekPanel" hidden>
+    <div class="viewbar"><button class="back" data-back>&larr; Back to news</button><h2>Week in review</h2></div>
+    <h3 id="weekTitle"></h3>
     <div id="weekBody" class="hint">Loading...</div>
     <div class="bar">
       <button class="btn" id="weekMake">Write this week's review</button>
@@ -167,7 +179,8 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
   </section>
 
   <!-- Settings -->
-  <section class="panel" id="settings" hidden>
+  <section class="panel page" id="settings" hidden>
+    <div class="viewbar"><button class="back" data-back>&larr; Back to news</button><h2>Settings</h2></div>
     <h3>On this device</h3>
     <p class="hint">Saved in this browser straight away.</p>
     <div class="field"><span>Card style</span><span id="styleChips"></span></div>
@@ -206,6 +219,7 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     <p class="hint" style="margin-top:12px">Everything else (search words, outlets, blocked sites, AI model) lives in the <a id="advancedLink" href="#" target="_blank" rel="noopener">full settings file</a>.</p>
   </section>
 
+  <div id="newsView">
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" data-view="unread">Unread <span class="n" id="nUnread">0</span></button>
     <button class="tab" role="tab" data-view="favourites">Favourites <span class="n" id="nFav">0</span></button>
@@ -230,6 +244,8 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
   <div id="banner"></div>
   <main id="stories"></main>
   <div id="diagnostics"></div>
+
+  </div>
 
   <footer>Swipe a story right to mark it read, or left to add it to Favourites. Facts are extracted automatically by AI from the linked articles; use Fact check on a story to verify it against the sources. Read keeps the last 30 days; Favourites stay until you remove them.</footer>
 </div>
@@ -963,6 +979,7 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
       index = idx;
       settingsUrl = idx.settings_url || settingsUrl;
       $("advancedLink").href = settingsUrl || "#";
+      if (currentView === "settings" && !cfgText) loadConfig();
       var cutoff = Date.now() - loadedDays * DAY;
       var list = (idx.digests || []).filter(function (e, i) { var t = Date.parse(e.generated || ""); return i === 0 || isNaN(t) || t >= cutoff; });
       return Promise.all(list.map(function (e) {
@@ -1002,10 +1019,33 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
       box.appendChild(document.createTextNode(" "));
     });
   }
+  var ZOOMS = [[0.85, "Small"], [1, "Normal"], [1.15, "Large"], [1.3, "Extra large"], [1.5, "Huge"]];
+  function zoomIndex() {
+    var best = 0;
+    ZOOMS.forEach(function (z, i) { if (Math.abs(z[0] - prefs.zoom) < Math.abs(ZOOMS[best][0] - prefs.zoom)) best = i; });
+    return best;
+  }
+  function drawSizer() {
+    document.documentElement.style.setProperty("--zoom", prefs.zoom);
+    var i = zoomIndex();
+    $("smaller").disabled = i === 0;
+    $("bigger").disabled = i === ZOOMS.length - 1;
+    $("bigger").title = "Larger text (now " + ZOOMS[i][1] + ")";
+    $("smaller").title = "Smaller text (now " + ZOOMS[i][1] + ")";
+  }
+  function stepZoom(delta) {
+    var i = Math.max(0, Math.min(ZOOMS.length - 1, zoomIndex() + delta));
+    prefs.zoom = ZOOMS[i][0];
+    saveJSON(KEYS.prefs, prefs);
+    drawSizer();
+    showToast("Text size: " + ZOOMS[i][1], true);
+  }
+  $("smaller").addEventListener("click", function () { stepZoom(-1); });
+  $("bigger").addEventListener("click", function () { stepZoom(1); });
   function drawDevicePrefs() {
     document.documentElement.style.setProperty("--zoom", prefs.zoom);
     choiceChips("styleChips", [[true, "Compact"], [false, "Full stories"]], "compact", render);
-    choiceChips("zoomChips", [[1, "Normal"], [1.15, "Large"], [1.3, "Extra large"]], "zoom");
+    choiceChips("zoomChips", ZOOMS.map(function (z) { return [z[0], z[1]]; }), "zoom", drawSizer);
     choiceChips("sortChips", [["importance", "Importance"], ["newest", "Newest first"]], "sort", render);
     choiceChips("daysChips", [[7, "7 days"], [14, "14 days"], [30, "30 days"]], "days", function () { load(false, Math.max(prefs.days, filters.view === "read" ? READ_KEEP_DAYS : 0)); });
   }
@@ -1131,17 +1171,38 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
   $("disconnect").addEventListener("click", function () { setToken(""); drawConnect(); setSyncState("Saved on this device only"); });
 
   // ---------- panels ----------
-  function openPanel(which) {
-    var panels = { settings: $("settings"), week: $("weekPanel") };
-    var btns = { settings: $("settingsBtn"), week: $("weekBtn") };
-    for (var k in panels) {
-      var show = k === which && panels[k].hidden;
-      panels[k].hidden = !show;
-      btns[k].setAttribute("aria-pressed", String(show));
-    }
-    if (!$("settings").hidden) { drawDevicePrefs(); drawConnect(); if (!cfgText) loadConfig(); }
-    if (!$("weekPanel").hidden && !weekIndex) loadWeek();
+  // ---------- views: news, settings and week in review each fill the page ----------
+  // The address ends in #settings or #week, so the phone or browser Back button returns to the news.
+  var VIEWS = { settings: "settings", week: "weekPanel" };
+  var newsScroll = 0, currentView = null, cameFromNews = false;
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";  // we restore the news position ourselves
+  function showView() {
+    var want = location.hash.replace("#", "");
+    if (!VIEWS[want]) want = "news";
+    if (want === currentView) return;
+    if (currentView === "news") cameFromNews = true;
+    if (want === "news") cameFromNews = false;
+    currentView = want;
+    $("newsView").hidden = want !== "news";
+    Array.prototype.forEach.call(document.querySelectorAll(".newsonly"), function (n) { n.hidden = want !== "news"; });
+    for (var k in VIEWS) $(VIEWS[k]).hidden = k !== want;
+    if (want === "settings") { drawDevicePrefs(); drawConnect(); if (!cfgText) loadConfig(); }
+    if (want === "week" && !weekIndex) loadWeek();
+    var y = want === "news" ? newsScroll : 0;
+    window.scrollTo(0, y);
+    requestAnimationFrame(function () { window.scrollTo(0, y); });
   }
+  function openPanel(which) {
+    if (currentView === "news") newsScroll = window.scrollY;  // before the browser jumps to the #settings anchor
+    if (location.hash !== "#" + which) location.hash = which; else showView();
+  }
+  function backToNews() {
+    // Step back through history when we came from the news, so Back never piles up pages.
+    if (cameFromNews && history.length > 1) history.back();
+    else { history.replaceState(null, "", location.pathname + location.search); showView(); }
+  }
+  window.addEventListener("hashchange", showView);
+  Array.prototype.forEach.call(document.querySelectorAll("[data-back]"), function (b) { b.addEventListener("click", backToNews); });
   $("settingsBtn").addEventListener("click", function () { openPanel("settings"); });
   $("weekBtn").addEventListener("click", function () { openPanel("week"); });
   $("updateBtn").addEventListener("click", startUpdate);
@@ -1168,7 +1229,9 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
   pruneReader(reader);
   saveJSON(KEYS.reader, reader);
   drawDevicePrefs();
+  drawSizer();
   drawJobs();
+  showView();
   load(false, filters.view === "read" ? READ_KEEP_DAYS : prefs.days).then(function () {
     pullReader();
     if (jobs.some(function (j) { return !j.error; })) schedulePoll(1000);
