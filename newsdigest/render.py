@@ -26,6 +26,7 @@ def story_to_dict(story, categories):
             "facts": story.previous.get("facts", ""),
         } if story.previous else None,
         "debate": story.debate,
+        "faq": story.faq,
         "sources": story.sources[:6],
         "published": story.first_published.isoformat() if story.first_published else None,
         "latest_report": story.published.isoformat() if story.published else None,

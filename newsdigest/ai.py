@@ -31,11 +31,12 @@ For every story you are given, follow these rules.
 11. debate: only when the sources show a genuine public disagreement over policy, evidence or interpretation. Name the real sides. For Australian politics use Labor, the Coalition (Liberal and National parties) and the Greens where relevant. For US politics use Democrats and Republicans. For science, engineering and economics use the actual groups, such as a research team and its critics, or an industry body and a regulator. Give each side's position and the evidence it cites, neutrally, without picking a winner. Otherwise null.
 12. If a story includes a PREVIOUSLY SENT section, the reader already has that version. Set has_new_facts to true only if the new articles contain materially new facts, and put only those new facts in update_summary (one to three sentences). If there is nothing new, set has_new_facts to false.
 13. If only headlines are available (no article text), keep facts to what the headlines state and say that details were not available.
+14. faq: the three questions a thoughtful reader is most likely to ask after reading this story (for example: who is affected, how much it costs or changes, what happens next and when), each with a short answer of one or two sentences taken only from the articles. If the articles do not answer a question, the answer is "The reports do not say." Do not repeat the facts paragraph word for word.
 
 Write in Australian English with plain sentences, using commas and full stops rather than dashes. Respond with JSON only."""
 
 FORMAT_HINT = """Return a JSON object of this exact shape:
-{"stories": [{"id": "s1", "is_opinion": false, "kind": "news", "headline": "...", "facts": "...", "key_numbers": ["..."], "why_it_matters": "...", "category": "...", "region": "perth", "importance": 3, "has_new_facts": true, "update_summary": "", "debate": null}]}
+{"stories": [{"id": "s1", "is_opinion": false, "kind": "news", "headline": "...", "facts": "...", "key_numbers": ["..."], "why_it_matters": "...", "category": "...", "region": "perth", "importance": 3, "has_new_facts": true, "update_summary": "", "debate": null, "faq": [{"q": "...", "a": "..."}]}]}
 where debate, when present, looks like {"question": "...", "sides": [{"side": "...", "position": "...", "evidence": "..."}]}.
 Include one object for every story id given."""
 
@@ -250,6 +251,10 @@ def apply_result(story, result, categories):
     if story.previous:
         story.has_new_facts = bool(result.get("has_new_facts"))
         story.update_summary = _text(result.get("update_summary"))
+    story.faq = [
+        {"q": _text(f.get("q")), "a": _text(f.get("a"))}
+        for f in result.get("faq") or [] if isinstance(f, dict) and _text(f.get("q")) and _text(f.get("a"))
+    ][:3]
     debate = result.get("debate")
     if isinstance(debate, dict) and debate.get("sides"):
         story.debate = {

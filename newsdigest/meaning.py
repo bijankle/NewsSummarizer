@@ -9,6 +9,7 @@ falls back to the word based groups unchanged.
 import math
 import os
 import re
+import time
 
 import requests
 
@@ -16,6 +17,8 @@ from .diagnostics import report
 
 GEMINI_API = "https://generativelanguage.googleapis.com/v1beta"
 BATCH = 100
+RETRY_WAITS = (20, 40, 60)
+TITLES_PER_GROUP = 2  # enough to judge meaning, and keeps requests few
 _model = None
 
 
@@ -45,9 +48,15 @@ def embed(texts):
     vectors = []
     for i in range(0, len(texts), BATCH):
         body = {"requests": [{"model": model, "content": {"parts": [{"text": t}]}} for t in texts[i:i + BATCH]]}
-        resp = requests.post(f"{GEMINI_API}/{model}:batchEmbedContents", headers={"x-goog-api-key": key}, json=body, timeout=60)
+        for wait in RETRY_WAITS + (None,):
+            resp = requests.post(f"{GEMINI_API}/{model}:batchEmbedContents", headers={"x-goog-api-key": key}, json=body, timeout=60)
+            if resp.status_code not in (429, 500, 503) or wait is None:
+                break
+            time.sleep(wait)  # the free tier limits requests per minute
         resp.raise_for_status()
         vectors += [e["values"] for e in resp.json()["embeddings"]]
+        if i + BATCH < len(texts):
+            time.sleep(2)
     return vectors
 
 
@@ -68,7 +77,7 @@ def merge_groups(groups, threshold, embed_fn=embed):
     """groups: lists of Items. Returns fewer or equal groups."""
     if len(groups) < 2:
         return groups
-    titles = [i.title for g in groups for i in g]
+    titles = [i.title for g in groups for i in g[:TITLES_PER_GROUP]]
     try:
         vectors = embed_fn(titles)
     except Exception as exc:  # network, quota or format problems
@@ -76,8 +85,9 @@ def merge_groups(groups, threshold, embed_fn=embed):
         return groups
     per_group, pos = [], 0
     for g in groups:
-        per_group.append(_centroid([_unit(v) for v in vectors[pos:pos + len(g)]]))
-        pos += len(g)
+        n = min(len(g), TITLES_PER_GROUP)
+        per_group.append(_centroid([_unit(v) for v in vectors[pos:pos + n]]))
+        pos += n
     order = sorted(range(len(groups)), key=lambda k: -len(groups[k]))
     merged, centres, members = [], [], []
     for k in order:

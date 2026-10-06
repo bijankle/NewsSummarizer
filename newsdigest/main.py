@@ -10,7 +10,7 @@ import os
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
-from . import ai, cluster, collect, extract, meaning, render
+from . import ai, cluster, collect, dedupe, extract, meaning, render
 from .diagnostics import report
 from .settings import DOCS_DIR, ROOT, enabled_categories, load_config, load_history, load_state, save_history, save_state
 
@@ -66,6 +66,14 @@ def build(cfg, state, history, now):
     cluster.match_history(stories, history, d["similarity_threshold"])
 
     use_ai = bool(ai.available_providers(cfg))
+    if use_ai:
+        # One AI request merges duplicates the word and meaning checks missed, and
+        # spots continuations of stories already published.
+        stories = dedupe.find_duplicates(stories, history, cfg, today=now.date())
+        for s in stories:
+            s.score = cluster.base_score(s, cfg, categories, now)
+        stories.sort(key=lambda s: s.score, reverse=True)
+        report.stage("Distinct events after the AI duplicate check", len(stories))
     if not (use_ai and d["show_updates"]):
         why = "already published (updates are off)" if use_ai else "already published (no AI to check for new facts)"
         for s in stories:

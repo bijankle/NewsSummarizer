@@ -16,6 +16,8 @@ Swipe a story **right** to mark it read, or **left** to add it to Favourites (wh
 
 With your GitHub key saved (see Settings below), Read and Favourites **sync between your devices**. They are stored in `state/reader.json` in this project, which is public like the rest of the project.
 
+**Questions you might have.** Each open story ends with the three questions a reader is most likely to ask, with answers taken only from the articles (or "The reports do not say"). They are written in the same AI request as the summary, so they cost almost nothing extra.
+
 **Fact check** (inside an open story) re reads that story's source articles and checks every sentence and number against them, one story at a time and only when pressed. It usually takes 1 to 3 minutes and shows each claim as supported, contradicted or not found, with the quote that decides it. Checked stories get a badge.
 
 **Week in review** writes a one page summary of the last 7 days, grouped by topic, from the stories already published. It also runs only when you press its button.
@@ -46,7 +48,7 @@ It works like a production line that runs each time you press Update news.
 
 **Coarse screen.** Rules reject opinion sections, paywalled outlets, sport words, stale items and anything already published.
 
-**Grouping and ranking.** Headlines about the same event are grouped, first by shared words and then by meaning (Google's free embedding model, so "RBA lifts cash rate" and "Reserve Bank raises interest rates" become one story), and ranked by how many independent outlets reported them, topic weights and region priority.
+**Grouping and ranking.** Headlines about the same event are grouped, first by shared words and then by meaning (Google's free embedding model, so "RBA lifts cash rate" and "Reserve Bank raises interest rates" become one story), then a single AI request reviews the top candidates against each other and against the last week's published headlines, merging any that report the same event (for example a rate decision and the banks passing it on) and turning continuations into updates, and finally they are ranked by how many independent outlets reported them, topic weights and region priority.
 
 **Extraction.** The top candidates have their full article text downloaded.
 

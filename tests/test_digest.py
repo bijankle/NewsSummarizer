@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest import mock
 
-from newsdigest import ai, cluster, collect, extract, factcheck, main, meaning, render, settings, weekly
+from newsdigest import ai, cluster, collect, dedupe, extract, factcheck, main, meaning, render, settings, weekly
 from newsdigest.filters import is_blocked, is_opinion_title, is_opinion_url
 from newsdigest.models import Article, Item
 from newsdigest.textutil import clean_headline, similarity, tokens
@@ -182,13 +182,14 @@ class AITests(unittest.TestCase):
     def test_parse_and_apply(self):
         c = cfg()
         cats = settings.enabled_categories(c)
-        reply = '```json\n{"stories":[{"id":"s1","is_opinion":false,"headline":"Rail line shut","facts":["A.","B."],"key_numbers":["6 weeks"],"why_it_matters":"Commuters affected.","category":"perth","region":"perth","importance":"4","debate":{"question":"Q?","sides":[{"side":"Labor","position":"P","evidence":"E"}]}}]}\n```'
+        reply = '```json\n{"stories":[{"id":"s1","is_opinion":false,"headline":"Rail line shut","facts":["A.","B."],"key_numbers":["6 weeks"],"why_it_matters":"Commuters affected.","category":"perth","region":"perth","importance":"4","debate":{"question":"Q?","sides":[{"side":"Labor","position":"P","evidence":"E"}]},"faq":[{"q":"Who pays?","a":"Borrowers."},{"q":"","a":"x"},{"q":"When?","a":"From May."},{"q":"Why?","a":"Inflation."},{"q":"Extra?","a":"Dropped."}]}]}\n```'
         results = ai.parse_reply(reply)
         story = cluster.build_stories([item("Perth rail line to close for six weeks")], c, cats, NOW)[0]
         ai.apply_result(story, results["s1"], cats)
         self.assertEqual(story.facts, "A. B.")
         self.assertEqual(story.importance, 4)
         self.assertEqual(story.debate["sides"][0]["side"], "Labor")
+        self.assertEqual([f["q"] for f in story.faq], ["Who pays?", "When?", "Why?"], "blank entries skipped, at most three")
 
     def test_no_keys_means_no_provider(self):
         with mock.patch.dict(os.environ, {"GEMINI_API_KEY": "", "GROQ_API_KEY": ""}):
@@ -198,7 +199,7 @@ class AITests(unittest.TestCase):
 
 
 def fake_ai_reply(update_ids=()):
-    def reply(provider_cfg, prompt):
+    def reply(provider_cfg, prompt, system=None):
         ids = [line.split()[2] for line in prompt.splitlines() if line.startswith("=== STORY")]
         stories = []
         for sid in ids:
@@ -245,6 +246,52 @@ class MeaningTests(unittest.TestCase):
             raise RuntimeError("quota")
         groups = [[item("A story about one thing here")], [item("Another story about something else")]]
         self.assertEqual(meaning.merge_groups(groups, 0.88, broken), groups)
+
+
+class DedupeTests(unittest.TestCase):
+    def stories(self):
+        c = cfg()
+        cats = settings.enabled_categories(c)
+        items = [
+            item("RBA lifts cash rate to 15-year high of 4.6 per cent", "SBS News", category="economy"),
+            item("CSIRO discovers coral species off Ningaloo reef", "ABC News", category="science"),
+            item("Major banks pass RBA rate rise in full as cash rate hits 4.60%", "Canstar", category="economy"),
+            item("Perth rail line to close for six weeks", "WAtoday"),
+        ]
+        stories = cluster.build_stories(items, c, cats, NOW)
+        return c, {s.items[0].title[:4]: s for s in stories}, stories
+
+    def test_merges_same_event_and_marks_follow_ups(self):
+        c, by, stories = self.stories()
+        order = [s.items[0].title for s in stories]
+        e = lambda prefix: "E%d" % (next(i for i, t in enumerate(order) if t.startswith(prefix)) + 1)
+        reply = {"same": [[e("RBA "), e("Majo")]], "follow_up": [{"event": e("Pert"), "previous": "P1"}]}
+        history = [{"date": "2026-09-24", "headline": "Perth rail line closure announced", "titles": [], "links": []}]
+        with mock.patch.object(ai, "CALLERS", {"gemini": lambda cfg, prompt, system=None: json.dumps(reply)}), \
+                mock.patch.dict(os.environ, {"GEMINI_API_KEY": "k"}):
+            result = dedupe.find_duplicates(stories, history, c, today=NOW.date())
+        self.assertEqual(len(result), 3)
+        rba = next(s for s in result if any("RBA" in t for t in s.titles))
+        self.assertEqual(len(rba.items), 2, "the banks story is folded into the RBA story")
+        rail = next(s for s in result if s.titles[0].startswith("Perth rail"))
+        self.assertEqual(rail.previous["headline"], "Perth rail line closure announced")
+
+    def test_failure_leaves_stories_unchanged(self):
+        c, _, stories = self.stories()
+        def broken(cfg, prompt, system=None):
+            raise ai.ProviderError("HTTP 503: busy")
+        with mock.patch.object(ai, "CALLERS", {"gemini": broken}), mock.patch.object(ai.time, "sleep", lambda s: None), \
+                mock.patch.dict(os.environ, {"GEMINI_API_KEY": "k"}):
+            self.assertEqual(len(dedupe.find_duplicates(stories, [], c, today=NOW.date())), 4)
+
+    def test_ignores_nonsense_references(self):
+        c, _, stories = self.stories()
+        reply = {"same": [["E99", "E1"], "junk"], "follow_up": [{"event": "E2", "previous": "P50"}, "x"]}
+        with mock.patch.object(ai, "CALLERS", {"gemini": lambda cfg, prompt, system=None: json.dumps(reply)}), \
+                mock.patch.dict(os.environ, {"GEMINI_API_KEY": "k"}):
+            result = dedupe.find_duplicates(stories, [], c, today=NOW.date())
+        self.assertEqual(len(result), 4)
+        self.assertFalse(any(s.previous for s in result))
 
 
 class OnDemandTests(unittest.TestCase):
@@ -391,7 +438,7 @@ class PipelineTests(unittest.TestCase):
                 main.run(now=NOW)
 
     def test_sport_dropped_by_ai_kind(self):
-        def reply(provider_cfg, prompt):
+        def reply(provider_cfg, prompt, system=None):
             data = json.loads(fake_ai_reply()(provider_cfg, prompt))
             data["stories"][0]["kind"] = "sport"
             return json.dumps(data)
@@ -408,7 +455,7 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(len(self.latest()[1]["stories"]), 1)
 
     def test_ai_failure_is_announced(self):
-        def broken(provider_cfg, prompt):
+        def broken(provider_cfg, prompt, system=None):
             raise ai.ProviderError("HTTP 404: model gone")
 
         with mock.patch.object(ai, "CALLERS", {"gemini": broken}):

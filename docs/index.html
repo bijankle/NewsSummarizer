@@ -93,6 +93,12 @@ article.leaving { opacity: .3; }
 .nums { padding: 6px 10px; border-left: 3px solid var(--accent); background: var(--num-bg); font-size: 15px; }
 .new { padding: 8px 10px; border-left: 3px solid var(--update); background: var(--update-bg); }
 .orig { margin-top: 10px; padding: 8px 10px; border: 1px dashed var(--rule); font-size: 14px; color: var(--muted); }
+.faq { margin-top: 10px; padding: 8px 10px; border: 1px solid var(--rule); border-radius: 4px; }
+.faq b.q { display: block; margin-bottom: 2px; font: 600 13px system-ui, Arial, sans-serif; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.faq details { border-top: 1px solid var(--rule); padding: 6px 0; }
+.faq details:first-of-type { border-top: 0; }
+.faq summary { cursor: pointer; font-weight: 600; }
+.faq details p { margin: 4px 0 0 16px; }
 .debate { margin-top: 10px; padding: 8px 10px; background: var(--num-bg); border-radius: 4px; }
 .debate b.q { display: block; margin-bottom: 4px; }
 .debate table { width: 100%; border-collapse: collapse; font-size: 14px; }
@@ -554,6 +560,17 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
       w.appendChild(el("b", null, "Why it matters. "));
       w.appendChild(document.createTextNode(s.why_it_matters));
       d.appendChild(w);
+    }
+    if (s.faq && s.faq.length) {
+      var faq = el("div", { "class": "faq" });
+      faq.appendChild(el("b", { "class": "q" }, "Questions you might have"));
+      s.faq.forEach(function (f) {
+        var item = el("details");
+        item.appendChild(el("summary", null, f.q));
+        item.appendChild(el("p", null, f.a));
+        faq.appendChild(item);
+      });
+      d.appendChild(faq);
     }
     if (s.debate && s.debate.sides && s.debate.sides.length) {
       var db = el("div", { "class": "debate" });

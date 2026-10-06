@@ -55,6 +55,7 @@ class Story:
     is_update: bool = False
     has_new_facts: bool = True
     update_summary: str = ""
+    faq: list = field(default_factory=list)
     debate: dict | None = None
 
     @property
