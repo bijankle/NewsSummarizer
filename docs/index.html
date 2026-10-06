@@ -233,7 +233,10 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
         <li>Click Generate token, copy it and paste it above.</li>
       </ol>
     </div>
-    <div class="bar" id="connected" hidden><span class="status">Key saved in this browser.</span><button class="btn secondary" id="disconnect">Forget GitHub key</button></div>
+    <div id="connected" hidden>
+      <div class="bar"><span class="status">Key saved in this browser.</span><button class="btn" id="checkKey">Check key</button><button class="btn secondary" id="disconnect">Forget GitHub key</button></div>
+      <div id="keyReport" class="hint" style="margin-top:8px"></div>
+    </div>
     <p class="hint" style="margin-top:12px">Everything else (search words, outlets, blocked sites, AI model) lives in the <a id="advancedLink" href="#" target="_blank" rel="noopener">full settings file</a>.</p>
   </section>
 
@@ -251,12 +254,6 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     </div>
     <div class="row" id="regions"><span class="label">Region</span></div>
     <div class="row" id="categories"><span class="label">Topic</span></div>
-    <div class="row">
-      <span class="label">Show</span>
-      <button class="chip" id="updatesOnly" aria-pressed="false">Updates only</button>
-      <button class="chip" id="reset">Clear filters</button>
-    </div>
-    <div class="count"><span id="count"></span><button class="chip" id="markAll" hidden>Mark all shown as read</button></div>
   </div>
 
   <div id="banner"></div>
@@ -314,6 +311,7 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
   // ---------- state ----------
   var filters = loadJSON(KEYS.filters, { view: "unread", regions: [], categories: [], updatesOnly: false, search: "" });
   if (["unread", "favourites", "read"].indexOf(filters.view) < 0) filters.view = "unread";
+  filters.updatesOnly = false;  // the Updates only button was removed
   var prefs = loadJSON(KEYS.prefs, { zoom: 1, sort: "importance", days: 14, compact: true });
   var stories = [];              // loaded editions, newest first, unique by key
   var byKey = {};
@@ -413,6 +411,13 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     openPanel("settings");
     $("token").focus();
     return true;
+  }
+  function startError(what, e) {
+    if (e.status === 403 || e.status === 404) {
+      return what + ": your GitHub key is missing the Actions permission. Open Settings and press Check key for the fix.";
+    }
+    if (e.status === 401) return what + ": your GitHub key was not accepted (it may have expired). Open Settings to paste a new one.";
+    return what + ": " + e.message;
   }
   function dispatch(inputs) {
     return api("POST", "/actions/workflows/digest.yml/dispatches", { ref: repoInfo().branch, inputs: inputs });
@@ -697,7 +702,6 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     pool.forEach(function (s) { if (s.category && cats.indexOf(s.category) < 0) { cats.push(s.category); catLabels[s.category] = s.category_label; } });
     chipRow("regions", regions, REGION_LABELS, "regions");
     chipRow("categories", cats, catLabels, "categories");
-    $("updatesOnly").setAttribute("aria-pressed", String(filters.updatesOnly));
 
     var visible = viewList().filter(matchesFilters);
     var main = $("stories");
@@ -712,10 +716,6 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     }
     visible.forEach(function (s) { main.appendChild(cardNode(s)); });
     var label = { unread: "unread", favourites: "favourite", read: "read" }[filters.view];
-    $("count").textContent = "Showing " + visible.length + " " + label + " " + (visible.length === 1 ? "story" : "stories");
-    var markAll = $("markAll");
-    markAll.hidden = !(filters.view === "unread" && visible.length);
-    markAll.onclick = function () { actMany(visible, { read: true }); };
   }
 
   // ---------- read, favourite, undo ----------
@@ -901,21 +901,21 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     if (needKey("Update news")) return;
     dispatch({ task: "update" }).then(function () {
       addJob({ task: "update", label: "News update", hint: "It collects, filters and summarises new stories, usually 5 to 15 minutes. Keep reading meanwhile." });
-    }).catch(function (e) { showToast("Could not start the update: " + e.message, true); });
+    }).catch(function (e) { showToast(startError("Could not start the update", e), true); });
   }
   function startFactCheck(s) {
     if (needKey("Fact check")) return;
     dispatch({ task: "factcheck", story_file: s.file, story_id: s.id, story_key: s.key }).then(function () {
       addJob({ task: "factcheck", key: s.key, label: "Fact check of “" + s.headline.slice(0, 60) + "”", hint: "Usually 1 to 3 minutes." });
       render();
-    }).catch(function (e) { showToast("Could not start the fact check: " + e.message, true); });
+    }).catch(function (e) { showToast(startError("Could not start the fact check", e), true); });
   }
   function startWeekly() {
     if (needKey("Week in review")) return;
     dispatch({ task: "weekly" }).then(function () {
       addJob({ task: "weekly", label: "Week in review", hint: "Usually 1 to 3 minutes." });
       $("weekStatus").textContent = "Writing... it appears here when ready.";
-    }).catch(function (e) { $("weekStatus").textContent = "Could not start: " + e.message; });
+    }).catch(function (e) { $("weekStatus").textContent = startError("Could not start", e); });
   }
 
   // ---------- fact check results ----------
@@ -1205,6 +1205,51 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
     showToast("Key saved in this browser.", true);
     pullReader().then(function () { pushReader(); });
   });
+  // Tests each permission the app needs, without changing anything.
+  function checkKey() {
+    var box = $("keyReport");
+    box.textContent = "Checking...";
+    var results = {};
+    var tests = [
+      ["contents", api("GET", contentsPath("config.toml"))],
+      ["actions", api("GET", "/actions/workflows")],
+    ];
+    Promise.all(tests.map(function (t) {
+      return t[1].then(function () { results[t[0]] = true; }, function (e) { results[t[0]] = e.status || e.message; });
+    })).then(function () {
+      box.textContent = "";
+      var lines = [
+        [results.contents === true, "Contents: read and write", "Read and Favourites sync, and saving settings"],
+        [results.actions === true, "Actions: read and write", "Update news, Fact check and Week in review"],
+      ];
+      lines.forEach(function (l) {
+        var p = el("p", { style: "margin:4px 0;color:" + (l[0] ? "var(--ok)" : "var(--bad)") }, (l[0] ? "\u2713 " : "\u2717 ") + l[1] + " (for " + l[2] + ")");
+        box.appendChild(p);
+      });
+      if (results.contents === 401 || results.actions === 401) {
+        box.appendChild(el("p", null, "The key was not accepted at all. It may have expired or been deleted. Make a new one with the steps below Key, and paste it in."));
+        return;
+      }
+      if (results.contents === true && results.actions === true) {
+        box.appendChild(el("p", null, "All good. If a button still fails, open your key on GitHub (github.com/settings/personal-access-tokens) and check both permissions say Read and write, not Read only."));
+      }
+      if (results.contents !== true || results.actions !== true) {
+        var fix = el("div");
+        fix.appendChild(el("p", { style: "margin:8px 0 2px;font-weight:600;color:var(--ink)" }, "How to fix the key (you keep the same key, no need to paste it again):"));
+        var ol = el("ol");
+        [
+          "Open github.com/settings/personal-access-tokens (link below) and click your News Digest key.",
+          "Press Edit. Under Repository access, make sure NewsSummarizer is selected.",
+          "Under Permissions, Repository permissions, set Actions to Read and write, and Contents to Read and write.",
+          "Scroll down and press Update. Then come back here and press Check key again."
+        ].forEach(function (t) { ol.appendChild(el("li", null, t)); });
+        fix.appendChild(ol);
+        fix.appendChild(el("a", { href: "https://github.com/settings/personal-access-tokens", target: "_blank", rel: "noopener" }, "Open my GitHub keys"));
+        box.appendChild(fix);
+      }
+    });
+  }
+  $("checkKey").addEventListener("click", checkKey);
   $("disconnect").addEventListener("click", function () { setToken(""); drawConnect(); setSyncState("Saved on this device only"); });
 
   // ---------- panels ----------
@@ -1254,12 +1299,6 @@ footer { margin-top: 28px; font-size: 12px; color: var(--muted); }
   });
   $("search").value = filters.search;
   $("search").addEventListener("input", function (e) { filters.search = e.target.value; saveJSON(KEYS.filters, filters); render(); });
-  $("updatesOnly").addEventListener("click", function () { filters.updatesOnly = !filters.updatesOnly; saveJSON(KEYS.filters, filters); render(); });
-  $("reset").addEventListener("click", function () {
-    filters.regions = []; filters.categories = []; filters.updatesOnly = false; filters.search = "";
-    $("search").value = "";
-    saveJSON(KEYS.filters, filters); render();
-  });
   $("reload").addEventListener("click", function () { load(false); pullReader(); });
 
   // ---------- start ----------
